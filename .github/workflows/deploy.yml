@@ -43,7 +43,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install dependencies with npm 🧶
-        run: npm install
+        run: npm ci
       - name: Build and bundle app 📦
         run: npm run build
       - name: Deploy to static branch 🚀
