@@ -26,3 +26,23 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Avoid filter on img */
+img {
+  filter: none !important;
+}
+
+/****************************************************
+ * ACCESSIBILITY
+ ****************************************************/
+
+/* Remove default focus outline */
+*:focus {
+  outline: none;
+}
+
+/* Add focus outline for keyboard users */
+*:focus-visible {
+  outline: 2px solid var(--skyblue);
+  outline-offset: 4px;
+}

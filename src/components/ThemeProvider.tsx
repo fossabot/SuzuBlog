@@ -9,24 +9,16 @@ export default function ThemeProvider() {
       '(prefers-color-scheme: dark)'
     ).matches;
 
-    if (systemPrefersDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', systemPrefersDark);
 
-    // If user system setting changes, adjust dynamically
+    // Listen for changes in system theme
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {
-      if (e.matches) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      document.documentElement.classList.toggle('dark', e.matches);
     };
     mediaQuery.addEventListener('change', handleChange);
 
-    // Clean up event listener
+    // Cleanup
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
     };
