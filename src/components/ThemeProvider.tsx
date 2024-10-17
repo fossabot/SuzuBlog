@@ -4,23 +4,24 @@ import { useEffect } from 'react';
 
 export default function ThemeProvider() {
   useEffect(() => {
-    // Check user system theme, set dark or light class
-    const systemPrefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)'
-    ).matches;
+    // Function to apply the dark class based on system preference
+    const applyTheme = (isDark: boolean) => {
+      document.documentElement.classList.toggle('dark', isDark);
+    };
 
-    document.documentElement.classList.toggle('dark', systemPrefersDark);
+    // Initial check for user system theme
+    const systemPrefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
+    applyTheme(systemPrefersDark);
 
     // Listen for changes in system theme
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      document.documentElement.classList.toggle('dark', e.matches);
-    };
-    mediaQuery.addEventListener('change', handleChange);
+    mediaQuery.addEventListener('change', (e) => applyTheme(e.matches));
 
-    // Cleanup
+    // Cleanup listener on unmount
     return () => {
-      mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.removeEventListener('change', (e) => applyTheme(e.matches));
     };
   }, []);
 

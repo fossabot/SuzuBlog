@@ -5,12 +5,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --skyblue: #5bcefa;
+  --sakuraPink: #f6a8b8;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #1a1a1a;
     --foreground: #d4d4d4;
+    --skyblue: #4aa7e0;
+    --sakuraPink: #d890a2;
   }
 }
 
@@ -21,15 +25,11 @@ body {
     'Microsoft YaHei', Arial, Helvetica, sans-serif;
 }
 
+/* Utility classes for text balancing */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
-
-/* Avoid filter on img */
-img {
-  filter: none !important;
 }
 
 /****************************************************
@@ -45,4 +45,58 @@ img {
 *:focus-visible {
   outline: 2px solid var(--skyblue);
   outline-offset: 4px;
+}
+
+/* Enhance focus for form inputs */
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--sakuraPink);
+  outline-offset: 2px;
+}
+
+/****************************************************
+ * IMAGES & MEDIA
+ ****************************************************/
+
+/* Avoid filter on images in dark mode */
+img {
+  filter: none !important;
+}
+
+/* Add shadow to images in dark mode for better visibility */
+@media (prefers-color-scheme: dark) {
+  img {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/****************************************************
+ * INTERACTIVE ELEMENTS (Hover, focus, active states)
+ ****************************************************/
+
+/* Links */
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--sakuraPink);
+  text-decoration: none;
+}
+
+/* Buttons */
+button {
+  color: var(--foreground);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+button:hover,
+button:focus-visible {
+  background-color: var(--sakuraPink);
+  color: var(--background);
 }
