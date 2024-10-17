@@ -9,10 +9,7 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "lint": "next lint",
-    "prepare": "husky",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy"
+    "prepare": "husky"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
