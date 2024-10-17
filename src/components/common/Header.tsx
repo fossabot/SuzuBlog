@@ -35,7 +35,7 @@ export default function Header() {
   // Function to generate menu items for both mobile and desktop
   const renderMenuItems = (onClickHandler?: () => void) =>
     menuItems.map((item) => (
-      <li key={item.href} className='border-b last:border-none'>
+      <li key={item.href}>
         <Link
           href={item.href}
           className='flex items-center gap-2 p-2'
@@ -49,7 +49,8 @@ export default function Header() {
 
   return (
     <header
-      className='shadow-md'
+      // Z-50: Ensure the header is positioned above other content
+      className='relative z-50 shadow-md'
       style={{
         backgroundColor: 'var(--background)',
         color: 'var(--foreground)',
@@ -81,7 +82,9 @@ export default function Header() {
               tabIndex={-1}
               role='menu'
               aria-hidden={!isOpen}
-              className='absolute left-0 top-16 w-full border-t border-sakuraPink bg-lightBackground p-4 shadow-lg dark:bg-darkBackground md:hidden'
+              // Z-50: Big enough to ensure the menu is above other content
+              className='absolute left-0 top-16 z-50 w-full bg-lightBackground p-4 shadow-lg dark:bg-darkBackground md:hidden'
+              style={{ zIndex: 50 }}
             >
               <ul className='flex flex-col gap-2'>
                 {renderMenuItems(toggleMenu)}
