@@ -28,7 +28,7 @@ export default function Header() {
   // Menu items array to avoid repetition
   const menuItems = [
     { href: '/', label: 'Home', icon: <FaHouse /> },
-    { href: '/blog', label: 'Blog', icon: <FaRegNewspaper /> },
+    { href: '/posts', label: 'Posts', icon: <FaRegNewspaper /> },
     { href: '/about', label: 'About', icon: <FaInfo /> },
   ];
 
