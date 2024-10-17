@@ -1,3 +1,37 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript", "prettier"]
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"],
+  "rules": {
+    // Possible Errors
+    "no-console": "warn", // Warn on console usage (can change to 'error' to disallow)
+    "no-debugger": "error", // Disallow debugger statements
+    "no-extra-semi": "error", // Disallow unnecessary semicolons
+    "no-irregular-whitespace": "error", // Disallow irregular whitespace
+
+    // Best Practices
+    "curly": "error", // Require curly braces for all control statements
+    "eqeqeq": ["error", "always"], // Enforce strict equality (=== and !==)
+    "no-eval": "error", // Disallow eval()
+    "no-implied-eval": "error", // Disallow implied eval() via setTimeout, setInterval, etc.
+    "no-throw-literal": "error", // Disallow throwing literals (e.g. throw "error")
+    "no-unused-expressions": "error", // Disallow unused expressions
+
+    // Variables
+    "no-undef": "error", // Disallow the use of undeclared variables
+    "no-unused-vars": ["warn", { "vars": "all", "args": "none" }], // Disallow unused variables
+
+    // Stylistic Issues
+    "camelcase": ["error", { "properties": "never" }], // Enforce camelCase naming convention
+    "comma-dangle": ["error", "always-multiline"], // Require trailing commas in multiline object literals
+    "quotes": ["error", "single", { "avoidEscape": true }], // Enforce single quotes
+    "semi": ["error", "always"], // Require semicolons
+    "indent": ["error", 2], // Enforce 2-space indentation
+    "eol-last": ["error", "always"], // Require newline at the end of files
+    "no-trailing-spaces": "error", // Disallow trailing spaces
+
+    // ES6
+    "arrow-spacing": ["error", { "before": true, "after": true }], // Enforce spacing around arrows
+    "prefer-const": "error", // Prefer const for variables that are never reassigned
+    "no-var": "error", // Disallow var (use let or const instead)
+    "template-curly-spacing": ["error", "never"] // Disallow spaces inside template literals
+  }
 }
