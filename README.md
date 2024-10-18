@@ -17,7 +17,7 @@
 <!-- [repo]: https://github.com/ZL-Asica/Suzu-Blog -->
 <!-- [gh-contributors]: https://github.com/ZL-Asica/Suzu-Blog/graphs/contributors?style=flat-square -->
 
-[gh-history]: https://github.com/ZL-Asica/Suzu-Blog/commits/master?style=flat-square
+[gh-history]: https://github.com/ZL-Asica/Suzu-Blog/commits/main?style=flat-square
 [gh-commit-activity]: https://github.com/ZL-Asica/Suzu-Blog/graphs/commit-activity?style=flat-square
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
