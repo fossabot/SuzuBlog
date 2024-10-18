@@ -1,3 +1,25 @@
+# Suzu
+
+<!-- [![GitHub Watchers][badge-gh-watch]][repo] -->
+<!-- [![GitHub Stars][badge-gh-stars]][repo] -->
+<!-- [![GitHub Contributors][badge-contributors]][gh-contributors] -->
+
+[![GitHub Last Commit][badge-last-commit]][gh-history]
+[![GitHub Commit Activity (by Year)][badge-activity]][gh-commit-activity]
+
+<!-- [badge-gh-stars]: https://img.shields.io/github/stars/ZL-Asica/Suzu-Blog.svg?style=flat-square&label=Stars -->
+<!-- [badge-gh-watch]: https://img.shields.io/github/watchers/ZL-Asica/Suzu-Blog.svg?style=flat-square&label=Watch -->
+<!-- [badge-contributors]: https://img.shields.io/github/contributors/ZL-Asica/Suzu-Blog?style=flat-square -->
+
+[badge-last-commit]: https://img.shields.io/github/last-commit/ZL-Asica/Suzu-Blog?style=flat-square
+[badge-activity]: https://img.shields.io/github/commit-activity/y/ZL-Asica/Suzu-Blog?style=flat-square
+
+<!-- [repo]: https://github.com/ZL-Asica/Suzu-Blog -->
+<!-- [gh-contributors]: https://github.com/ZL-Asica/Suzu-Blog/graphs/contributors?style=flat-square -->
+
+[gh-history]: https://github.com/ZL-Asica/Suzu-Blog/commits/master?style=flat-square
+[gh-commit-activity]: https://github.com/ZL-Asica/Suzu-Blog/graphs/commit-activity?style=flat-square
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
