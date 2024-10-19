@@ -6,11 +6,11 @@ export default function Home() {
     <div>
       {/* Top Banner */}
       <div
-        className='relative h-[500px] w-full bg-cover bg-center md:h-[800px]'
+        className='relative h-[40vh] w-full bg-cover bg-center sm:h-[40vh] md:h-[600px] lg:h-[800px]'
         style={{ backgroundImage: "url('/images/katomegumi.jpg')" }}
       >
         {/* Avatar */}
-        <div className='absolute left-1/2 top-[60%] -translate-x-1/2 transform'>
+        <div className='absolute left-1/2 top-[40%] -translate-x-1/2 transform'>
           <Image
             src='/images/avatar.jpg'
             alt='Avatar'
