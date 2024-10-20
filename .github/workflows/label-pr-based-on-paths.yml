@@ -26,7 +26,7 @@ jobs:
             });
 
             const labelsToColor = {
-              posts: 'f66a0a', // Orange
+              main: 'f66a0a', // Orange
               'common-components': '1f77b4', // Blue
               layout: '8c564b', // Brown
               service: '2ca02c', // Green
@@ -38,8 +38,8 @@ jobs:
             const labels = new Set();
 
             prFiles.data.forEach(file => {
-              if (file.filename.startsWith('src/app/posts')) {
-                labels.add('posts');
+              if (file.filename.startsWith('src/app')) {
+                labels.add('main');
               }
               if (file.filename.startsWith('src/components/layout')) {
                 labels.add('layout');
