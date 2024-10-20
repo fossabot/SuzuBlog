@@ -28,7 +28,8 @@ jobs:
             const labelsToColor = {
               posts: 'f66a0a', // Orange
               'common-components': '1f77b4', // Blue
-              lib: '2ca02c', // Green
+              layout: '8c564b', // Brown
+              service: '2ca02c', // Green
               styles: '9467bd', // Purple
               content: 'ffdd57', // Yellow
               types: 'd62728', // Red
@@ -40,11 +41,14 @@ jobs:
               if (file.filename.startsWith('src/app/posts')) {
                 labels.add('posts');
               }
+              if (file.filename.startsWith('src/components/layout')) {
+                labels.add('layout');
+              }
               if (file.filename.startsWith('src/components/common')) {
                 labels.add('common-components');
               }
-              if (file.filename.startsWith('src/lib')) {
-                labels.add('lib');
+              if (file.filename.startsWith('src/service')) {
+                labels.add('service');
               }
               if (file.filename.startsWith('src/styles')) {
                 labels.add('styles');
