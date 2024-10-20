@@ -28,6 +28,7 @@ export type Config = {
     email: string;
     rss: string;
   };
+  thumbnailAbout: boolean;
   disqusShortname: string;
   scriptSlotHeader: string[];
   scriptSlotFooter: string[];

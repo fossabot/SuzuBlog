@@ -3,10 +3,10 @@ import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
 import { Roboto, Noto_Sans_SC } from 'next/font/google';
 import './globals.css';
-import ThemeProvider from '@/components/ThemeProvider';
+import ThemeProvider from '@/components/layout/ThemeProvider';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
-import { getConfig } from '@/lib/getConfig';
+import { getConfig } from '@/services/getConfig';
 import Script from 'next/script';
 
 const config = getConfig();
@@ -56,7 +56,7 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
 
-        {config.scriptSlotFooter.map((scriptUrl, index) => (
+        {config.scriptSlotFooter?.map((scriptUrl, index) => (
           <Script key={index} src={scriptUrl} strategy='lazyOnload' />
         ))}
       </body>

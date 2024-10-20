@@ -2,7 +2,7 @@ import { promises as fsPromises } from 'fs';
 import path from 'path';
 import { parseMarkdown } from './markdown';
 import { PostData, Frontmatter } from '@/types';
-import { getConfig } from '@/lib/getConfig';
+import { getConfig } from '@/services/getConfig';
 
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
@@ -123,9 +123,17 @@ export async function getAllPosts(): Promise<PostData[]> {
 }
 
 // Get single post data
-export async function getPostData(slug: string): Promise<PostData> {
+export async function getPostData(
+  slug: string,
+  page?: string,
+): Promise<PostData> {
   const config = getConfig();
-  const fullPath = path.join(postsDirectory, `${slug}.md`);
+
+  // If page is provided, get the page file
+  const fullPath = page
+    ? path.join(postsDirectory, '_pages', `${page}.md`)
+    : path.join(postsDirectory, `${slug}.md`);
+
   const fileContents = await fsPromises.readFile(fullPath, 'utf8');
 
   const { frontmatter, contentHtml } = await parseMarkdown(fileContents);
