@@ -2,10 +2,11 @@ import { getPostData } from '@/services/posts';
 import { PostData } from '@/types';
 import PostLayout from '@/components/layout/PostLayout';
 import { getConfig } from '@/services/getConfig';
+import '@/styles/friendsLinks.css';
 
-export default async function AboutPage() {
-  const post: PostData = await getPostData('About', 'About');
+export default async function FriendsPage() {
+  const post: PostData = await getPostData('Friends', 'Friends');
   const config = getConfig();
 
-  return <PostLayout post={post} showThumbnail={config.thumbnailAbout} />;
+  return <PostLayout post={post} showThumbnail={config.thumbnailFriends} />;
 }
