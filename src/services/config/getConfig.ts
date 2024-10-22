@@ -1,7 +1,7 @@
+import { Config } from '@/types';
 import fs from 'fs';
 import path from 'path';
 import yaml from 'yaml';
-import { Config } from '@/types';
 
 export const getConfig = (): Config => {
   const filePath = path.join(process.cwd(), 'config.yml');

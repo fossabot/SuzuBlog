@@ -1,8 +1,8 @@
+import { getConfig } from '@/services/config/getConfig';
+import { Frontmatter, PostData } from '@/types';
 import { promises as fsPromises } from 'fs';
 import path from 'path';
 import { parseMarkdown } from '../parsing/markdown';
-import { PostData, Frontmatter } from '@/types';
-import { getConfig } from '@/services/config/getConfig';
 
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 

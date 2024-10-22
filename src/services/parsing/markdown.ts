@@ -1,8 +1,8 @@
-import matter from 'gray-matter';
-import { marked, Tokens } from 'marked';
-import hljs from 'highlight.js';
-import { Frontmatter } from '@/types';
 import { renderLinks } from '@/services/parsing/friendsLinks';
+import { Frontmatter } from '@/types';
+import matter from 'gray-matter';
+import hljs from 'highlight.js';
+import { marked, Tokens } from 'marked';
 
 export async function parseMarkdown(
   content: string,

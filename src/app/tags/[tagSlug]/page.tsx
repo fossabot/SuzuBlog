@@ -1,7 +1,7 @@
-import { getAllPosts } from '@/services/content/posts';
-import { notFound } from 'next/navigation';
 import PostListLayout from '@/components/layout/PostListLayout';
-import { getUniqueTags, convertToPinyin } from '@/services/parsing/tagLinks';
+import { getAllPosts } from '@/services/content/posts';
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
+import { notFound } from 'next/navigation';
 
 // Generate static paths for all unique tags
 export async function generateStaticParams() {

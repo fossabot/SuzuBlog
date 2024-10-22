@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { getConfig } from '@/services/config/getConfig';
+import Link from 'next/link';
 
 export default function CategoryLinks({
   categories,

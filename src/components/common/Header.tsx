@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { FaBars, FaAngleUp } from 'react-icons/fa6';
-import { Category } from '@/types';
 import renderMenuItems from '@/components/common/MenuItems';
 import '@/styles/header.css';
+import { Category } from '@/types';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import { FaAngleUp, FaBars } from 'react-icons/fa6';
 
 export default function Header({
   siteTitle,

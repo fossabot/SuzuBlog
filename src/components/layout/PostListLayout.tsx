@@ -1,8 +1,8 @@
+import CategoryLinks from '@/components/layout/CategoryLinks';
 import { PostData } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaRegClock, FaEye, FaFolder } from 'react-icons/fa6';
-import CategoryLinks from '@/components/layout/CategoryLinks';
+import { FaEye, FaFolder, FaRegClock } from 'react-icons/fa6';
 
 export default function PostListLayout({ posts }: { posts: PostData[] }) {
   // TODO: Replace with actual read count

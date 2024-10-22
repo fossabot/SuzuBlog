@@ -1,13 +1,13 @@
+import { Category } from '@/types';
+import Link from 'next/link';
 import React from 'react';
+import * as Fa6 from 'react-icons/fa6';
 import {
   FaHouse,
-  FaRegNewspaper,
-  FaPeopleGroup,
   FaInfo,
+  FaPeopleGroup,
+  FaRegNewspaper,
 } from 'react-icons/fa6';
-import * as Fa6 from 'react-icons/fa6';
-import Link from 'next/link';
-import { Category } from '@/types';
 
 interface DropdownItem {
   href: string;

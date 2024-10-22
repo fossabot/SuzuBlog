@@ -1,7 +1,7 @@
-import { getAllPosts } from '@/services/content/posts';
-import { getConfig } from '@/services/config/getConfig';
-import { notFound } from 'next/navigation';
 import PostListLayout from '@/components/layout/PostListLayout';
+import { getConfig } from '@/services/config/getConfig';
+import { getAllPosts } from '@/services/content/posts';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const config = getConfig();

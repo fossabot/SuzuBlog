@@ -1,5 +1,5 @@
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
 import Link from 'next/link';
-import { getUniqueTags, convertToPinyin } from '@/services/parsing/tagLinks';
 
 export default async function TagLinks({
   tags,

@@ -1,17 +1,17 @@
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaInstagram,
-  FaXTwitter,
-  FaBilibili,
-  FaYoutube,
-  FaRss,
-  FaTelegram,
-} from 'react-icons/fa6';
-import { SiZhihu } from 'react-icons/si';
-import { MdEmail } from 'react-icons/md';
 import { getConfig } from '@/services/config/getConfig';
 import Link from 'next/link';
+import {
+  FaBilibili,
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+  FaRss,
+  FaTelegram,
+  FaXTwitter,
+  FaYoutube,
+} from 'react-icons/fa6';
+import { MdEmail } from 'react-icons/md';
+import { SiZhihu } from 'react-icons/si';
 
 export default function Footer() {
   const config = getConfig();

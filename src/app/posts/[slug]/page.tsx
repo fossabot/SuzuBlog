@@ -1,6 +1,6 @@
+import PostLayout from '@/components/layout/PostLayout';
 import { getPostData } from '@/services/content/posts';
 import { PostData } from '@/types';
-import PostLayout from '@/components/layout/PostLayout';
 
 interface PostPageProps {
   params: Promise<{

@@ -1,8 +1,8 @@
-import { getPostData } from '@/services/content/posts';
-import { PostData } from '@/types';
 import PostLayout from '@/components/layout/PostLayout';
 import { getConfig } from '@/services/config/getConfig';
+import { getPostData } from '@/services/content/posts';
 import '@/styles/friendsLinks.css';
+import { PostData } from '@/types';
 
 export default async function FriendsPage() {
   const post: PostData = await getPostData('Friends', 'Friends');
