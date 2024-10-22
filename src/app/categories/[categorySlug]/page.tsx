@@ -10,11 +10,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CategoryPage({
-  params,
-}: {
-  params: { categorySlug: string };
+export default async function CategoryPage(props: {
+  params: Promise<{ categorySlug: string }>;
 }) {
+  const params = await props.params;
   const posts = await getAllPosts();
   const config = getConfig();
 

@@ -12,11 +12,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function TagPage({
-  params,
-}: {
-  params: { tagSlug: string };
+export default async function TagPage(props: {
+  params: Promise<{ tagSlug: string }>;
 }) {
+  const params = await props.params;
   const posts = await getAllPosts();
 
   // Retrieve all unique tags from the posts

@@ -62,7 +62,6 @@ export default function PostLayout({
           </p>
         </div>
       )}
-
       <div className='mx-auto mt-10 w-full max-w-3xl'>
         {/* Show categories and tags if any */}
         <ul className='mx-auto mt-5 flex flex-col gap-4'>
@@ -87,7 +86,6 @@ export default function PostLayout({
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
       </div>
-
       {/* Comment Section */}
       {showComments && (
         <DisqusComments disqusShortname={config.disqusShortname} />
