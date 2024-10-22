@@ -11,8 +11,7 @@ jobs:
       pull-requests: write
       issues: write
     runs-on: ubuntu-latest
-    outputs:
-      sizeLabel: ${{ steps.size-label.outputs.sizeLabel }}
+
     steps:
       - name: Determine PR size and add label
         id: size-label
@@ -44,24 +43,24 @@ jobs:
               XXL: 'e99695', // Light coral
             };
 
-            const label = '${{ steps.size-label.outputs.sizeLabel }}';
-            const color = labelsToColor[label];
+            const sizeLabel = core.getInput('size-label-output') || '${{ steps.size-label.outputs.sizeLabel }}';
+            const color = labelsToColor[sizeLabel];
 
-            if (label) {
+            if (sizeLabel) {
               try {
                 // Check if the label already exists
                 await github.rest.issues.getLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  name: label
+                  name: sizeLabel,
                 });
               } catch (error) {
                 // If label doesn't exist, create it with the specified color
                 await github.rest.issues.createLabel({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  name: label,
-                  color: color || 'b0b0b0', // Use gray as fallback if no color is found
+                  name: sizeLabel,
+                  color: color || 'b0b0b0', // Default to gray if no color is found
                 });
               }
             }
@@ -72,7 +71,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
