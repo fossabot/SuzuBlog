@@ -37,6 +37,9 @@ postCategories:
   - name: '教程'
     slug: 'tutorial'
     icon: 'FaGraduationCap'
+  - name: '随笔'
+    slug: 'essay'
+    icon: 'FaPen'
 
 #######################
 # SOCIAL MEDIA SETTINGS
