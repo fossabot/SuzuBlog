@@ -1,13 +1,44 @@
+import Loading from '@/app/loading';
 import PostListLayout from '@/components/layout/PostListLayout';
 import { getConfig } from '@/services/config/getConfig';
 import { getAllPosts } from '@/services/content/posts';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   const config = getConfig();
   return config.postCategories.map((category) => ({
     categorySlug: category.slug,
   }));
+}
+
+type Props = {
+  params: Promise<{ categorySlug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // read post slug
+  const category = (await params).categorySlug;
+
+  const config = getConfig();
+
+  // Find the category based on the slug from params
+  const categoryData = config.postCategories.find(
+    (cat) => cat.slug === category,
+  ) || { name: 'Not Found' };
+  return {
+    title: `分类：${categoryData.name} - ${config.title}`,
+    openGraph: {
+      siteName: config.title,
+      title: `分类：${categoryData.name} - ${config.title}`,
+      description: `分类：${categoryData.name} - ${config.description}`,
+      url: `/categories/${category}`,
+      images: config.avatar,
+      type: 'website',
+      locale: config.lang,
+    },
+  };
 }
 
 export default async function CategoryPage(props: {
@@ -35,8 +66,9 @@ export default async function CategoryPage(props: {
   return (
     <div className='container mx-auto p-4'>
       <h1 className='mb-6 text-center text-4xl font-bold'>{category.name}</h1>
-
-      <PostListLayout posts={filteredPosts} />
+      <Suspense fallback={<Loading />}>
+        <PostListLayout posts={filteredPosts} />
+      </Suspense>
     </div>
   );
 }

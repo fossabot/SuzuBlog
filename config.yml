@@ -10,6 +10,8 @@ author:
   link: 'https://www.zla.app' # Link to your personal website or blog.
 # Language setting: Use ISO 639-1 code (e.g., 'en' for English, 'zh' for Chinese)
 lang: 'zh'
+# Your public root url, used for SEO and meta tags. (Do not include a ending slash)
+siteUrl: 'https://suzu.zla.app'
 
 # Path to your avatar image. Can be a relative path from /public or a full URL (e.g., https://).
 avatar: '/images/avatar.jpg'
@@ -71,14 +73,6 @@ disqusShortname: 'zla-pub'
 # CUSTOM CODE BLOCKS
 # ! WARNING: Only modify these if you understand the purpose of custom scripts.
 #######################
-# Add JavaScript URLs or code snippets to be included inside <head> on your site.
-scriptSlotHeader:
-  -
-
-# Add JavaScript URLs or code snippets to be included before the closing </body> tag.
-scriptSlotFooter:
-  - 'https://cdn.jsdelivr.net/gh/zl-asica/web-cdn/js/zlasica.js'
-
 # Add custom HTML code to be included inside the <footer> section of your site.
 slotFooter: |
   <!-- Add your custom footer HTML here -->

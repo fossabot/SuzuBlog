@@ -26,15 +26,19 @@ const notoSansSC = Noto_Sans_SC({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(config.siteUrl),
   title: `${config.title} - ${config.subTitle}`,
   description: config.description,
   keywords: config.keywords,
   authors: [{ url: config.author.link, name: config.author.name }],
   openGraph: {
+    siteName: `${config.title} - ${config.subTitle}`,
     title: `${config.title} - ${config.subTitle}`,
+    images: config.avatar,
     description: config.description,
     type: 'website',
     locale: config.lang,
+    url: config.siteUrl,
   },
 };
 
@@ -47,9 +51,7 @@ export default function RootLayout({
 
   return (
     <html lang={config.lang}>
-      {config.scriptSlotHeader?.map((scriptUrl, index) => (
-        <Script key={index} src={scriptUrl} />
-      ))}
+      <Script src='/custom.js' strategy='lazyOnload' />
       <body className={`${roboto.variable} ${notoSansSC.variable} antialiased`}>
         <ThemeProvider />
         <Header
@@ -58,10 +60,6 @@ export default function RootLayout({
         />
         <main>{children}</main>
         <Footer />
-
-        {config.scriptSlotFooter?.map((scriptUrl, index) => (
-          <Script key={index} src={scriptUrl} />
-        ))}
       </body>
     </html>
   );

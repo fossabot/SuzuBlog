@@ -13,6 +13,7 @@ export interface Frontmatter {
 // Post data
 export interface PostData {
   slug: string;
+  postAbstract: string;
   frontmatter: Frontmatter;
   contentHtml: string;
 }
@@ -35,6 +36,7 @@ export type Config = {
     link: string;
   };
   lang: string;
+  siteUrl: string;
   avatar: string;
   background: string;
   slogan: string;
@@ -54,8 +56,6 @@ export type Config = {
   thumbnailAbout: boolean;
   thumbnailFriends: boolean;
   disqusShortname: string;
-  scriptSlotHeader: string[];
-  scriptSlotFooter: string[];
   slotFooter: string;
   slotComment: string;
 };

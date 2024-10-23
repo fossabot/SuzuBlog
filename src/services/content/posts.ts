@@ -1,6 +1,6 @@
 import { getConfig } from '@/services/config/getConfig';
 import { Frontmatter, PostData } from '@/types';
-import { promises as fsPromises } from 'fs';
+import fs, { promises as fsPromises } from 'fs';
 import path from 'path';
 import { parseMarkdown } from '../parsing/markdown';
 
@@ -95,7 +95,8 @@ export async function getAllPosts(): Promise<PostData[]> {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = await fsPromises.readFile(fullPath, 'utf8');
 
-      const { frontmatter, contentHtml } = await parseMarkdown(fileContents);
+      const { frontmatter, postAbstract, contentHtml } =
+        await parseMarkdown(fileContents);
 
       const processedFrontmatter = await processFrontmatter(
         frontmatter as Frontmatter,
@@ -107,6 +108,7 @@ export async function getAllPosts(): Promise<PostData[]> {
       return {
         slug: fileName.replace(/\.md$/, ''),
         frontmatter: processedFrontmatter,
+        postAbstract,
         contentHtml,
       };
     }),
@@ -118,6 +120,10 @@ export async function getAllPosts(): Promise<PostData[]> {
     const dateB = new Date(b.frontmatter.date);
     return dateB.getTime() - dateA.getTime();
   });
+
+  // Save posts to a JSON file for sitemap generation
+  const filePath = path.join(process.cwd(), 'public', 'postsData.json');
+  fs.writeFileSync(filePath, JSON.stringify(allPosts, null, 2), 'utf8');
 
   return allPosts;
 }
@@ -136,7 +142,8 @@ export async function getPostData(
 
   const fileContents = await fsPromises.readFile(fullPath, 'utf8');
 
-  const { frontmatter, contentHtml } = await parseMarkdown(fileContents);
+  const { frontmatter, postAbstract, contentHtml } =
+    await parseMarkdown(fileContents);
 
   const processedFrontmatter = await processFrontmatter(
     frontmatter as Frontmatter,
@@ -147,6 +154,7 @@ export async function getPostData(
 
   return {
     slug,
+    postAbstract,
     frontmatter: processedFrontmatter,
     contentHtml,
   };
