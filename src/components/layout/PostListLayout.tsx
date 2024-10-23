@@ -1,8 +1,8 @@
-import CategoryLinks from '@/components/layout/CategoryLinks';
 import { PostData } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaEye, FaFolder, FaRegClock } from 'react-icons/fa6';
+import ItemLinks from './ItemLinks';
 
 export default function PostListLayout({ posts }: { posts: PostData[] }) {
   // TODO: Replace with actual read count
@@ -20,6 +20,7 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
             <Link
               className='max-h-[400px] w-full md:w-1/2'
               href={`/posts/${post.slug}`}
+              target='_self'
               aria-label={`Read more about ${post.frontmatter.title}`}
             >
               {/* Thumbnail */}
@@ -44,13 +45,13 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
                   <span>{post.frontmatter.date.split(' ')[0]}</span>
                 </div>
                 {/* Title in Frontmatter */}
-                <Link href={`/posts/${post.slug}`}>
+                <Link href={`/posts/${post.slug}`} target='_self'>
                   <h2 className='mb-2 text-2xl font-bold'>
                     {post.frontmatter.title}
                   </h2>
                 </Link>
                 {/* Abstract */}
-                <p className='text-sm text-gray-300'>{post.postAbstract}</p>
+                <p className='text-sm abstract-text'>{post.postAbstract}</p>
               </div>
               <div className='mt-4 text-gray-450 flex items-center justify-between text-sm'>
                 {/* Read Count */}
@@ -61,7 +62,10 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
                 {/* Category */}
                 <span className='flex items-center'>
                   <FaFolder className='mr-1' />
-                  <CategoryLinks categories={post.frontmatter.categories} />
+                  <ItemLinks
+                    items={post.frontmatter.categories}
+                    type='category'
+                  />
                 </span>
               </div>
             </div>
