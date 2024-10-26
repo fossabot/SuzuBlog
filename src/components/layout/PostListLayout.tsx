@@ -1,3 +1,4 @@
+import '@/styles/postListLayout.css';
 import { PostData } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,8 +15,7 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
         return (
           <article
             key={post.slug}
-            className={`flex flex-col overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl md:flex-row ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} mx-auto`}
-            style={{ maxWidth: '780px', maxHeight: '400px' }} // Set max width and height
+            className={`post-article flex-col shadow-lg transition-shadow duration-300 hover:shadow-2xl md:flex-row ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} mx-auto dark:shadow-[var(--darkForeground)]`}
           >
             <Link
               className='max-h-[400px] w-full md:w-1/2'
@@ -37,7 +37,7 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
             </Link>
 
             {/* Content */}
-            <div className='flex flex-col justify-between p-4 md:w-1/2'>
+            <div className='flex flex-col justify-between m-6 md:w-1/2'>
               <div>
                 {/* Date of Publish */}
                 <div className='text-gray-450 mb-2 flex items-center text-sm'>
