@@ -1,58 +1,89 @@
 # Suzu
 
-<!-- [![GitHub Watchers][badge-gh-watch]][repo] -->
-<!-- [![GitHub Stars][badge-gh-stars]][repo] -->
-<!-- [![GitHub Contributors][badge-contributors]][gh-contributors] -->
+> Suzu - 日语中的 鈴🎐 - 一个基于 Next.js 和纯 Markdown 的博客模板。
 
-[![GitHub Last Commit][badge-last-commit]][gh-history]
-[![GitHub Commit Activity (by Year)][badge-activity]][gh-commit-activity]
+[![Build by Vercel][github-build-badge]][github-build-link]
+[![GitHub License][license-badge]][license-link]
+[![Node js][node-badge]][node-link]
+[![pnpm Version][pnpm-badge]][pnpm-link] |
+[![Next.js][nextjs-badge]][nextjs-link]
+[![Vercel][vercel-badge]][vercel-link]
+[![Eslint][eslint-badge]][eslint-link]
+[![Prettier][prettier-badge]][prettier-link]
 
-<!-- [badge-gh-stars]: https://img.shields.io/github/stars/ZL-Asica/Suzu-Blog.svg?style=flat-square&label=Stars -->
-<!-- [badge-gh-watch]: https://img.shields.io/github/watchers/ZL-Asica/Suzu-Blog.svg?style=flat-square&label=Watch -->
-<!-- [badge-contributors]: https://img.shields.io/github/contributors/ZL-Asica/Suzu-Blog?style=flat-square -->
+## ✨ 项目简介
 
-[badge-last-commit]: https://img.shields.io/github/last-commit/ZL-Asica/Suzu-Blog?style=flat-square
-[badge-activity]: https://img.shields.io/github/commit-activity/y/ZL-Asica/Suzu-Blog?style=flat-square
+完全就是我受够了之前用了好多年的 Wordpress 博客站点的速度、性能消耗、维护成本、安全性等等多个方面的考虑，就打算自己写这个了，顺便就做成模板的形式方便大家去使用。
 
-<!-- [repo]: https://github.com/ZL-Asica/Suzu-Blog -->
-<!-- [gh-contributors]: https://github.com/ZL-Asica/Suzu-Blog/graphs/contributors?style=flat-square -->
-
-[gh-history]: https://github.com/ZL-Asica/Suzu-Blog/commits/main?style=flat-square
-[gh-commit-activity]: https://github.com/ZL-Asica/Suzu-Blog/graphs/commit-activity?style=flat-square
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```plaintext
+.
+├── config.yml                # 全局配置文件（站点信息、作者信息等）
+├── eslint.config.mjs         # ESLint 配置文件
+├── prettier.config.cjs       # Prettier 配置文件
+├── postcss.config.mjs        # PostCSS 配置文件
+├── tailwind.config.ts        # Tailwind CSS 配置文件
+├── tsconfig.json             # TypeScript 配置文件
+├── next.config.ts            # Next.js 配置文件
+├── posts                     # Markdown 格式的文章目录
+├── public                    # 静态资源目录（favicon, robots.txt, 等）
+├── src                       # 项目源代码
+│   ├── app                     # Next.js 应用目录（按页面组织）
+│   ├── components              # 复用组件目录
+│   │   ├── common              # 通用组件
+│   │   └── layout              # 布局组件
+│   ├── services                # 服务目录，包含数据获取和解析逻辑
+│   │   ├── config              # 配置加载
+│   │   ├── content             # 内容处理和文章获取
+│   │   ├── parsing             # 内容解析和标签处理
+│   │   └── utils               # 实用工具
+│   ├── styles                  # 全局和组件样式
+│   └── types.d.ts              # 全局类型定义
+├── package.json              # 项目依赖和脚本
+└── pnpm-lock.yaml            # pnpm 依赖锁定文件
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 快速开始
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. 克隆项目并安装依赖：
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/ZL-Asica/SuzuBlog.git
+   cd SuzuBlog
+   pnpm install
+   ```
 
-## Learn More
+2. 配置自定义变量：
 
-To learn more about Next.js, take a look at the following resources:
+   - 在 `config.yml` 中配置个性化站点信息。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. 撰写你的博客文章：
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   - 文章：可以使用 Markdown 格式放置于根目录下的 `posts` 文件夹内
+   - 关于/友情链接：直接更改 `posts/_pages` 路径内对应的文件内容即可。
 
-## Deploy on Vercel
+4. 部署：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   - 可以部署在自己的服务器中，需要有 `nodejs` 环境。
+   - 也可以直接使用 `Vercel` 进行托管。经测试在中国大陆访问速度良好。
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<!-- Badge Links -->
+
+[github-build-badge]: https://img.shields.io/github/deployments/ZL-Asica/SuzuBlog/Production?logo=github&label=Build
+[license-badge]: https://img.shields.io/github/license/ZL-Asica/SuzuBlog
+[node-badge]: https://img.shields.io/badge/node%3E=18.18-339933?logo=node.js&logoColor=white
+[pnpm-badge]: https://img.shields.io/github/package-json/packageManager/ZL-Asica/SuzuBlog?label=&logo=pnpm&logoColor=fff&color=F69220
+[nextjs-badge]: https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white
+[vercel-badge]: https://img.shields.io/badge/Vercel-%23000000.svg?logo=vercel&logoColor=white
+[eslint-badge]: https://img.shields.io/badge/eslint-4B32C3?logo=eslint&logoColor=white
+[prettier-badge]: https://img.shields.io/badge/Prettier-F7B93E?logo=Prettier&logoColor=white
+
+<!-- Badge URL Links -->
+
+[github-build-link]: https://github.com/ZL-Asica/SuzuBlog/deployments
+[license-link]: https://github.com/ZL-Asica/eslint-config/blob/main/LICENSE
+[node-link]: https://nodejs.org/
+[pnpm-link]: https://pnpm.io/
+[nextjs-link]: https://nextjs.org
+[vercel-link]: https://vercel.com/
+[eslint-link]: https://www.npmjs.com/package/eslint-config-zl-asica
+[prettier-link]: https://www.npmjs.com/package/@zl-asica/prettier-config

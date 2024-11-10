@@ -1,4 +1,4 @@
-# Code of Conduct - Suzu Blog
+# Code of Conduct - SuzuBlog
 
 ## Our Pledge
 
