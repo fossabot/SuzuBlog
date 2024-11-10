@@ -3,15 +3,15 @@ import type { Metadata } from 'next/types';
 import { Suspense } from 'react';
 
 import { getConfig } from '@/services/config';
-import { getAllPosts } from '@/services/content/posts';
-import { convertToPinyin, getUniqueTags } from '@/services/parsing/tag-links';
+import { getAllPosts } from '@/services/content';
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
 import Loading from '@/app/loading';
 
 import PostListLayout from '@/components/layout/PostListLayout';
 
 // Generate static paths for all unique tags
 async function generateStaticParams() {
-  const uniqueTags = getUniqueTags();
+  const uniqueTags = await getUniqueTags();
   return uniqueTags.map((tag) => ({
     // Convert only Chinese tags to pinyin slug
     tagSlug: convertToPinyin(tag),
@@ -29,7 +29,7 @@ async function generateMetadata({ params }: Properties): Promise<Metadata> {
   const config = getConfig();
 
   // Find the tag based on the slug from params
-  const uniqueTags = getUniqueTags();
+  const uniqueTags = await getUniqueTags();
   const tagData =
     uniqueTags.find((t) => convertToPinyin(t) === tag) || 'Not Found';
   return {
@@ -50,7 +50,7 @@ async function TagPage(props: { params: Promise<{ tagSlug: string }> }) {
   const posts = await getAllPosts();
 
   // Retrieve all unique tags from the posts
-  const uniqueTags = getUniqueTags();
+  const uniqueTags = await getUniqueTags();
 
   // Find the tag based on the slug from params
   const tag = uniqueTags.find(

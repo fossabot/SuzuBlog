@@ -1,18 +1,14 @@
 import fs from 'node:fs';
-import path from 'node:path';
 
 import yaml from 'yaml';
 
-const filePath = path.join(process.cwd(), 'config.yml');
+import { filePath, watchConfigFile } from '@/services/utils/fileUtils';
+
 let cachedConfig: Config | null = null;
 
-// Listen for changes to the config file
-let debounceTimeout: NodeJS.Timeout | null = null;
-fs.watch(filePath, () => {
-  if (debounceTimeout) clearTimeout(debounceTimeout);
-  debounceTimeout = setTimeout(() => {
-    cachedConfig = null;
-  }, 100); // 100ms debounce
+// Listen for changes to the config file and clear cache on change
+watchConfigFile(() => {
+  cachedConfig = null;
 });
 
 export const getConfig = (): Config => {

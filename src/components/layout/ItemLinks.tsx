@@ -1,20 +1,20 @@
 import Link from 'next/link';
 
 import { getConfig } from '@/services/config';
-import { convertToPinyin, getUniqueTags } from '@/services/parsing/tag-links';
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
 
 interface ItemLinksProperties {
   items: string[] | undefined;
   type: 'category' | 'tag';
 }
 
-export default function ItemLinks({ items, type }: ItemLinksProperties) {
+export default async function ItemLinks({ items, type }: ItemLinksProperties) {
   if (!items || items.length === 0) {
     return <>{type === 'category' ? '未分类' : '无标签'}</>;
   }
 
   const config = type === 'category' ? getConfig() : null;
-  const uniqueTags = type === 'tag' ? getUniqueTags() : null;
+  const uniqueTags = type === 'tag' ? await getUniqueTags() : null;
 
   const getLink = (item: string) => {
     if (type === 'category' && config) {

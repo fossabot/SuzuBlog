@@ -1,23 +1,20 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import type { MetadataRoute } from 'next';
 
 import { getConfig } from '@/services/config';
+import { getAllPosts } from '@/services/content';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const config = getConfig();
   const siteUrl = config.siteUrl;
 
   // Load posts data from JSON file
-  const filePath = path.join(process.cwd(), 'public', 'postsData.json');
-  const posts = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const posts = await getAllPosts();
 
   // Generate sitemap entries for each post
   const postUrls = posts.map((post) => ({
     url: `${siteUrl}/posts/${post.slug}`,
     lastModified: post.lastModified || new Date(),
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: 0.6,
   }));
 

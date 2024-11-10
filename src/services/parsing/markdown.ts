@@ -3,7 +3,7 @@ import hljs from 'highlight.js';
 import type { Tokens } from 'marked';
 import { marked } from 'marked';
 
-import { renderLinks } from '@/services/parsing/friends-links';
+import { renderLinks } from '@/services/parsing/friendsLinks';
 
 function processPostAbstract(contentHtml: string): string {
   // Remove HTML tags and comments (before more if exist)

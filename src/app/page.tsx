@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 
 import Loading from '@/app/loading';
 import { getConfig } from '@/services/config';
-import { getAllPosts } from '@/services/content/posts';
+import { getAllPosts } from '@/services/content';
 
 import PostListLayout from '@/components/layout/PostListLayout';
 

@@ -1,7 +1,6 @@
-import fs from 'node:fs';
-import path from 'node:path';
-
 import pinyin from 'pinyin';
+
+import { getAllPosts } from '../content';
 
 // Helper function to check if a string contains Chinese characters
 function containsChinese(text: string): boolean {
@@ -17,16 +16,12 @@ function convertToPinyin(tag: string): string {
 }
 
 // Helper function to get unique tags from local tags
-function getUniqueTags() {
-  const filePath = path.join(process.cwd(), 'public', 'postsData.json');
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const posts: PostData[] = JSON.parse(fileContent);
-
+async function getUniqueTags() {
+  const posts = await getAllPosts();
   // Get all tags from all posts and remove duplicates
   const allTags = posts.flatMap((post) => post.frontmatter.tags || []);
-  const uniqueTags = [...new Set(allTags)];
 
-  return uniqueTags;
+  return [...new Set(allTags)];
 }
 
 export { convertToPinyin, getUniqueTags };

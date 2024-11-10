@@ -23,4 +23,10 @@ export default [
       ],
     },
   },
+  {
+    files: ['src/services/**/*.ts'],
+    rules: {
+      'unicorn/filename-case': ['error', { cases: { camelCase: true } }],
+    },
+  },
 ];

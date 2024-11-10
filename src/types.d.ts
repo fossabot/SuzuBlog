@@ -16,6 +16,7 @@ interface PostData {
   postAbstract: string;
   frontmatter: Frontmatter;
   contentHtml: string;
+  lastModified: string;
 }
 
 // Category data in config.yml
