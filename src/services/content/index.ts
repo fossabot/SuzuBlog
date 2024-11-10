@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { getPostFromFile } from '@/services/content/getPostFromFile';
 
-const postsDirectory = path.join(process.cwd(), 'src/posts');
+const postsDirectory = path.join(process.cwd(), 'posts');
 
 async function getAllPosts(): Promise<PostData[]> {
   const fileNames = await fsPromise.readdir(postsDirectory);

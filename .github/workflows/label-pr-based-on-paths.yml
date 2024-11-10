@@ -53,7 +53,7 @@ jobs:
               if (file.filename.startsWith('src/styles')) {
                 labels.add('styles');
               }
-              if (file.filename.startsWith('src/posts')) {
+              if (file.filename.startsWith('posts')) {
                 labels.add('content');
               }
               if (file.filename.startsWith('src/types.d.ts')) {
