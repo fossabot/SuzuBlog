@@ -20,7 +20,7 @@ export const renderLinks = (jsonString: string) => {
             </div>
           </a>
         </li>
-      `,
+      `
       )
       .join('');
 
@@ -32,9 +32,9 @@ export const renderLinks = (jsonString: string) => {
       </ul>
     </div>
   `;
-  } catch (e: unknown) {
-    if (e instanceof Error) {
-      return `<>Invalid JSON in links block - ${e.message}</>`;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return `<>Invalid JSON in links block - ${error.message}</>`;
     }
     return '<>Invalid JSON in links block</>';
   }

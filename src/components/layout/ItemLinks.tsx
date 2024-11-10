@@ -1,13 +1,14 @@
-import { getConfig } from '@/services/config/getConfig';
-import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
 import Link from 'next/link';
 
-interface ItemLinksProps {
+import { getConfig } from '@/services/config/get-config';
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tag-links';
+
+interface ItemLinksProperties {
   items: string[] | undefined;
   type: 'category' | 'tag';
 }
 
-export default function ItemLinks({ items, type }: ItemLinksProps) {
+export default function ItemLinks({ items, type }: ItemLinksProperties) {
   if (!items || items.length === 0) {
     return <>{type === 'category' ? '未分类' : '无标签'}</>;
   }
@@ -18,7 +19,7 @@ export default function ItemLinks({ items, type }: ItemLinksProps) {
   const getLink = (item: string) => {
     if (type === 'category' && config) {
       const categoryLink = config.postCategories.find(
-        (cat) => cat.name === item && cat.slug,
+        (cat) => cat.name === item && cat.slug
       );
       return categoryLink ? `/categories/${categoryLink.slug}` : null;
     }

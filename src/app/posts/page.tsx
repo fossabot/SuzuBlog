@@ -1,10 +1,11 @@
-import Loading from '@/app/loading';
-import PostListLayout from '@/components/layout/PostListLayout';
-import { getConfig } from '@/services/config/getConfig';
-import { getAllPosts } from '@/services/content/posts';
-import { PostData } from '@/types';
-import { Metadata } from 'next/types';
+import type { Metadata } from 'next/types';
 import { Suspense } from 'react';
+
+import Loading from '@/app/loading';
+import { getConfig } from '@/services/config/get-config';
+import { getAllPosts } from '@/services/content/posts';
+
+import PostListLayout from '@/components/layout/PostListLayout';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();

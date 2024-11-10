@@ -1,12 +1,12 @@
 'use client';
 
-import renderMenuItems from '@/components/common/MenuItems';
-import '@/styles/header.css';
-import { Category } from '@/types';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { FaAngleUp, FaBars } from 'react-icons/fa6';
+
+import renderMenuItems from '@/components/common/MenuItems';
+import '@/styles/header.css';
 
 export default function Header({
   siteTitle,
@@ -17,7 +17,7 @@ export default function Header({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false); // Detect if in mobile view
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuReference = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === '/'; // Check if current page is home page
 
@@ -27,8 +27,8 @@ export default function Header({
 
   // Ensure focus is managed when the menu is open for accessibility
   useEffect(() => {
-    if (isOpen && menuRef.current) {
-      menuRef.current.focus();
+    if (isOpen && menuReference.current) {
+      menuReference.current.focus();
     }
   }, [isOpen]);
 
@@ -84,7 +84,7 @@ export default function Header({
             {isOpen && (
               <div
                 id='mobile-menu'
-                ref={menuRef}
+                ref={menuReference}
                 tabIndex={-1}
                 role='menu'
                 aria-hidden={!isOpen}

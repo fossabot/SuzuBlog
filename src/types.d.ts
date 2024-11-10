@@ -1,5 +1,5 @@
 // Frontmatter for each post md file
-export interface Frontmatter {
+interface Frontmatter {
   title: string;
   date: string;
   author: string;
@@ -11,7 +11,7 @@ export interface Frontmatter {
 }
 
 // Post data
-export interface PostData {
+interface PostData {
   slug: string;
   postAbstract: string;
   frontmatter: Frontmatter;
@@ -19,14 +19,14 @@ export interface PostData {
 }
 
 // Category data in config.yml
-export type Category = {
+type Category = {
   name: string;
   slug?: string;
   icon?: string;
 };
 
 // Config value from config.yml
-export type Config = {
+type Config = {
   title: string;
   subTitle: string;
   description: string;

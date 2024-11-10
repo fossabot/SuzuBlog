@@ -1,7 +1,9 @@
-import { getConfig } from '@/services/config/getConfig';
-import fs from 'fs';
+import fs from 'node:fs';
+import path from 'node:path';
+
 import type { MetadataRoute } from 'next';
-import path from 'path';
+
+import { getConfig } from '@/services/config/get-config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const config = getConfig();

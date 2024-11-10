@@ -10,18 +10,20 @@ export default function ThemeProvider() {
     };
 
     // Initial check for user system theme
-    const systemPrefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
+    const systemPrefersDark = globalThis.matchMedia(
+      '(prefers-color-scheme: dark)'
     ).matches;
     applyTheme(systemPrefersDark);
 
     // Listen for changes in system theme
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    mediaQuery.addEventListener('change', (e) => applyTheme(e.matches));
+    const mediaQuery = globalThis.matchMedia('(prefers-color-scheme: dark)');
+    const themeChangeListener = (event: MediaQueryListEvent) =>
+      applyTheme(event.matches);
+    mediaQuery.addEventListener('change', themeChangeListener);
 
     // Cleanup listener on unmount
     return () => {
-      mediaQuery.removeEventListener('change', (e) => applyTheme(e.matches));
+      mediaQuery.removeEventListener('change', themeChangeListener);
     };
   }, []);
 

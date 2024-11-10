@@ -1,14 +1,16 @@
-import DisqusComments from '@/components/common/DisqusComments';
-import { getConfig } from '@/services/config/getConfig';
-import '@/styles/codeblock.css';
-import '@/styles/postContent.css';
-import { PostData } from '@/types';
-import 'highlight.js/styles/an-old-hope.css';
 import Image from 'next/image';
 import { FaFolder, FaTags } from 'react-icons/fa6';
-import ItemLinks from './ItemLinks';
 
-interface PostLayoutProps {
+import { getConfig } from '@/services/config/get-config';
+
+import DisqusComments from '@/components/common/DisqusComments';
+import ItemLinks from '@/components/layout/ItemLinks';
+
+import '@/styles/codeblock.css';
+import '@/styles/postContent.css';
+import 'highlight.js/styles/an-old-hope.css';
+
+interface PostLayoutProperties {
   post: PostData;
   showThumbnail?: boolean;
 }
@@ -16,7 +18,7 @@ interface PostLayoutProps {
 export default function PostLayout({
   post,
   showThumbnail = true,
-}: PostLayoutProps) {
+}: PostLayoutProperties) {
   const config = getConfig();
 
   // if showComments is defined in the frontmatter, use that value,
@@ -80,7 +82,10 @@ export default function PostLayout({
             <li className='flex items-center gap-2'>
               <FaTags className='mr-1' />
               <span className='font-semibold'>标签:</span>
-              <ItemLinks items={post.frontmatter.tags} type={'tag'} />
+              <ItemLinks
+                items={post.frontmatter.tags}
+                type={'tag'}
+              />
             </li>
           </ul>
         )}

@@ -1,6 +1,6 @@
-import { getConfig } from '@/services/config/getConfig';
-import '@/styles/footer.css';
 import Link from 'next/link';
+import { MdEmail } from 'react-icons/md';
+import { SiZhihu } from 'react-icons/si';
 import {
   FaBilibili,
   FaGithub,
@@ -11,8 +11,9 @@ import {
   FaXTwitter,
   FaYoutube,
 } from 'react-icons/fa6';
-import { MdEmail } from 'react-icons/md';
-import { SiZhihu } from 'react-icons/si';
+
+import { getConfig } from '@/services/config/get-config';
+import '@/styles/footer.css';
 
 export default function Footer() {
   const config = getConfig();
@@ -47,7 +48,7 @@ export default function Footer() {
     })
     .filter(
       (contact): contact is { href: string; title: string; icon } =>
-        contact !== null,
+        contact !== null
     ); // Asserts that contact is not null
 
   return (

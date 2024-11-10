@@ -10,18 +10,21 @@ export default function DisqusComments({
   useEffect(() => {
     const disqusScript = document.createElement('script');
     disqusScript.src = `https://${disqusShortname}.disqus.com/embed.js`;
-    disqusScript.setAttribute('data-timestamp', `${+new Date()}`);
-    (document.head || document.body).appendChild(disqusScript);
+    disqusScript.dataset.timestamp = `${Date.now()}`;
+    (document.head || document.body).append(disqusScript);
 
     return () => {
       // Clean up the script if the component is unmounted
       if (disqusScript.parentNode) {
-        disqusScript.parentNode.removeChild(disqusScript);
+        disqusScript.remove();
       }
     };
   }, [disqusShortname]);
 
   return (
-    <div id='disqus_thread' className='mx-auto mt-10 w-full max-w-3xl'></div>
+    <div
+      id='disqus_thread'
+      className='mx-auto mt-10 w-full max-w-3xl'
+    ></div>
   );
 }

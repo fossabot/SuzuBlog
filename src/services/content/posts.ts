@@ -1,15 +1,11 @@
-import { getConfig } from '@/services/config/getConfig';
-import { Frontmatter, PostData } from '@/types';
-import fs, { promises as fsPromises } from 'fs';
-import path from 'path';
+import fs, { promises as fsPromises } from 'node:fs';
+import path from 'node:path';
+
 import { parseMarkdown } from '../parsing/markdown';
 
-const postsDirectory = path.join(process.cwd(), 'src/posts');
+import { getConfig } from '@/services/config/get-config';
 
-// Helper function to check if the file is a Markdown file
-function isMarkdownFile(fileName: string): boolean {
-  return fileName.endsWith('.md');
-}
+const postsDirectory = path.join(process.cwd(), 'src/posts');
 
 // Helper function to validate and format date (yyyy-mm-dd hh:mm:ss)
 function formatDateTime(dateTime: string): string {
@@ -43,7 +39,7 @@ async function processFrontmatter(
   frontmatter: Frontmatter,
   fileName: string,
   fullPath: string,
-  config: ReturnType<typeof getConfig>,
+  config: ReturnType<typeof getConfig>
 ): Promise<Frontmatter> {
   // Limit title and author length
   frontmatter.title =
@@ -55,7 +51,7 @@ async function processFrontmatter(
     const thumbnailPath = path.join(
       process.cwd(),
       'public',
-      frontmatter.thumbnail,
+      frontmatter.thumbnail
     );
     const exists = await fileExists(thumbnailPath);
     if (!exists) {
@@ -70,25 +66,27 @@ async function processFrontmatter(
   const formattedDate = frontmatter.date
     ? formatDateTime(frontmatter.date)
     : '';
-  if (!formattedDate) {
+  if (formattedDate) {
+    frontmatter.date = formattedDate;
+  } else {
     const stats = await fsPromises.stat(fullPath);
     const lastModifiedDate = stats.mtime.toISOString().split('T');
     // yyyy-mm-dd hh:mm:ss
     frontmatter.date = `${lastModifiedDate[0]} ${lastModifiedDate[1].split('.')[0]}`;
-  } else {
-    frontmatter.date = formattedDate;
   }
 
   return frontmatter;
 }
 
 // Get all posts data
-export async function getAllPosts(): Promise<PostData[]> {
+async function getAllPosts(): Promise<PostData[]> {
   const config = getConfig();
   const fileNames = await fsPromises.readdir(postsDirectory);
 
   // Filter to only include .md files
-  const markdownFiles = fileNames.filter(isMarkdownFile);
+  const markdownFiles = fileNames.filter((fileName) =>
+    fileName.endsWith('.md')
+  );
 
   const allPosts = await Promise.all(
     markdownFiles.map(async (fileName) => {
@@ -102,7 +100,7 @@ export async function getAllPosts(): Promise<PostData[]> {
         frontmatter as Frontmatter,
         fileName,
         fullPath,
-        config,
+        config
       );
 
       return {
@@ -111,7 +109,7 @@ export async function getAllPosts(): Promise<PostData[]> {
         postAbstract,
         contentHtml,
       };
-    }),
+    })
   );
 
   // Sort posts by date (newest first)
@@ -129,10 +127,7 @@ export async function getAllPosts(): Promise<PostData[]> {
 }
 
 // Get single post data
-export async function getPostData(
-  slug: string,
-  page?: string,
-): Promise<PostData> {
+async function getPostData(slug: string, page?: string): Promise<PostData> {
   const config = getConfig();
 
   // If page is provided, get the page file
@@ -149,7 +144,7 @@ export async function getPostData(
     frontmatter as Frontmatter,
     `${slug}.md`,
     fullPath,
-    config,
+    config
   );
 
   return {
@@ -159,3 +154,5 @@ export async function getPostData(
     contentHtml,
   };
 }
+
+export { getAllPosts, getPostData };

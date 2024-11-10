@@ -1,11 +1,12 @@
-import Loading from '@/app/loading';
-import PostLayout from '@/components/layout/PostLayout';
-import { getConfig } from '@/services/config/getConfig';
-import { getPostData } from '@/services/content/posts';
-import '@/styles/friendsLinks.css';
-import { PostData } from '@/types';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+
+import Loading from '@/app/loading';
+import { getConfig } from '@/services/config/get-config';
+import { getPostData } from '@/services/content/posts';
+
+import PostLayout from '@/components/layout/PostLayout';
+import '@/styles/friendsLinks.css';
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -30,7 +31,10 @@ export default async function FriendsPage() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <PostLayout post={post} showThumbnail={config.thumbnailFriends} />
+      <PostLayout
+        post={post}
+        showThumbnail={config.thumbnailFriends}
+      />
     </Suspense>
   );
 }

@@ -1,14 +1,15 @@
-import { renderLinks } from '@/services/parsing/friendsLinks';
-import { Frontmatter } from '@/types';
 import matter from 'gray-matter';
 import hljs from 'highlight.js';
-import { marked, Tokens } from 'marked';
+import type { Tokens } from 'marked';
+import { marked } from 'marked';
+
+import { renderLinks } from '@/services/parsing/friends-links';
 
 function processPostAbstract(contentHtml: string): string {
   // Remove HTML tags and comments (before more if exist)
   const plainText = contentHtml
-    .replace(/<!--more-->/g, '[[MORE_PLACEHOLDER]]')
-    .replace(/<[^>]*>/g, '');
+    .replaceAll('<!--more-->', '[[MORE_PLACEHOLDER]]')
+    .replaceAll(/<[^>]*>/g, '');
 
   const moreIndex = plainText.indexOf('[[MORE_PLACEHOLDER]]');
 
@@ -18,7 +19,7 @@ function processPostAbstract(contentHtml: string): string {
       : plainText.slice(0, 150);
 
   // remove newlines and extra spaces
-  return contentSliced.replace(/\s+/g, ' ').trim();
+  return contentSliced.replaceAll(/\s+/g, ' ').trim();
 }
 
 export async function parseMarkdown(content: string): Promise<{
@@ -29,9 +30,12 @@ export async function parseMarkdown(content: string): Promise<{
   const { data: frontmatterData, content: markdownContent } = matter(content);
 
   // Replace all comments but keep <!--more-->
-  let contentSanitized = markdownContent.replace(/<!--[^>]*-->/g, (match) => {
-    return match === '<!--more-->' ? match : '';
-  });
+  let contentSanitized = markdownContent.replaceAll(
+    /<!--[^>]*-->/g,
+    (match) => {
+      return match === '<!--more-->' ? match : '';
+    }
+  );
 
   const renderer = new marked.Renderer();
 
@@ -79,9 +83,9 @@ export async function parseMarkdown(content: string): Promise<{
 
   // Custom handler to find and replace {% links %}...{% endlinks %} blocks with rendered HTML
   if (contentSanitized.includes('{% links %}')) {
-    contentSanitized = contentSanitized.replace(
-      /{% links %}([\s\S]*?){% endlinks %}/g,
-      (_, jsonString) => renderLinks(jsonString.trim()),
+    contentSanitized = contentSanitized.replaceAll(
+      /{% links %}([\S\s]*?){% endlinks %}/g,
+      (_, jsonString) => renderLinks(jsonString.trim())
     );
   }
 

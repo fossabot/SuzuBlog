@@ -1,14 +1,16 @@
-import Loading from '@/app/loading';
-import PostListLayout from '@/components/layout/PostListLayout';
-import { getConfig } from '@/services/config/getConfig';
-import { getAllPosts } from '@/services/content/posts';
-import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next/types';
+import type { Metadata } from 'next/types';
 import { Suspense } from 'react';
 
+import { getConfig } from '@/services/config/get-config';
+import { getAllPosts } from '@/services/content/posts';
+import { convertToPinyin, getUniqueTags } from '@/services/parsing/tag-links';
+import Loading from '@/app/loading';
+
+import PostListLayout from '@/components/layout/PostListLayout';
+
 // Generate static paths for all unique tags
-export async function generateStaticParams() {
+async function generateStaticParams() {
   const uniqueTags = getUniqueTags();
   return uniqueTags.map((tag) => ({
     // Convert only Chinese tags to pinyin slug
@@ -16,13 +18,13 @@ export async function generateStaticParams() {
   }));
 }
 
-type Props = {
+type Properties = {
   params: Promise<{ tagSlug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+async function generateMetadata({ params }: Properties): Promise<Metadata> {
   // read post slug
-  const tag = (await params).tagSlug;
+  const { tagSlug: tag } = await params;
 
   const config = getConfig();
 
@@ -43,17 +45,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function TagPage(props: {
-  params: Promise<{ tagSlug: string }>;
-}) {
-  const params = await props.params;
+async function TagPage(props: { params: Promise<{ tagSlug: string }> }) {
+  const parameters = await props.params;
   const posts = await getAllPosts();
 
   // Retrieve all unique tags from the posts
   const uniqueTags = getUniqueTags();
 
   // Find the tag based on the slug from params
-  const tag = uniqueTags.find((tag) => convertToPinyin(tag) === params.tagSlug);
+  const tag = uniqueTags.find(
+    (tag) => convertToPinyin(tag) === parameters.tagSlug
+  );
 
   if (!tag) {
     // If the tag doesn't exist, show 404
@@ -62,7 +64,7 @@ export default async function TagPage(props: {
 
   // Filter posts by the tag name
   const filteredPosts = posts.filter((post) =>
-    post.frontmatter.tags?.includes(tag),
+    post.frontmatter.tags?.includes(tag)
   );
 
   return (
@@ -74,3 +76,5 @@ export default async function TagPage(props: {
     </div>
   );
 }
+
+export { generateStaticParams, generateMetadata, TagPage as default };

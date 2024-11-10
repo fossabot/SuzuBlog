@@ -1,8 +1,8 @@
 import '@/styles/postListLayout.css';
-import { PostData } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaEye, FaFolder, FaRegClock } from 'react-icons/fa6';
+
 import ItemLinks from './ItemLinks';
 
 export default function PostListLayout({ posts }: { posts: PostData[] }) {
@@ -15,7 +15,7 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
         return (
           <article
             key={post.slug}
-            className={`post-article flex-col shadow-lg transition-shadow duration-300 hover:shadow-2xl md:flex-row ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''} mx-auto dark:shadow-[var(--darkForeground)]`}
+            className={`post-article flex-col shadow-lg transition-shadow duration-300 hover:shadow-2xl md:flex-row ${index % 2 === 0 ? '' : 'md:flex-row-reverse'} mx-auto dark:shadow-[var(--darkForeground)]`}
           >
             <Link
               className='max-h-[400px] w-full md:w-1/2'
@@ -37,7 +37,7 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
             </Link>
 
             {/* Content */}
-            <div className='flex flex-col justify-between m-6 md:w-1/2'>
+            <div className='m-6 flex flex-col justify-between md:w-1/2'>
               <div>
                 {/* Date of Publish */}
                 <div className='text-gray-450 mb-2 flex items-center text-sm'>
@@ -45,15 +45,18 @@ export default function PostListLayout({ posts }: { posts: PostData[] }) {
                   <span>{post.frontmatter.date.split(' ')[0]}</span>
                 </div>
                 {/* Title in Frontmatter */}
-                <Link href={`/posts/${post.slug}`} target='_self'>
+                <Link
+                  href={`/posts/${post.slug}`}
+                  target='_self'
+                >
                   <h2 className='mb-2 text-2xl font-bold'>
                     {post.frontmatter.title}
                   </h2>
                 </Link>
                 {/* Abstract */}
-                <p className='text-sm abstract-text'>{post.postAbstract}</p>
+                <p className='abstract-text text-sm'>{post.postAbstract}</p>
               </div>
-              <div className='mt-4 text-gray-450 flex items-center justify-between text-sm'>
+              <div className='text-gray-450 mt-4 flex items-center justify-between text-sm'>
                 {/* Read Count */}
                 <span className='flex items-center'>
                   <FaEye className='mr-1' />

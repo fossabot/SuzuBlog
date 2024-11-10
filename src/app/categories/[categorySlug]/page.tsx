@@ -1,31 +1,33 @@
-import Loading from '@/app/loading';
-import PostListLayout from '@/components/layout/PostListLayout';
-import { getConfig } from '@/services/config/getConfig';
-import { getAllPosts } from '@/services/content/posts';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-export async function generateStaticParams() {
+import { getConfig } from '@/services/config/get-config';
+import Loading from '@/app/loading';
+import { getAllPosts } from '@/services/content/posts';
+
+import PostListLayout from '@/components/layout/PostListLayout';
+
+async function generateStaticParams() {
   const config = getConfig();
   return config.postCategories.map((category) => ({
     categorySlug: category.slug,
   }));
 }
 
-type Props = {
+type Properties = {
   params: Promise<{ categorySlug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+async function generateMetadata({ params }: Properties): Promise<Metadata> {
   // read post slug
-  const category = (await params).categorySlug;
+  const { categorySlug: category } = await params;
 
   const config = getConfig();
 
   // Find the category based on the slug from params
   const categoryData = config.postCategories.find(
-    (cat) => cat.slug === category,
+    (cat) => cat.slug === category
   ) || { name: 'Not Found' };
   return {
     title: `分类：${categoryData.name} - ${config.title}`,
@@ -41,16 +43,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CategoryPage(props: {
+async function CategoryPage(props: {
   params: Promise<{ categorySlug: string }>;
 }) {
-  const params = await props.params;
+  const parameters = await props.params;
   const posts = await getAllPosts();
   const config = getConfig();
 
   // Find the category based on the slug from params
   const category = config.postCategories.find(
-    (cat) => cat.slug === params.categorySlug,
+    (cat) => cat.slug === parameters.categorySlug
   );
 
   if (!category) {
@@ -60,7 +62,7 @@ export default async function CategoryPage(props: {
 
   // Filter posts by the category name
   const filteredPosts = posts.filter((post) =>
-    post.frontmatter.categories?.includes(category.name),
+    post.frontmatter.categories?.includes(category.name)
   );
 
   return (
@@ -72,3 +74,5 @@ export default async function CategoryPage(props: {
     </div>
   );
 }
+
+export { generateStaticParams, generateMetadata, CategoryPage as default };

@@ -9,13 +9,13 @@ export default function Custom404() {
   useEffect(() => {
     // Set up a countdown timer
     const timer = setInterval(() => {
-      setCountdown((prev) => prev - 1);
+      setCountdown((previous) => previous - 1);
     }, 1000);
 
     // Redirect after 10 seconds
     const redirectTimer = setTimeout(() => {
-      window.location.href = '/';
-    }, 10000);
+      globalThis.location.href = '/';
+    }, 10_000);
 
     // Clean up both timers on component unmount
     return () => {

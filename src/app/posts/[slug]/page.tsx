@@ -1,29 +1,30 @@
-import Loading from '@/app/loading';
-import PostLayout from '@/components/layout/PostLayout';
-import { getConfig } from '@/services/config/getConfig';
-import { getAllPosts, getPostData } from '@/services/content/posts';
-import { PostData } from '@/types';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 
+import Loading from '@/app/loading';
+import { getConfig } from '@/services/config/get-config';
+import { getAllPosts, getPostData } from '@/services/content/posts';
+
+import PostLayout from '@/components/layout/PostLayout';
+
 // build static params for all posts
-export async function generateStaticParams() {
+async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
-type Props = {
+type Properties = {
   params: Promise<{ slug: string }>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+async function generateMetadata({ params }: Properties): Promise<Metadata> {
   // read post slug
-  const post = (await params).slug;
+  const { slug } = await params;
 
   // get post data
-  const postData = await getPostData(post);
+  const postData = await getPostData(slug);
 
   // thumbnail image
   const thumbnail = postData.frontmatter.thumbnail;
@@ -51,18 +52,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: postData.frontmatter.title,
       description: postData.postAbstract,
       images: thumbnail,
-      url: `/posts/${post}`,
+      url: `/posts/${slug}`,
       locale: config.lang,
     },
   };
 }
 
 // PostPage component that receives the params directly
-export default async function PostPage(props: {
-  params: Promise<{ slug: string }>;
-}) {
-  const params = await props.params;
-  const post: PostData = await getPostData(params.slug);
+async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  const parameters = await props.params;
+  const post: PostData = await getPostData(parameters.slug);
 
   return (
     <Suspense fallback={<Loading />}>
@@ -70,3 +69,5 @@ export default async function PostPage(props: {
     </Suspense>
   );
 }
+
+export { generateStaticParams, generateMetadata, PostPage as default };

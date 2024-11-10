@@ -1,12 +1,13 @@
-import Footer from '@/components/common/Footer';
-import Header from '@/components/common/Header';
-import ThemeProvider from '@/components/layout/ThemeProvider';
-import { getConfig } from '@/services/config/getConfig';
 import type { Metadata } from 'next';
 import React from 'react';
-// eslint-disable-next-line camelcase
 import { Noto_Sans_SC, Roboto } from 'next/font/google';
 import Script from 'next/script';
+
+import { getConfig } from '@/services/config/get-config';
+
+import ThemeProvider from '@/components/layout/ThemeProvider';
+import Header from '@/components/common/Header';
+import Footer from '@/components/common/Footer';
 import './globals.css';
 
 const config = getConfig();
@@ -51,7 +52,10 @@ export default function RootLayout({
 
   return (
     <html lang={config.lang}>
-      <Script src='/custom.js' strategy='lazyOnload' />
+      <Script
+        src='/custom.js'
+        strategy='lazyOnload'
+      />
       <body className={`${roboto.variable} ${notoSansSC.variable} antialiased`}>
         <ThemeProvider />
         <Header
