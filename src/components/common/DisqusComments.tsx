@@ -1,29 +1,53 @@
 'use client';
-// src/components/DisqusComments.tsx
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function DisqusComments({
   disqusShortname,
 }: {
   disqusShortname: string;
 }) {
+  const [loadDisqus, setLoadDisqus] = useState(false);
+  const disqusReference = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    const disqusScript = document.createElement('script');
-    disqusScript.src = `https://${disqusShortname}.disqus.com/embed.js`;
-    disqusScript.dataset.timestamp = `${Date.now()}`;
-    (document.head || document.body).append(disqusScript);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setLoadDisqus(true); // Observer is triggered
+          observer.disconnect(); // Disconnect observer
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (disqusReference.current) {
+      observer.observe(disqusReference.current);
+    }
 
     return () => {
-      // Clean up the script if the component is unmounted
-      if (disqusScript.parentNode) {
-        disqusScript.remove();
-      }
+      observer.disconnect();
     };
-  }, [disqusShortname]);
+  }, []);
+
+  useEffect(() => {
+    if (loadDisqus) {
+      const disqusScript = document.createElement('script');
+      disqusScript.src = `https://${disqusShortname}.disqus.com/embed.js`;
+      disqusScript.dataset.timestamp = `${Date.now()}`;
+      (document.head || document.body).append(disqusScript);
+
+      return () => {
+        if (disqusScript.parentNode) {
+          disqusScript.remove();
+        }
+      };
+    }
+  }, [loadDisqus, disqusShortname]);
 
   return (
     <div
       id='disqus_thread'
+      ref={disqusReference}
       className='mx-auto mt-10 w-full max-w-3xl'
     ></div>
   );
