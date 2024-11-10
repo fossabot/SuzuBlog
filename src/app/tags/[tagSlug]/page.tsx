@@ -3,8 +3,11 @@ import type { Metadata } from 'next/types';
 import { Suspense } from 'react';
 
 import { getConfig } from '@/services/config';
-import { getAllPosts } from '@/services/content';
-import { convertToPinyin, getUniqueTags } from '@/services/parsing/tagLinks';
+import {
+  getAllPosts,
+  convertToPinyin,
+  getUniqueTags,
+} from '@/services/content';
 import Loading from '@/app/loading';
 
 import PostListLayout from '@/components/layout/PostListLayout';

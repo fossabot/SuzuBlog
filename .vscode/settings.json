@@ -10,7 +10,11 @@
     "**/.yarn": true,
     "**/.pnp.*": true,
     "**/node_modules": true,
-    "pnpm-lock.yaml": true
+    "pnpm-lock.yaml": true,
+    "yarn.lock": true,
+    "package-lock.json": true,
+    ".github": true,
+    "/*.md": true
   },
   "editor.wordWrap": "on",
   "prettier.requireConfig": true
