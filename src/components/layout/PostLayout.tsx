@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FaFolder, FaTags } from 'react-icons/fa6';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 
 import DisqusComments from '@/components/common/DisqusComments';
 import ItemLinks from '@/components/layout/ItemLinks';

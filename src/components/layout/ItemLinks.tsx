@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 import { convertToPinyin, getUniqueTags } from '@/services/parsing/tag-links';
 
 interface ItemLinksProperties {

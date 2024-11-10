@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 import Loading from '@/app/loading';
 import { getAllPosts } from '@/services/content/posts';
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next/types';
 import { Suspense } from 'react';
 
 import Loading from '@/app/loading';
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 import { getAllPosts } from '@/services/content/posts';
 
 import PostListLayout from '@/components/layout/PostListLayout';

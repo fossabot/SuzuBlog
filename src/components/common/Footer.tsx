@@ -12,7 +12,7 @@ import {
   FaYoutube,
 } from 'react-icons/fa6';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 import '@/styles/footer.css';
 
 export default function Footer() {

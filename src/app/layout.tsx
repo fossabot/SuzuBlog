@@ -3,7 +3,7 @@ import React from 'react';
 import { Noto_Sans_SC, Roboto } from 'next/font/google';
 import Script from 'next/script';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 
 import ThemeProvider from '@/components/layout/ThemeProvider';
 import Header from '@/components/common/Header';

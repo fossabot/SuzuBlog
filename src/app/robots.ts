@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import type { MetadataRoute } from 'next';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 
 export default function robots(): MetadataRoute.Robots {
   const config = getConfig();

@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { parseMarkdown } from '../parsing/markdown';
 
-import { getConfig } from '@/services/config/get-config';
+import { getConfig } from '@/services/config';
 
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
