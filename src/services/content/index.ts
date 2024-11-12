@@ -1,7 +1,9 @@
+'use server';
+
 import { promises as fsPromise } from 'node:fs';
 import path from 'node:path';
 
-import pinyin from 'pinyin';
+import { filter } from 'es-toolkit/compat';
 
 import { getPostFromFile } from '@/services/content/getPostFromFile';
 
@@ -9,7 +11,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 
 async function getAllPosts(): Promise<PostData[]> {
   const fileNames = await fsPromise.readdir(postsDirectory);
-  const markdownFiles = fileNames.filter((fileName) =>
+  const markdownFiles = filter(fileNames, (fileName) =>
     fileName.endsWith('.md')
   );
 
@@ -36,21 +38,4 @@ async function getPostData(slug: string, page?: string): Promise<PostData> {
   return getPostFromFile(filePath, slug);
 }
 
-// Helper function to convert Chinese tags to pinyin with underscores
-function convertToPinyin(tag: string): string {
-  if (/[\u4E00-\u9FA5]/.test(tag)) {
-    return pinyin(tag, { style: pinyin.STYLE_NORMAL }).flat().join('_');
-  }
-  return tag; // If not Chinese, return the original tag
-}
-
-// Helper function to get unique tags from local tags
-async function getUniqueTags() {
-  const posts = await getAllPosts();
-  // Get all tags from all posts and remove duplicates
-  const allTags = posts.flatMap((post) => post.frontmatter.tags || []);
-
-  return [...new Set(allTags)];
-}
-
-export { convertToPinyin, getAllPosts, getPostData, getUniqueTags };
+export { getAllPosts, getPostData };

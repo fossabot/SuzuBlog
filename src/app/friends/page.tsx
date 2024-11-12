@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
-import { Suspense } from 'react';
 
-import Loading from '@/app/loading';
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
 
 import PostLayout from '@/components/layout/PostLayout';
 import '@/styles/friendsLinks.css';
 
-export async function generateMetadata(): Promise<Metadata> {
+function generateMetadata(): Metadata {
   const config = getConfig();
   return {
     title: `Friends - ${config.title}`,
@@ -25,16 +23,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function FriendsPage() {
+async function FriendsPage() {
   const post: PostData = await getPostData('Friends', 'Friends');
   const config = getConfig();
 
   return (
-    <Suspense fallback={<Loading />}>
-      <PostLayout
-        post={post}
-        showThumbnail={config.thumbnailFriends}
-      />
-    </Suspense>
+    <PostLayout
+      post={post}
+      showThumbnail={config.thumbnailFriends}
+    />
   );
 }
+
+export { generateMetadata, FriendsPage as default };
