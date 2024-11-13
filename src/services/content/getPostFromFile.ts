@@ -1,114 +1,92 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { statSync } from 'node:fs';
 
-import { defaultTo } from 'es-toolkit/compat';
-import matter from 'gray-matter';
-import hljs from 'highlight.js';
-import { marked } from 'marked';
+import { defaultTo, forEach, replace, trim } from 'es-toolkit/compat';
+import { read as matterRead } from 'gray-matter';
 
 import { getConfig } from '@/services/config';
-import { fileExists, formatDateTime } from '@/services/utils/fileUtils';
 
 const config = getConfig();
 
-async function getPostFromFile(
-  filePath: string,
-  slug: string
-): Promise<PostData> {
-  const fileContents = await fs.promises.readFile(filePath, 'utf8');
-  const { frontmatter, postAbstract, contentHtml } = await parseMarkdown(
-    fileContents,
-    filePath,
-    slug
-  );
+function getPostFromFile(filePath: string, slug: string): PostData {
+  const {
+    data,
+    content: contentRaw,
+    excerpt,
+  } = matterRead(filePath, { excerpt_separator: '<!--more-->' });
 
-  // Get last modified date
-  const fileStats = await fs.promises.stat(filePath);
-  const lastModified = fileStats.mtime.toISOString();
+  const { date, lastModified } = resolveDate(data.date, filePath);
 
-  return {
-    slug,
-    postAbstract,
-    frontmatter,
-    contentHtml,
-    lastModified,
-  };
-}
-
-async function parseMarkdown(
-  fileContents: string,
-  filePath: string,
-  slug: string
-): Promise<{
-  frontmatter: Frontmatter;
-  postAbstract: string;
-  contentHtml: string;
-}> {
-  const { data, content: markdownContent } = matter(fileContents);
-  const frontmatterData: Frontmatter = {
+  const frontmatter: Frontmatter = {
     title: (data.title as string)?.slice(0, 100) || slug,
     author: (data.author as string)?.slice(0, 30) || config.author.name,
-    thumbnail: await resolveThumbnail(data.thumbnail),
-    date: await resolveDate(data.date, filePath),
+    thumbnail: data.thumbnail || config.background,
+    date: date,
     tags: defaultTo(data.tags),
     categories: defaultTo(data.categories),
     redirect: defaultTo(data.redirect),
     showComments: defaultTo(data.showComments, true),
   };
 
-  // Clean up HTML comments and render friend links
-  let contentSanitized = removeHtmlComments(markdownContent);
-  if (contentSanitized.includes('{% links %}')) {
-    contentSanitized = contentSanitized.replaceAll(
+  let markdownParsed = contentRaw;
+  if (contentRaw.includes('{% links %}')) {
+    markdownParsed = replace(
+      contentRaw,
       /{% links %}([\S\s]*?){% endlinks %}/g,
-      (_, jsonString) => renderFriendLinks(jsonString.trim())
+      (_, jsonString) => renderFriendLinks(trim(jsonString))
     );
   }
 
-  // Custom renderer for marked
-  const renderer = new marked.Renderer();
-  renderer.code = ({ text, lang }) => highlightCodeBlock(text, lang);
-  renderer.link = ({ href, title, text }) =>
-    createLink(href, text, title ?? '');
-  renderer.image = ({ href, title, text }) =>
-    createImage(href, text, title ?? '');
-
-  marked.use({ async: true, pedantic: false, gfm: true, renderer });
-  const processedContent = await marked(contentSanitized);
-  const postAbstract = processPostAbstract(processedContent);
-
   return {
-    frontmatter: frontmatterData,
-    postAbstract,
-    contentHtml: processedContent,
+    slug,
+    postAbstract: processPostAbstract(contentRaw, defaultTo(excerpt, '')),
+    frontmatter,
+    contentRaw,
+    lastModified,
   };
 }
 
-function removeHtmlComments(input) {
-  let previous;
-  do {
-    previous = input;
-    input = input.replaceAll(/<!--[^>]*-->/g, (match) =>
-      match === '<!--more-->' ? match : ''
-    );
-  } while (input !== previous);
-  return input;
+// Helper function to resolve and format dates
+function resolveDate(
+  originalDate?: string,
+  fullPath?: string
+): { date: string; lastModified: string } {
+  const stats = statSync(fullPath!);
+  const date = originalDate
+    ? formatDateTime(originalDate)
+    : formatDateTime(stats.mtime.toISOString());
+  return { date, lastModified: stats.mtime.toISOString() };
 }
 
-// Helper function to resolve thumbnail
-async function resolveThumbnail(thumbnail?: string): Promise<string> {
-  if (thumbnail && !thumbnail.includes('://')) {
-    const thumbnailPath = path.join(process.cwd(), 'public', thumbnail);
-    return (await fileExists(thumbnailPath)) ? thumbnail : config.background;
-  }
-  return thumbnail || config.background;
+// Formats date and time to 'YYYY-MM-DD HH:mm:ss'
+function formatDateTime(dateTime: string): string {
+  const [date, time = '00:00:00'] = dateTime.split(/[ T]/);
+  return `${/^\d{4}-\d{2}-\d{2}$/.test(date) ? date : ''} ${/^\d{2}:\d{2}:\d{2}$/.test(time) ? time : '00:00:00'}`;
 }
 
-// Helper function to resolve date
-async function resolveDate(date?: string, fullPath?: string): Promise<string> {
-  if (date) return formatDateTime(date);
-  const stats = await fs.promises.stat(fullPath!);
-  return stats.mtime.toISOString().replace('T', ' ').split('.')[0];
+// Helper function to create post abstract
+function processPostAbstract(contentRaw: string, excerpt: string): string {
+  let contentStripped = excerpt.length > 0 ? excerpt : contentRaw;
+  contentStripped = trim(contentStripped).slice(0, 150);
+
+  const patterns: [RegExp, string][] = [
+    [/#* (.*)/g, '$1'], // Headings
+    [/!\[.*?]\(.*?\)/g, ''], // Images
+    [/\[(.*?)]\(.*?\)/g, '$1'], // Links
+    [/`([^`]+)`/g, '$1'], // Inline code
+    [/(\*\*|__)(.*?)\1/g, '$2'], // Bold formatting
+    [/(\*|_)(.*?)\1/g, '$2'], // Italic formatting
+    [/(\r?\n)+/g, ' '], // Line breaks
+    [/^-{3,}$/gm, ''], // Horizontal rules
+    [/>\s?/g, ''], // Blockquotes
+    [/([*+-])\s/g, ''], // Unordered list markers
+    [/^\d+\.\s+/g, ''], // Ordered list markers
+  ];
+
+  forEach(patterns, ([pattern, replacement]) => {
+    contentStripped = replace(contentStripped, pattern, replacement);
+  });
+
+  return contentStripped;
 }
 
 // Helper function to render friend links
@@ -136,43 +114,6 @@ function renderFriendLinks(jsonString: string): string {
   } catch {
     return '<div>Invalid JSON in links block</div>';
   }
-}
-
-// Helper function for syntax highlighting
-function highlightCodeBlock(text: string, lang?: string): string {
-  if (text.includes('friend-link')) return text;
-  const language = lang && hljs.getLanguage(lang) ? lang : 'plaintext';
-  const highlighted = hljs.highlight(text, { language }).value;
-  return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>`;
-}
-
-// Helper function to create links with accessibility and external indication
-function createLink(href: string, text: string, title: string): string {
-  const target = href.includes('://') ? '_blank' : '_self';
-  const ariaLabel = target === '_blank' ? ' (new tab)' : '';
-  return `<a href="${href}" class="post-content-link" target="${target}" aria-label="${title || text} ${ariaLabel}" rel="noopener noreferrer">${text}</a>`;
-}
-
-// Helper function to create lazy-loaded images
-function createImage(href: string, text: string, title: string): string {
-  return `<img src="${href}" class="post-content-img" alt="${title || text}" loading="lazy" />`;
-}
-
-// Helper function to create post abstract
-function processPostAbstract(contentHtml: string): string {
-  // Use negative lookahead to match all comments except <!--more-->
-  const sanitizedContent = contentHtml.replaceAll(/<!--(?!more\b)[^>]*-->/g, '');
-
-  // Clean all but keep <!--more--> to split content
-  const plainText = sanitizedContent
-    .replaceAll('<!--more-->', '[[MORE_PLACEHOLDER]]')
-    .replaceAll(/<[^>]*>/g, '');
-
-  // Find the index of <!--more--> and slice the content
-  const moreIndex = plainText.indexOf('[[MORE_PLACEHOLDER]]') || 0;
-
-  // Remove extra spaces and return the abstract
-  return plainText.slice(0, moreIndex).replaceAll(/\s+/g, ' ').trim();
 }
 
 export default getPostFromFile;

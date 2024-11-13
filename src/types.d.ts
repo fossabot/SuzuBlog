@@ -15,9 +15,11 @@ interface PostData {
   slug: string;
   postAbstract: string;
   frontmatter: Frontmatter;
-  contentHtml: string;
+  contentRaw: string;
   lastModified: string;
 }
+
+type SocialMediaKey = keyof typeof socialData;
 
 type SocialMedia = Record<string, string>;
 
