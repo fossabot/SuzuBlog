@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { FaAngleUp, FaBars } from 'react-icons/fa6';
 import Link from 'next/link';
 
+import Loading from '@/app/loading';
 import { useIsMobile, useOutsideClick, useScrollProgress } from '@/hooks';
 
 import renderMenuItems from '@/components/helpers/renderMenuItems';
@@ -15,7 +16,7 @@ interface HeaderProperties {
 
 function Header({ siteTitle }: HeaderProperties) {
   const [isOpen, setIsOpen] = useState(false);
-  const isMobile = useIsMobile(768);
+  const { isReady, isMobile } = useIsMobile(768);
   const scrollProgress = useScrollProgress();
   const menuReference = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -26,6 +27,8 @@ function Header({ siteTitle }: HeaderProperties) {
   useOutsideClick(menuReference, () => {
     if (isOpen) setIsOpen(false);
   });
+
+  if (!isReady) return <Loading />;
 
   return (
     <header className='relative z-50 shadow-md'>

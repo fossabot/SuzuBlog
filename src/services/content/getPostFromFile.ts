@@ -4,10 +4,15 @@ import { defaultTo, forEach, replace, trim } from 'es-toolkit/compat';
 import { read as matterRead } from 'gray-matter';
 
 import { getConfig } from '@/services/config';
+import generateHierarchicalSlug from '@/services/utils/generateHierarchicalSlug';
 
 const config = getConfig();
 
-function getPostFromFile(filePath: string, slug: string): PostData {
+function getPostFromFile(
+  filePath: string,
+  slug: string,
+  fullData: boolean = true
+): FullPostData {
   const {
     data,
     content: contentRaw,
@@ -27,21 +32,26 @@ function getPostFromFile(filePath: string, slug: string): PostData {
     showComments: defaultTo(data.showComments, true),
   };
 
-  let markdownParsed = contentRaw;
-  if (contentRaw.includes('{% links %}')) {
-    markdownParsed = replace(
-      contentRaw,
-      /{% links %}([\S\s]*?){% endlinks %}/g,
-      (_, jsonString) => renderFriendLinks(trim(jsonString))
-    );
+  let toc: TocItems[] = [];
+  if (fullData && !frontmatter.redirect) {
+    let markdownParsed = contentRaw;
+    if (contentRaw.includes('{% links %}')) {
+      markdownParsed = replace(
+        contentRaw,
+        /{% links %}([\S\s]*?){% endlinks %}/g,
+        (_, jsonString) => renderFriendLinks(trim(jsonString))
+      );
+    }
+    toc = generateTOC(markdownParsed);
   }
 
   return {
     slug,
     postAbstract: processPostAbstract(contentRaw, defaultTo(excerpt, '')),
     frontmatter,
-    contentRaw,
+    contentRaw: fullData ? contentRaw : '',
     lastModified,
+    toc,
   };
 }
 
@@ -61,6 +71,25 @@ function resolveDate(
 function formatDateTime(dateTime: string): string {
   const [date, time = '00:00:00'] = dateTime.split(/[ T]/);
   return `${/^\d{4}-\d{2}-\d{2}$/.test(date) ? date : ''} ${/^\d{2}:\d{2}:\d{2}$/.test(time) ? time : '00:00:00'}`;
+}
+
+// Helper function to generate TOC from markdown content
+function generateTOC(content: string): TocItems[] {
+  const headingRegex = /^(#{2,6})\s+(.*)$/gm;
+  const toc: TocItems[] = [];
+  const headingLevels = { h2: 0, h3: 0, h4: 0, h5: 0, h6: 0 };
+
+  let match;
+  while ((match = headingRegex.exec(content)) !== null) {
+    const [, hashes, title] = match;
+    const level = `h${hashes.length}` as keyof typeof headingLevels;
+
+    const slug = generateHierarchicalSlug(title, level, headingLevels);
+
+    toc.push({ slug, title, level: Number.parseInt(level.slice(1), 10) });
+  }
+
+  return toc;
 }
 
 // Helper function to create post abstract
