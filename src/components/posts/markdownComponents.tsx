@@ -117,22 +117,22 @@ const createMarkdownComponents = (): Components => {
     ),
 
     blockquote: ({ children }) => (
-      <div className='flex justify-center'>
-        <blockquote className='my-1 w-[95%] rounded-md border-l-4 border-[var(--sakuraPink)] bg-[var(--lightGray)] py-0.5 pl-3 pr-2 italic'>
+      <div className='my-2 flex justify-center'>
+        <blockquote className='w-[95%] rounded-md border-l-4 border-[var(--sakuraPink)] bg-[var(--lightGray)] py-0.5 pl-3 pr-2 italic'>
           {children as ReactNode}
         </blockquote>
       </div>
     ),
 
     ul: ({ children }) => (
-      <div className='my-4 ml-6 rounded-lg border-2 border-dashed border-[var(--sakuraPink)] p-4'>
+      <div className='my-4 ml-2 rounded-lg border-2 border-dashed border-[var(--sakuraPink)] p-4'>
         <ul className='list-inside list-disc space-y-2'>
           {children as ReactNode}
         </ul>
       </div>
     ),
     ol: ({ children }) => (
-      <div className='my-4 ml-6 rounded-lg border-2 border-dashed border-[var(--skyblue)] p-4 hover:border-solid'>
+      <div className='my-4 ml-2 rounded-lg border-2 border-dashed border-[var(--skyblue)] p-4'>
         <ol className='list-inside list-decimal space-y-2'>
           {children as ReactNode}
         </ol>
@@ -170,7 +170,7 @@ const createMarkdownComponents = (): Components => {
               ? undefined
               : `Open ${children?.toString() ?? 'link'} in a new tab`
           }
-          className='mx-1 font-semibold text-[var(--skyBlue)] decoration-dashed underline-offset-2 transition-colors duration-200 ease-in-out hover:text-[var(--sakuraPink)] hover:underline hover:decoration-dotted'
+          className='mx-1 break-words font-semibold text-[var(--skyBlue)] decoration-dashed underline-offset-2 transition-colors duration-200 ease-in-out hover:text-[var(--sakuraPink)] hover:underline hover:decoration-dotted'
           {...(props as Record<string, unknown>)}
         >
           {children as ReactNode}
