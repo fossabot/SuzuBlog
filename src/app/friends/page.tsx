@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
@@ -24,7 +25,10 @@ function generateMetadata(): Metadata {
 }
 
 async function FriendsPage() {
-  const post: FullPostData = await getPostData('Friends', 'Friends');
+  const post: FullPostData | null = await getPostData('Friends', 'Friends');
+  if (!post) {
+    return notFound();
+  }
   const config = getConfig();
 
   return (

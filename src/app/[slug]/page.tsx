@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound, redirect } from 'next/navigation';
 
 import { getConfig } from '@/services/config';
 import { getAllPosts, getPostData } from '@/services/content';
@@ -20,29 +21,29 @@ type Properties = {
 async function generateMetadata({ params }: Properties): Promise<Metadata> {
   // get post data
   const { slug } = await params;
-  const postData: FullPostData = await getPostData(slug);
+  const postData: FullPostData | null = await getPostData(slug);
 
   const config = getConfig();
   const metaKeywords = [
-    ...(postData.frontmatter.tags || []),
-    ...(postData.frontmatter.categories || []),
-    postData.frontmatter.author,
+    ...(postData?.frontmatter.tags || []),
+    ...(postData?.frontmatter.categories || []),
+    postData?.frontmatter.author || config.author.name,
     'blog',
   ].join(', ');
 
   return {
-    title: `${postData.frontmatter.title} - ${config.title}`,
-    description: postData.postAbstract,
+    title: `${postData?.frontmatter.title} - ${config.title}`,
+    description: postData?.postAbstract || config.description,
     keywords: metaKeywords,
     openGraph: {
       siteName: config.title,
       type: 'article',
-      authors: postData.frontmatter.author,
+      authors: postData?.frontmatter.author || config.author.name,
       tags: metaKeywords,
-      modifiedTime: postData.frontmatter.date,
-      title: postData.frontmatter.title,
-      description: postData.postAbstract,
-      images: postData.frontmatter.thumbnail,
+      modifiedTime: postData?.frontmatter.date,
+      title: postData?.frontmatter.title || config.title,
+      description: postData?.postAbstract || config.description,
+      images: postData?.frontmatter.thumbnail,
       url: `/posts/${slug}`,
       locale: config.lang,
     },
@@ -53,7 +54,15 @@ async function generateMetadata({ params }: Properties): Promise<Metadata> {
 async function PostPage(props: { params: Promise<{ slug: string }> }) {
   const config: Config = getConfig();
   const parameters = await props.params;
-  const post: FullPostData = await getPostData(parameters.slug);
+  const post: FullPostData | null = await getPostData(parameters.slug);
+  if (!post) {
+    return notFound();
+  }
+
+  const redirectUrl = post.frontmatter.redirect || '';
+  if (redirectUrl) {
+    redirect(redirectUrl);
+  }
 
   return (
     <PostLayout
