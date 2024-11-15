@@ -27,7 +27,7 @@ const CopyCodeBlock = ({ match, children }: CopyCodeBlockProperties) => {
         onClick={handleCopy}
         className='absolute right-2 top-2 rounded bg-[var(--skyblue)] px-2 py-1 text-xs text-white hover:bg-opacity-80'
       >
-        {isCopied ? 'Copied!' : 'Copy'}
+        {isCopied ? '已复制!' : '点击复制'}
       </button>
 
       {/* Code block */}

@@ -56,7 +56,7 @@ const SearchInput = ({
         `${pathname}?${params.toString()}`
       );
     },
-    200
+    30
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +95,7 @@ const SearchInput = ({
       <div className='relative w-full'>
         <input
           type='text'
-          placeholder='🔍 Search posts...'
+          placeholder='🔍 搜索文章...'
           value={searchQuery}
           onChange={handleSearchChange}
           onFocus={() => setExpanded(true)}
@@ -130,7 +130,7 @@ const SearchInput = ({
                 className='text-gray-400'
                 disabled={!selectedCategory}
               >
-                All Categories
+                所有分类
               </option>
               {categories.map((category) => (
                 <option
@@ -163,7 +163,7 @@ const SearchInput = ({
                 className='text-gray-400'
                 disabled={!selectedTag}
               >
-                All Tags
+                所有标签
               </option>
               {tags.map((tag) => (
                 <option
@@ -189,10 +189,10 @@ const SearchInput = ({
           disabled={pending}
           className='mt-2 rounded-full px-4 py-2 transition'
         >
-          Clear Filters
+          清空筛选条件
         </button>
 
-        {pending && <p className='animate-pulse text-sm'>Loading results...</p>}
+        {pending && <p className='animate-pulse text-sm'>检索中...</p>}
       </div>
     </form>
   );

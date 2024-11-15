@@ -16,7 +16,7 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
   const readCount = '~';
 
   return (
-    <div className='grid grid-cols-1 gap-10'>
+    <div className='mb-10 grid grid-cols-1 gap-10'>
       {posts.map((post, index) => {
         const postTitle = post.frontmatter.title;
         const postLink = post.slug;

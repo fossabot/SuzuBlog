@@ -14,10 +14,10 @@ interface MenuItem {
 
 const renderMenuItems = (isMobile: boolean, onClickHandler?: () => void) => {
   const menuItems: MenuItem[] = [
-    { href: '/', label: 'Home', icon: <FaHouse /> },
-    { href: '/posts', label: 'Posts', icon: <FaRegNewspaper /> },
-    { href: '/friends', label: 'Friends', icon: <FaPeopleGroup /> },
-    { href: '/about', label: 'About', icon: <FaInfo /> },
+    { href: '/', label: '主页', icon: <FaHouse /> },
+    { href: '/posts', label: '文章', icon: <FaRegNewspaper /> },
+    { href: '/friends', label: '朋友', icon: <FaPeopleGroup /> },
+    { href: '/about', label: '关于', icon: <FaInfo /> },
   ];
 
   return menuItems.map((item) => (
