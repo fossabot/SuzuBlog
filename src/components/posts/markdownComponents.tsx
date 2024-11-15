@@ -184,7 +184,7 @@ const createMarkdownComponents = (): Components => {
         alt={alt}
         width={500}
         height={780}
-        layout='responsive'
+        priority={false}
         className='relative mx-auto my-6 w-full max-w-full rounded-md'
         {...(props as Record<string, unknown>)}
       />

@@ -9,6 +9,8 @@
   --sakuraPink: #f6a8b8;
   --lightGray: #f9fafb;
   --gray: #1f2937;
+  --font-noto-sans-sc: 'Noto Sans SC', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,11 +24,16 @@
   }
 }
 
-body {
+html {
   color: var(--foreground);
   background: var(--background);
-  font-family: var(--font-noto-sans-sc), 'PingFang SC', 'Microsoft YaHei', Arial,
-    Helvetica, sans-serif;
+  font-family:
+    var(--font-noto-sans-sc),
+    var(--font-jetbrains-mono) 'PingFang SC',
+    'Microsoft YaHei',
+    Arial,
+    Helvetica,
+    sans-serif;
 }
 
 /* Utility classes for text balancing */

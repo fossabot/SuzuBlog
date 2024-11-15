@@ -27,8 +27,6 @@ function CopyrightInfo({
           alt='Creative Commons Logo'
           width={200}
           height={200}
-          layout='intrinsic'
-          objectFit='contain'
           priority={false}
         />
       </div>

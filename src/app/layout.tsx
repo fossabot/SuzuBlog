@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import { Noto_Sans_SC } from 'next/font/google';
-import type { NextFontWithVariable } from 'next/dist/compiled/@next/font';
+import { Noto_Sans_SC, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 
 import { getConfig } from '@/services/config';
@@ -14,11 +13,14 @@ import './globals.css';
 
 const config: Config = getConfig();
 
-const notoSansSC: NextFontWithVariable = Noto_Sans_SC({
-  subsets: ['latin'],
-  weight: ['100', '400', '700', '900'],
+const notoSansSC = Noto_Sans_SC({
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
   variable: '--font-noto-sans-sc',
-  style: ['normal'],
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
+  variable: '--font-jetbrains-mono',
 });
 
 const metadata: Metadata = {
@@ -52,7 +54,7 @@ function RootLayout({
         strategy='lazyOnload'
       />
       <body
-        className={`${notoSansSC.variable} flex max-h-full min-h-screen flex-col antialiased`}
+        className={`${notoSansSC.variable} ${jetBrainsMono.variable} flex max-h-full min-h-screen flex-col antialiased`}
       >
         <Header siteTitle={config.title} />
         <main className='flex-grow'>{children}</main>

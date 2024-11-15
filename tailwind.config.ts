@@ -24,6 +24,10 @@ const config: Config = {
 
         darkCardBackground: '#252525',
       },
+      fontFamily: {
+        sans: ['var(--font-noto-sans-sc)'],
+        mono: ['var(--font-jetbrains-mono)'],
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
