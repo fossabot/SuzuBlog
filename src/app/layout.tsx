@@ -69,7 +69,7 @@ function RootLayout({
       {googleAnalytics && (
         <>
           <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}}`}
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}`}
             strategy='afterInteractive'
           />
           <Script
