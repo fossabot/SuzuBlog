@@ -1,0 +1,75 @@
+import type { Metadata } from 'next';
+import { notFound, redirect } from 'next/navigation';
+
+import { getConfig } from '@/services/config';
+import { getAllPosts, getPostData } from '@/services/content';
+
+import PostLayout from '@/components/posts/PostLayout';
+
+// build static params for all posts
+async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+type Properties = {
+  params: Promise<{ slug: string }>;
+};
+
+async function generateMetadata({ params }: Properties): Promise<Metadata> {
+  // get post data
+  const { slug } = await params;
+  const postData: FullPostData | null = await getPostData(slug);
+
+  const config = getConfig();
+  const metaKeywords = [
+    ...(postData?.frontmatter.tags || []),
+    ...(postData?.frontmatter.categories || []),
+    postData?.frontmatter.author || config.author.name,
+    'blog',
+  ].join(', ');
+
+  return {
+    title: `${postData?.frontmatter.title} - ${config.title}`,
+    description: postData?.postAbstract || config.description,
+    keywords: metaKeywords,
+    openGraph: {
+      siteName: config.title,
+      type: 'article',
+      authors: postData?.frontmatter.author || config.author.name,
+      tags: metaKeywords,
+      modifiedTime: postData?.frontmatter.date,
+      title: postData?.frontmatter.title || config.title,
+      description: postData?.postAbstract || config.description,
+      images: postData?.frontmatter.thumbnail,
+      url: `/posts/${slug}`,
+      locale: config.lang,
+    },
+  };
+}
+
+// PostPage component that receives the params directly
+async function PostPage(props: { params: Promise<{ slug: string }> }) {
+  const config: Config = getConfig();
+  const parameters = await props.params;
+  const post: FullPostData | null = await getPostData(parameters.slug);
+  if (!post) {
+    return notFound();
+  }
+
+  const redirectUrl = post.frontmatter.redirect || '';
+  if (redirectUrl) {
+    redirect(redirectUrl);
+  }
+
+  return (
+    <PostLayout
+      config={config}
+      post={post}
+    />
+  );
+}
+
+export { generateStaticParams, generateMetadata, PostPage as default };
