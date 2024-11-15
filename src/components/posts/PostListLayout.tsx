@@ -19,7 +19,7 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
     <div className='grid grid-cols-1 gap-10'>
       {posts.map((post, index) => {
         const postTitle = post.frontmatter.title;
-        const postLink = `/posts/${post.slug}`;
+        const postLink = post.slug;
         return (
           <article
             key={index}

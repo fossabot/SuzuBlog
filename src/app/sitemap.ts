@@ -6,40 +6,41 @@ import { getAllPosts } from '@/services/content';
 async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const config = getConfig();
   const siteUrl = config.siteUrl;
+  const updateDate = new Date();
 
   // Load posts data from JSON file
   const posts = await getAllPosts();
 
   // Generate sitemap entries for each post
   const postUrls = posts.map((post) => ({
-    url: `${siteUrl}/posts/${post.slug}`,
-    lastModified: post.lastModified || new Date(),
+    url: `${siteUrl}/${post.slug}`,
+    lastModified: post.lastModified || updateDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.6,
+    priority: 0.5,
   }));
 
   return [
     {
       url: siteUrl,
-      lastModified: new Date(),
+      lastModified: updateDate,
       changeFrequency: 'yearly',
       priority: 1,
     },
     {
       url: `${siteUrl}/posts`,
-      lastModified: new Date(),
+      lastModified: updateDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
       url: `${siteUrl}/about`,
-      lastModified: new Date(),
+      lastModified: updateDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${siteUrl}/friends`,
-      lastModified: new Date(),
+      lastModified: updateDate,
       changeFrequency: 'monthly',
       priority: 0.8,
     },

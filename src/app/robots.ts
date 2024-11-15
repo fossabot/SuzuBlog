@@ -9,7 +9,7 @@ async function robots(): Promise<MetadataRoute.Robots> {
 
   // Generate robots.txt entries for each post
   const posts = await getAllPosts();
-  const postUrls = posts.map((post) => `/posts/${post.slug}`);
+  const postUrls = posts.map((post) => `/${post.slug}`);
 
   return {
     rules: {

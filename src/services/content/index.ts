@@ -4,6 +4,7 @@ import { promises as fsPromise } from 'node:fs';
 import path from 'node:path';
 
 import { filter, replace } from 'es-toolkit/compat';
+import { notFound } from 'next/navigation';
 
 import getPostFromFile from '@/services/content/getPostFromFile';
 
@@ -37,6 +38,13 @@ async function getPostData(slug: string, page?: string): Promise<FullPostData> {
   const filePath = page
     ? path.join(postsDirectory, '_pages', `${page}.md`)
     : path.join(postsDirectory, `${slug}.md`);
+
+  // check file existence
+  try {
+    await fsPromise.access(filePath);
+  } catch {
+    return notFound();
+  }
 
   return getPostFromFile(filePath, slug);
 }
