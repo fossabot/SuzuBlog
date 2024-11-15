@@ -6,7 +6,6 @@ import Script from 'next/script';
 
 import { getConfig } from '@/services/config';
 
-import ThemeProvider from '@/components/common/ThemeProvider';
 import Header from '@/components/common/Header';
 import Footer from '@/components/common/Footer';
 import BackToTop from '@/components/common/BackToTop';
@@ -44,7 +43,7 @@ function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const config = getConfig();
+  const config: Config = getConfig();
 
   return (
     <html lang={config.lang}>
@@ -52,12 +51,13 @@ function RootLayout({
         src='/custom.js'
         strategy='lazyOnload'
       />
-      <body className={`${notoSansSC.variable} antialiased`}>
-        <ThemeProvider />
+      <body
+        className={`${notoSansSC.variable} flex max-h-full min-h-screen flex-col antialiased`}
+      >
         <Header siteTitle={config.title} />
-        <main>{children}</main>
+        <main className='flex-grow'>{children}</main>
         <BackToTop />
-        <Footer />
+        <Footer config={config} />
       </body>
     </html>
   );

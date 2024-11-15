@@ -1,5 +1,6 @@
-import { join, slice } from 'es-toolkit/compat';
 import Link from 'next/link';
+
+import { slugPrefix } from '@/services/utils';
 
 interface TOCLinkProperties {
   item: TocItems;
@@ -9,7 +10,6 @@ interface TOCLinkProperties {
 
 const TOCLink = ({ item, activeSlug, handleLinkClick }: TOCLinkProperties) => {
   const indentationLevel = (item.level - 2) * 0.9;
-  const slugPrefix = join(slice(item.slug.split('-'), 0, item.level - 1), '.');
   const isActive = activeSlug === item.slug;
 
   return (
@@ -25,12 +25,10 @@ const TOCLink = ({ item, activeSlug, handleLinkClick }: TOCLinkProperties) => {
           handleLinkClick(item.slug);
         }}
         className={`block py-1 text-base no-underline transition-colors duration-200 ${
-          isActive
-            ? 'font-bold text-sakuraPink'
-            : 'text-gray-600 dark:text-gray-400'
+          isActive ? 'font-bold text-[var(--sakuraPink)]' : 'text-[var(--gray)]'
         } break-words`}
       >
-        {`${slugPrefix}. ${item.title}`}
+        {`${slugPrefix(item.slug, item.level)} ${item.title}`}
       </Link>
     </div>
   );

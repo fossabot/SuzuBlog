@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { MdMoreHoriz } from 'react-icons/md';
 import { FaEye, FaFolder, FaRegClock } from 'react-icons/fa6';
 
-import ItemLinks from './ItemLinks';
+import ItemLinks from '../helpers/ItemLinks';
 
 interface PostListLayoutProperties {
   posts: PostListData[];
@@ -13,7 +13,7 @@ interface PostListLayoutProperties {
 
 export default function PostListLayout({ posts }: PostListLayoutProperties) {
   // TODO: Replace with actual read count
-  const readCount: number = 29;
+  const readCount = '~';
 
   return (
     <div className='grid grid-cols-1 gap-10'>
@@ -25,7 +25,7 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
             key={index}
             className={`mx-auto flex h-[500px] w-11/12 max-w-[850px] flex-col overflow-hidden rounded-lg shadow-lg md:h-[300px] md:w-full md:flex-row ${
               index % 2 === 0 ? 'md:flex-row-reverse' : ''
-            } dark:shadow-gray-700 dark:drop-shadow-sm`}
+            } shadow-[var(--lightGray)] drop-shadow-sm`}
           >
             {/* Thumbnail */}
             <div

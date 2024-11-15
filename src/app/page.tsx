@@ -1,45 +1,38 @@
 import Image from 'next/image';
-import { Suspense } from 'react';
 
-import Loading from '@/app/loading';
 import { getConfig } from '@/services/config';
-import { getAllPosts } from '@/services/content';
 
-import PostListLayout from '@/components/posts/PostListLayout';
+import SocialMediaLink from '@/components/helpers/renderSocialMediaLink';
 
 async function Home() {
   const config: Config = getConfig();
-  const posts: PostListData[] = await getAllPosts();
 
   return (
-    <>
-      {/* Top Banner */}
-      <div className='relative h-[40vh] w-full bg-cover bg-center'>
-        {/* Avatar */}
-        <div className='absolute left-1/2 top-[20%] -translate-x-1/2 transform'>
+    <div className='flex max-h-[800px] flex-col items-center justify-center px-6'>
+      <div className='relative h-[50vh] w-full bg-cover bg-center'>
+        <div className='absolute left-1/2 top-[25%] -translate-x-1/2 transform'>
           <Image
             src={config.avatar}
             alt='Avatar'
-            width={150}
-            height={150}
-            className='aspect-square rounded-full border-4 border-gray-300 object-cover'
+            width={180}
+            height={180}
+            className='rounded-full border-4 border-[var(--sakuraPink)] shadow-lg'
             priority={true}
           />
         </div>
       </div>
 
-      {/* Slogan */}
-      <div className='px-6 text-center'>
-        <p className='text-2xl font-semibold'>{config.slogan}</p>
-      </div>
+      <div className='mt-20 text-center'>
+        <p className='text-foreground mb-28 text-3xl font-bold'>
+          {config.slogan}
+        </p>
 
-      {/* Posts List - centered */}
-      <div className='container mx-auto mt-10 justify-center p-4'>
-        <Suspense fallback={<Loading />}>
-          <PostListLayout posts={posts} />
-        </Suspense>
+        <SocialMediaLink
+          socialMedia={config.socialMedia}
+          iconSize={40}
+        />
       </div>
-    </>
+    </div>
   );
 }
 
