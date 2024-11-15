@@ -5,6 +5,8 @@ import { includes, isEmpty, lowerCase } from 'es-toolkit/compat';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 import ItemLinks from '../helpers/ItemLinks';
 
@@ -13,6 +15,8 @@ import { getConfig } from '@/services/config';
 import createMarkdownComponents from '@/components/posts/markdownComponents';
 import TOC from '@/components/posts/TOC';
 import CopyrightInfo from '@/components/helpers/CopyrightInfo';
+
+import 'katex/dist/katex.min.css';
 
 interface PostLayoutProperties {
   config: Config;
@@ -60,8 +64,8 @@ function PostLayout({
           />
         )}
         <Markdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={markdownComponents}
           className='mt-5'
         >
