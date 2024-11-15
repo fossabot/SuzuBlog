@@ -1,10 +1,10 @@
 #######################
 # SITE SETTINGS
 #######################
-title: 'Suzu' # The name of your blog, used in titles and meta tags.
-subTitle: 'Next.js Blog Template' # A short description that appears after the main title.
-description: 'Suzu is a minimalist blog template with a serene sakura-inspired theme, blending modern design with a touch of traditional Japanese aesthetics.' # A longer description for SEO and meta tags.
-keywords: 'Suzu, Next.js, markdown blog, Tailwind CSS, blog template, sakura, ZL Asica' # Comma-separated keywords for SEO purposes.
+title: 'ZLA小站' # The name of your blog, used in titles and meta tags.
+subTitle: 'ZL Asica的个人小战' # A short description that appears after the main title.
+description: 'ZL Asica的个人小站，发布个人技术和生活内容。生活内容会与微信公众号(ZL Asica)同步更新。' # A longer description for SEO and meta tags.
+keywords: 'markdown blog, blog, sakura, ZL Asica, ZL Asica, ZLA, 嫒希卡' # Comma-separated keywords for SEO purposes.
 author:
   name: 'ZL Asica' # Your name, displayed as the author of the blog.
   link: 'https://www.zla.app' # Link to your personal website or blog.
@@ -12,14 +12,14 @@ author:
 lang: 'zh'
 # Your public root url, used for SEO and meta tags.
 # !Do not include a ending slash
-siteUrl: 'https://suzu.zla.app'
+siteUrl: 'https://www.zla.pub'
 
 # Path to your avatar image. Can be a relative path from /public or a full URL (e.g., https://).
 avatar: '/images/avatar.jpg'
 # Used as the default thumbnail for posts without thumbnails.
 background: '/images/background.jpg'
 # Slogan displayed on your homepage, under your avatar.
-slogan: "As long as the code or the developer is able to run, it's all good."
+slogan: 人和代码，有一个能跑就行～
 # Google Analytics tracking ID (e.g., 'G-XXXXXXXXXX').
 googleAnalytics: G-659VZ9NH28
 
