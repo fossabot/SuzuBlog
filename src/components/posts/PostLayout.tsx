@@ -6,6 +6,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
+import remarkGemoji from 'remark-gemoji';
 import rehypeKatex from 'rehype-katex';
 
 import ItemLinks from '../helpers/ItemLinks';
@@ -64,7 +65,7 @@ function PostLayout({
           />
         )}
         <Markdown
-          remarkPlugins={[remarkGfm, remarkMath]}
+          remarkPlugins={[remarkGfm, remarkMath, remarkGemoji]}
           rehypePlugins={[rehypeRaw, rehypeKatex]}
           components={markdownComponents}
           className='mt-5'
