@@ -43,6 +43,7 @@ type Config = {
     name: string;
     link: string;
   };
+  googleAnalytics: string;
   creativeCommons: CreativeCommons;
   lang: string;
   siteUrl: string;
@@ -54,6 +55,7 @@ type Config = {
   thumbnailFriends: boolean;
   disqusShortname: string;
   slotFooter: string;
+  headerJavascript: string[];
   slotComment: string;
 };
 

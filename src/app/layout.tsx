@@ -46,13 +46,41 @@ function RootLayout({
   children: React.ReactNode;
 }>) {
   const config: Config = getConfig();
+  const googleAnalytics: string = config.googleAnalytics || '';
+  const jsFiles: string[] = config.headerJavascript || [];
 
   return (
     <html lang={config.lang}>
-      <Script
-        src='/custom.js'
-        strategy='lazyOnload'
-      />
+      {/* Custom js */}
+      {jsFiles.map((jsFile, index) => (
+        <Script
+          key={index}
+          src={jsFile}
+          strategy='afterInteractive'
+        />
+      ))}
+      {/* Google Analytics Script */}
+      {googleAnalytics && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics}}`}
+            strategy='afterInteractive'
+          />
+          <Script
+            id='google-analytics'
+            strategy='afterInteractive'
+          >
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '${googleAnalytics}');
+          `}
+          </Script>
+        </>
+      )}
       <body
         className={`${notoSansSC.variable} ${jetBrainsMono.variable} flex max-h-full min-h-screen flex-col antialiased`}
       >

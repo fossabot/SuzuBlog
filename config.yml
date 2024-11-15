@@ -20,6 +20,8 @@ avatar: '/images/avatar.jpg'
 background: '/images/background.jpg'
 # Slogan displayed on your homepage, under your avatar.
 slogan: "As long as the code or the developer is able to run, it's all good."
+# Google Analytics tracking ID (e.g., 'G-XXXXXXXXXX').
+googleAnalytics: G-659VZ9NH28
 
 #######################
 # POSTS SETTINGS
@@ -69,6 +71,9 @@ disqusShortname: 'zla-pub'
 # CUSTOM CODE BLOCKS
 # ! WARNING: Only modify these if you understand the purpose of custom scripts.
 #######################
+# Add custom JavaScript code to be included inside the <head> section of your site. One script per line.
+headerJavascript:
+  - https://cdn.jsdelivr.net/gh/zl-asica/web-cdn/js/zlasica.js
 # Add custom HTML code to be included inside the <footer> section of your site.
 slotFooter: |
   <!-- Add your custom footer HTML here -->
