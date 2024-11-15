@@ -14,14 +14,14 @@ async function robots(): Promise<MetadataRoute.Robots> {
   return {
     rules: {
       userAgent: '*',
-      // allow: '/',
-      disallow: [
+      allow: [
         '/',
         '/about',
         '/friends',
         '/posts',
         ...postUrls, // Dynamic post URLs
       ],
+      disallow: ['/images'],
     },
     sitemap: `${siteUrl}/sitemap.xml`,
   };
