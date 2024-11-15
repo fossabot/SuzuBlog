@@ -7,8 +7,6 @@ import { getPostData } from '@/services/content';
 
 import PostLayout from '@/components/posts/PostLayout';
 
-import '@/styles/friendsLinks.css';
-
 function generateMetadata(): Metadata {
   const config = getConfig();
   return {

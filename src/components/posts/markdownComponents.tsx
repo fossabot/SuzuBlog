@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { slugPrefix, generateHierarchicalSlug } from '@/services/utils';
 
 import CopyCodeBlock from '@/components/helpers/CopyCodeBlock';
+import renderFriendLinks from '@/components/helpers/renderFriendLinks';
 
 const createMarkdownComponents = (): Components => {
   // Set initial heading levels
@@ -190,21 +191,29 @@ const createMarkdownComponents = (): Components => {
       />
     ),
 
-    pre: ({ children }) => (
-      <pre className='relative overflow-hidden rounded-lg bg-gray-700 pt-8 shadow-md shadow-slate-950 hover:shadow-xl dark:shadow-slate-700'>
-        {/* MacOS window buttons */}
-        <div className='absolute left-3 top-2 flex space-x-2'>
-          {/* Red button */}
-          <span className='h-3 w-3 rounded-full bg-red-500'></span>
-          {/* Yellow button */}
-          <span className='h-3 w-3 rounded-full bg-yellow-400'></span>
-          {/* Green button */}
-          <span className='h-3 w-3 rounded-full bg-green-500'></span>
-        </div>
+    pre: ({ children }) => {
+      if (
+        isValidElement(children) &&
+        children.props?.className === 'language-Links'
+      ) {
+        return renderFriendLinks(children.props?.children as string);
+      }
+      return (
+        <pre className='relative overflow-hidden rounded-lg bg-gray-700 pt-8 shadow-md shadow-slate-950 hover:shadow-xl dark:shadow-slate-700'>
+          {/* MacOS window buttons */}
+          <div className='absolute left-3 top-2 flex space-x-2'>
+            {/* Red button */}
+            <span className='h-3 w-3 rounded-full bg-red-500'></span>
+            {/* Yellow button */}
+            <span className='h-3 w-3 rounded-full bg-yellow-400'></span>
+            {/* Green button */}
+            <span className='h-3 w-3 rounded-full bg-green-500'></span>
+          </div>
 
-        {children as ReactNode}
-      </pre>
-    ),
+          {children as ReactNode}
+        </pre>
+      );
+    },
 
     table: ({ children }) => (
       <div className='my-6 w-full overflow-visible rounded-lg shadow-lg transition-shadow hover:shadow-xl'>

@@ -6,7 +6,7 @@ showComments: true # Set whether you want have comment for this page
 
 ## 我的项目
 
-{% links %}
+```Links
 [
 {
 "title": "白鲸字幕组",
@@ -27,13 +27,13 @@ showComments: true # Set whether you want have comment for this page
 "des": "我的个人学术网站(英文)。"
 }
 ]
-{% endlinks %}
+```
 
 ## 友情链接
 
 > 下面全是大佬!!!同样也都是朋友～～～
 
-{% links %}
+```Links
 [
 {
 "title": "FGHRSH",
@@ -60,7 +60,7 @@ showComments: true # Set whether you want have comment for this page
 "des": "愿我的祝福与你同在！"
 }
 ]
-{% endlinks %}
+```
 
 ## 添加友链
 

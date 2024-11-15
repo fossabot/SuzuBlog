@@ -9,10 +9,9 @@ import remarkMath from 'remark-math';
 import remarkGemoji from 'remark-gemoji';
 import rehypeKatex from 'rehype-katex';
 
-import ItemLinks from '../helpers/ItemLinks';
-
 import { getConfig } from '@/services/config';
 
+import ItemLinks from '@/components/helpers/ItemLinks';
 import createMarkdownComponents from '@/components/posts/markdownComponents';
 import TOC from '@/components/posts/TOC';
 import CopyrightInfo from '@/components/helpers/CopyrightInfo';

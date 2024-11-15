@@ -34,15 +34,7 @@ function getPostFromFile(
 
   let toc: TocItems[] = [];
   if (fullData && !frontmatter.redirect) {
-    let markdownParsed = contentRaw;
-    if (contentRaw.includes('{% links %}')) {
-      markdownParsed = replace(
-        contentRaw,
-        /{% links %}([\S\s]*?){% endlinks %}/g,
-        (_, jsonString) => renderFriendLinks(trim(jsonString))
-      );
-    }
-    toc = generateTOC(markdownParsed);
+    toc = generateTOC(contentRaw);
   }
 
   return {
@@ -116,33 +108,6 @@ function processPostAbstract(contentRaw: string, excerpt: string): string {
   });
 
   return contentStripped;
-}
-
-// Helper function to render friend links
-function renderFriendLinks(jsonString: string): string {
-  try {
-    const links = JSON.parse(jsonString);
-    const linksHtml = links
-      .map(
-        (link: {
-          title?: string;
-          link?: string;
-          img?: string;
-          des?: string;
-        }) => `
-        <li class="friend-link-item" data-description="${link.des || ''}" role="listitem">
-          <a href="${link.link || ''}" target="_blank" rel="noopener noreferrer" class="friend-link">
-            <img src="${link.img || ''}" alt="Avatar of ${link.title || ''}" class="friend-link-img" loading="lazy" />
-            <div class="friend-link-content"><p class="friend-link-title">${link.title || ''}</p></div>
-          </a>
-        </li>
-      `
-      )
-      .join('');
-    return `<div class="friends-links"><ul class="friends-links-list" role="list">${linksHtml}</ul></div>`;
-  } catch {
-    return '<div>Invalid JSON in links block</div>';
-  }
 }
 
 export default getPostFromFile;
