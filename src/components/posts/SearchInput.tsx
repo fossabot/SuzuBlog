@@ -56,7 +56,7 @@ const SearchInput = ({
         `${pathname}?${params.toString()}`
       );
     },
-    200
+    30
   );
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -187,7 +187,7 @@ const SearchInput = ({
           type='button'
           onClick={clearFilters}
           disabled={pending}
-          className='mt-2 rounded-full px-4 py-2 transition'
+          className='mt-2 rounded-full px-4 py-2 text-black transition'
         >
           Clear Filters
         </button>

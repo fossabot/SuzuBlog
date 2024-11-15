@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Head from 'next/head';
 
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
@@ -21,6 +22,12 @@ function generateMetadata(): Metadata {
       url: '/about',
       locale: config.lang,
     },
+    twitter: {
+      card: 'summary',
+      title: `About - ${config.title}`,
+      description: `Learn more about ${config.title}. Discover the story behind the blog.`,
+      images: config.avatar,
+    },
   };
 }
 
@@ -31,12 +38,30 @@ async function AboutPage() {
   }
   const config = getConfig();
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: config.author.name,
+    description: `Learn more about ${config.author.name}, the mind behind ${config.title}.`,
+    url: `${config.siteUrl}/about`,
+    image: config.avatar,
+    sameAs: config.author.link,
+  };
+
   return (
-    <PostLayout
-      config={config}
-      post={post}
-      showThumbnail={config.thumbnailAbout}
-    />
+    <>
+      <Head>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </Head>
+      <PostLayout
+        config={config}
+        post={post}
+        showThumbnail={config.thumbnailAbout}
+      />
+    </>
   );
 }
 
