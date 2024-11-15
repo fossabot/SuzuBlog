@@ -64,3 +64,10 @@ interface TocItems {
   title: string;
   level: number;
 }
+
+interface FriendLink {
+  title?: string;
+  link?: string;
+  img: string;
+  des?: string;
+}

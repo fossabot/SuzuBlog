@@ -2,12 +2,11 @@
 title: ''
 thumbnail: '' # (Optional) You can put your personal about thumbnail
 showComments: true # Set whether you want have comment for this page
-redirect: https://www.zla.app
 ---
 
 ## 我的项目
 
-{% links %}
+```Links
 [
 {
 "title": "白鲸字幕组",
@@ -28,13 +27,13 @@ redirect: https://www.zla.app
 "des": "我的个人学术网站(英文)。"
 }
 ]
-{% endlinks %}
+```
 
 ## 友情链接
 
 > 下面全是大佬!!!同样也都是朋友～～～
 
-{% links %}
+```Links
 [
 {
 "title": "FGHRSH",
@@ -61,7 +60,7 @@ redirect: https://www.zla.app
 "des": "愿我的祝福与你同在！"
 }
 ]
-{% endlinks %}
+```
 
 ## 添加友链
 

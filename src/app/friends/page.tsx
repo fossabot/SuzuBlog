@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Head from 'next/head';
 
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
 
 import PostLayout from '@/components/posts/PostLayout';
-
-import '@/styles/friendsLinks.css';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
@@ -37,10 +35,7 @@ async function FriendsPage() {
   if (!post) {
     return notFound();
   }
-  const redirectUrl = post.frontmatter.redirect || '';
-  if (redirectUrl) {
-    redirect(redirectUrl);
-  }
+
   const config = getConfig();
 
   const friends = [

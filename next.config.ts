@@ -14,23 +14,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**.loli.net',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.jsdelivr.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.akamai.steamstatic.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.apple.com.cn',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.fghrsh.net',
+        hostname: '**',
       },
     ],
   },
