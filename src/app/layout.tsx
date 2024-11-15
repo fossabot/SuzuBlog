@@ -38,6 +38,12 @@ const metadata: Metadata = {
     locale: config.lang,
     url: config.siteUrl,
   },
+  twitter: {
+    card: 'summary',
+    title: `${config.title} - ${config.subTitle}`,
+    description: config.description,
+    images: config.avatar,
+  },
 };
 
 function RootLayout({
@@ -81,6 +87,7 @@ function RootLayout({
           </Script>
         </>
       )}
+
       <body
         className={`${notoSansSC.variable} ${jetBrainsMono.variable} flex max-h-full min-h-screen flex-col antialiased`}
       >
