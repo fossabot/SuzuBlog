@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
@@ -28,6 +28,10 @@ async function FriendsPage() {
   const post: FullPostData | null = await getPostData('Friends', 'Friends');
   if (!post) {
     return notFound();
+  }
+  const redirectUrl = post.frontmatter.redirect || '';
+  if (redirectUrl) {
+    redirect(redirectUrl);
   }
   const config = getConfig();
 
