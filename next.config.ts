@@ -14,15 +14,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's2.loli.net',
+        hostname: '**.loli.net',
       },
       {
         protocol: 'https',
-        hostname: 'i.loli.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'cdn.jsdelivr.net',
+        hostname: '**.jsdelivr.net',
       },
       {
         protocol: 'https',
@@ -34,17 +30,33 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'fp1.fghrsh.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'avatar.fghrsh.net',
-      },
-      {
-        protocol: 'https',
-        hostname: 'gravatar.fghrsh.net',
+        hostname: '**.fghrsh.net',
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: '/archive',
+        destination: '/posts',
+        permanent: true,
+      },
+      {
+        source: '/archive/',
+        destination: '/posts',
+        permanent: true,
+      },
+      {
+        source: '/tags/:slug',
+        destination: '/posts?tag=:slug',
+        permanent: true,
+      },
+      {
+        source: '/tags/:slug/',
+        destination: '/posts?tag=:slug',
+        permanent: true,
+      },
+    ];
   },
 };
 
