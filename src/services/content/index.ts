@@ -35,7 +35,7 @@ async function getAllPosts(): Promise<PostListData[]> {
 
 async function getPostData(slug: string): Promise<FullPostData | null> {
   const filePath =
-    lowerCase(slug) in ['friends', 'about']
+    lowerCase(slug) === 'about' || lowerCase(slug) === 'friends'
       ? path.join(postsDirectory, '_pages', `${slug}.md`)
       : path.join(postsDirectory, `${slug}.md`);
 

@@ -7,16 +7,17 @@ import { getPostData } from '@/services/content';
 
 import PostLayout from '@/components/posts/PostLayout';
 
-function generateMetadata(): Metadata {
+async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
+  const aboutPage: FullPostData | null = await getPostData('About');
   const aboutTranslation = config.translation.about;
 
   return {
-    title: `${aboutTranslation.title} - ${config.title}`,
+    title: `${aboutPage?.frontmatter.title || aboutPage?.frontmatter.title || aboutTranslation.title} - ${config.title}`,
     description: `${config.title}${aboutTranslation.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      title: `${aboutTranslation.title} - ${config.title}`,
+      title: `${aboutPage?.frontmatter.title || aboutTranslation.title} - ${config.title}`,
       description: `${config.title}${aboutTranslation.description} - ${config.description}`,
       username: config.author.name,
       url: '/about',
@@ -26,7 +27,7 @@ function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary',
-      title: `${aboutTranslation.title} - ${config.title}`,
+      title: `${aboutPage?.frontmatter.title || aboutTranslation.title} - ${config.title}`,
       description: `${config.title}${aboutTranslation.description} - ${config.description}`,
       images: config.avatar,
     },
