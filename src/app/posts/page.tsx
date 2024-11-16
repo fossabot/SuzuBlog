@@ -8,13 +8,15 @@ import { getAllPosts } from '@/services/content';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
+  const translation = config.translation;
+
   return {
-    title: `Posts - ${config.title}`,
-    description: `Posts page of ${config.title} - ${config.description}`,
+    title: `${translation.posts.title} - ${config.title}`,
+    description: `${config.title}${translation.posts.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      title: `Posts - ${config.title}`,
-      description: `Posts page of ${config.title} - ${config.description}`,
+      title: `${translation.posts.title} - ${config.title}`,
+      description: `${config.title}${translation.posts.description} - ${config.description}`,
       url: `${config.siteUrl}/posts`,
       images: config.avatar,
       type: 'website',
@@ -22,8 +24,8 @@ function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary',
-      title: `Posts - ${config.title}`,
-      description: `Browse the latest posts on ${config.title}. Discover insights, stories, and updates.`,
+      title: `${translation.posts.title} - ${config.title}`,
+      description: `${config.title}${translation.posts.description} - ${config.description}`,
       images: config.avatar,
     },
   };
@@ -31,14 +33,15 @@ function generateMetadata(): Metadata {
 
 async function PostsPage() {
   const config = getConfig();
+  const translation = config.translation;
   const posts: PostListData[] = await getAllPosts();
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `Posts - ${config.title}`,
+    name: `${translation.posts.title} - ${config.title}`,
     url: `${config.siteUrl}/posts`,
-    description: `Browse the latest posts on ${config.title}. Discover insights, stories, and updates.`,
+    description: config.title + translation.posts.description,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${config.siteUrl}/posts`,
@@ -53,7 +56,10 @@ async function PostsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <PostsClient posts={posts} />
+      <PostsClient
+        posts={posts}
+        translation={translation}
+      />
     </>
   );
 }

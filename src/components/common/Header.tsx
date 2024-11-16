@@ -10,11 +10,13 @@ import { useOutsideClick, useScrollProgress } from '@/hooks';
 import renderMenuItems from '@/components/helpers/renderMenuItems';
 
 interface HeaderProperties {
-  siteTitle: string;
+  config: Config;
 }
 
-function Header({ siteTitle }: HeaderProperties) {
+function Header({ config }: HeaderProperties) {
   const [isOpen, setIsOpen] = useState(false);
+  const siteTitle = config.title;
+  const translation = config.translation;
   const scrollProgress = useScrollProgress();
   const menuReference = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -75,7 +77,7 @@ function Header({ siteTitle }: HeaderProperties) {
           style={{ transformOrigin: 'top' }}
         >
           <ul className='flex flex-col gap-2'>
-            {renderMenuItems(true, toggleMenu)}
+            {renderMenuItems(translation, true, toggleMenu)}
           </ul>
         </div>
         {isOpen && (
@@ -84,7 +86,9 @@ function Header({ siteTitle }: HeaderProperties) {
             aria-hidden
           />
         )}
-        <ul className='hidden space-x-6 md:flex'>{renderMenuItems(false)}</ul>
+        <ul className='hidden space-x-6 md:flex'>
+          {renderMenuItems(translation, false)}
+        </ul>
       </nav>
     </header>
   );

@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 interface ItemLinksProperties {
-  items?: string[];
   type: 'category' | 'tag';
+  translation: Translation;
+  items?: string[];
 }
 
 const getLink = (
@@ -19,13 +20,19 @@ const getLink = (
   return `/posts?${newParameters.toString()}`;
 };
 
-function ItemLinks({ items, type }: ItemLinksProperties) {
+function ItemLinks({ items, translation, type }: ItemLinksProperties) {
   const searchParameters = useSearchParams();
   const displayItems = defaultTo(items, []);
   const displayItemsLength = displayItems.length;
 
   if (displayItemsLength === 0) {
-    return <>{type === 'category' ? '未分类' : '无标签'}</>;
+    return (
+      <>
+        {type === 'category'
+          ? translation.post.noCategories
+          : translation.post.noTags}
+      </>
+    );
   }
 
   return (
@@ -35,7 +42,7 @@ function ItemLinks({ items, type }: ItemLinksProperties) {
           <Link
             href={getLink(item, type, searchParameters)}
             target='_self'
-            aria-label={`Navigate to ${type} ${item}`}
+            aria-label={`${translation.navigate} ${type} ${item}`}
             className='no-underline'
           >
             {item}

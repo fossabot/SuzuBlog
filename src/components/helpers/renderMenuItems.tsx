@@ -12,12 +12,24 @@ interface MenuItem {
   icon: JSX.Element;
 }
 
-const renderMenuItems = (isMobile: boolean, onClickHandler?: () => void) => {
+const renderMenuItems = (
+  translation: Translation,
+  isMobile: boolean,
+  onClickHandler?: () => void
+) => {
   const menuItems: MenuItem[] = [
-    { href: '/', label: 'Home', icon: <FaHouse /> },
-    { href: '/posts', label: 'Posts', icon: <FaRegNewspaper /> },
-    { href: '/friends', label: 'Friends', icon: <FaPeopleGroup /> },
-    { href: '/about', label: 'About', icon: <FaInfo /> },
+    { href: '/', label: translation.home.title, icon: <FaHouse /> },
+    {
+      href: '/posts',
+      label: translation.posts.title,
+      icon: <FaRegNewspaper />,
+    },
+    {
+      href: '/friends',
+      label: translation.friends.title,
+      icon: <FaPeopleGroup />,
+    },
+    { href: '/about', label: translation.about.title, icon: <FaInfo /> },
   ];
 
   return menuItems.map((item) => (
@@ -29,7 +41,7 @@ const renderMenuItems = (isMobile: boolean, onClickHandler?: () => void) => {
         href={item.href}
         className='relative inline-flex items-center gap-2 p-2 no-underline transition-all duration-300 ease-in-out hover:scale-110'
         onClick={onClickHandler}
-        aria-label={`Navigate to ${item.label}`}
+        aria-label={`${translation.navigate} ${item.label}`}
       >
         {item.icon}
         {item.label}

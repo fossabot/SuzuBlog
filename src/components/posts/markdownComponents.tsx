@@ -8,7 +8,7 @@ import { slugPrefix, generateHierarchicalSlug } from '@/services/utils';
 import CopyCodeBlock from '@/components/helpers/CopyCodeBlock';
 import renderFriendLinks from '@/components/helpers/renderFriendLinks';
 
-const createMarkdownComponents = (): Components => {
+const createMarkdownComponents = (translation: Translation): Components => {
   // Set initial heading levels
   const headingLevels = {
     h2: 0,
@@ -148,7 +148,12 @@ const createMarkdownComponents = (): Components => {
     code: ({ className, children, ...props }) => {
       const match = /language-(\w+)/.exec(className || '');
       return match ? (
-        <CopyCodeBlock match={match}>{children as ReactNode}</CopyCodeBlock>
+        <CopyCodeBlock
+          match={match}
+          translation={translation}
+        >
+          {children as ReactNode}
+        </CopyCodeBlock>
       ) : (
         <code
           className='rounded bg-[var(--lightGray)] px-2 py-1 font-mono text-base'
@@ -169,7 +174,7 @@ const createMarkdownComponents = (): Components => {
           aria-label={
             isInternalLink
               ? undefined
-              : `Open ${children?.toString() ?? 'link'} in a new tab`
+              : `${translation.newTab}${children?.toString() ?? 'link'}`
           }
           className='mx-1 break-words font-semibold text-[var(--skyBlue)] decoration-dashed underline-offset-2 transition-colors duration-200 ease-in-out hover:text-[var(--sakuraPink)] hover:underline hover:decoration-dotted'
           {...(props as Record<string, unknown>)}

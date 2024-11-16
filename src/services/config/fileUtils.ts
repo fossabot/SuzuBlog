@@ -1,17 +1,50 @@
 import { watch } from 'node:fs';
 import path from 'node:path';
 
-// Define the path to the config file
-const filePath = path.join(process.cwd(), 'config.yml');
+import { lowerCase, trim } from 'es-toolkit/compat';
 
-// Watch the config file with debounce
-function watchConfigFile(callback: () => void): void {
+import * as translations from './locales';
+
+// Config file path
+const CONFIG_FILE_PATH = path.join(process.cwd(), 'config.yml');
+
+// Friend links markdown file path
+const FRIEND_LINKS_FILE_PATH = path.join(
+  process.cwd(),
+  'posts',
+  '_pages',
+  'Friends.md'
+);
+
+/**
+ * Fetches translation content for a given language.
+ * Falls back to English if the specified language is unavailable.
+ *
+ * @param lang - The language code (e.g., 'en', 'zh')
+ * @returns Translation object
+ */
+const getTranslationContent = (lang: string): Translation => {
+  const normalizedLang = lowerCase(trim(lang));
+  return translations[normalizedLang] ?? translations.en;
+};
+
+/**
+ * Watches the configuration file for changes and triggers a callback.
+ *
+ * @param callback - Function to execute when the file changes
+ */
+const watchConfigFile = (callback: () => void): void => {
   let debounceTimeout: NodeJS.Timeout | null = null;
-  watch(filePath, () => {
-    if (debounceTimeout) clearTimeout(debounceTimeout);
-    // Set debounce delay to 100ms
-    debounceTimeout = setTimeout(callback, 100);
-  });
-}
 
-export { filePath, watchConfigFile };
+  watch(CONFIG_FILE_PATH, () => {
+    if (debounceTimeout) clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(callback, 100); // Debounce with a delay of 100ms
+  });
+};
+
+export {
+  CONFIG_FILE_PATH,
+  FRIEND_LINKS_FILE_PATH,
+  getTranslationContent,
+  watchConfigFile,
+};

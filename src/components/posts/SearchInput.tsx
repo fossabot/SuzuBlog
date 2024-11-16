@@ -12,12 +12,14 @@ interface SearchInputProperties {
   initialValue?: string;
   categories: string[];
   tags: string[];
+  translation: Translation;
 }
 
 const SearchInput = ({
   initialValue = '',
   categories,
   tags,
+  translation,
 }: SearchInputProperties) => {
   const pathname = usePathname();
   const searchParameters = useSearchParams();
@@ -95,7 +97,7 @@ const SearchInput = ({
       <div className='relative w-full'>
         <input
           type='text'
-          placeholder='🔍 Search posts...'
+          placeholder={`🔍 ${translation.search.prompt}`}
           value={searchQuery}
           onChange={handleSearchChange}
           onFocus={() => setExpanded(true)}
@@ -118,7 +120,7 @@ const SearchInput = ({
           <div className='relative flex-1'>
             <select
               value={selectedCategory}
-              aria-label='Select a category to filter posts'
+              aria-label={translation.search.categoriesAria}
               onChange={handleCategoryChange}
               disabled={pending}
               className={`w-full appearance-none rounded-full border border-gray-300 px-4 py-2 focus:ring-2 ${
@@ -130,7 +132,7 @@ const SearchInput = ({
                 className='text-gray-400'
                 disabled={!selectedCategory}
               >
-                All Categories
+                {translation.search.allCategories}
               </option>
               {categories.map((category) => (
                 <option
@@ -151,7 +153,7 @@ const SearchInput = ({
           <div className='relative flex-1'>
             <select
               value={selectedTag}
-              aria-label='Select a tag to filter posts'
+              aria-label={translation.search.tagsAria}
               onChange={handleTagChange}
               disabled={pending}
               className={`w-full appearance-none rounded-full border border-gray-300 px-4 py-2 focus:ring-2 ${
@@ -163,7 +165,7 @@ const SearchInput = ({
                 className='text-gray-400'
                 disabled={!selectedTag}
               >
-                All Tags
+                {translation.search.allTags}
               </option>
               {tags.map((tag) => (
                 <option
@@ -189,10 +191,12 @@ const SearchInput = ({
           disabled={pending}
           className='mt-2 rounded-full px-4 py-2 text-black transition'
         >
-          Clear Filters
+          {translation.search.clear}
         </button>
 
-        {pending && <p className='animate-pulse text-sm'>Loading results...</p>}
+        {pending && (
+          <p className='animate-pulse text-sm'>{translation.search.loading}</p>
+        )}
       </div>
     </form>
   );
