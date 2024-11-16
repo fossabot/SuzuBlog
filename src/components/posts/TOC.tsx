@@ -8,10 +8,11 @@ import TOCLink from '@/components/helpers/TOCLink';
 
 interface TOCProperties {
   items: TocItems[];
+  translation: Translation;
   showThumbnail?: boolean;
 }
 
-const TOC = ({ items, showThumbnail = true }: TOCProperties) => {
+const TOC = ({ items, translation, showThumbnail = true }: TOCProperties) => {
   const { activeSlug, isOpen, handleToggle, handleLinkClick, tocReference } =
     useTOCLogic();
   const { isVisible } = useVisibilityOnScroll(showThumbnail ? undefined : 0);
@@ -40,7 +41,7 @@ const TOC = ({ items, showThumbnail = true }: TOCProperties) => {
         } right-8 xl:right-[calc((100vw-1280px)/2+10px)] xl:block xl:translate-x-0 ${!isOpen && 'hidden xl:block'} scrollbar-custom text-wrap break-words`}
       >
         <h2 className='mb-4 text-lg font-semibold text-[var(--sakuraPink)]'>
-          Table of Contents
+          {translation.post.toc}
         </h2>
         {items.map((item) => (
           <TOCLink

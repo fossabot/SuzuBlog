@@ -12,9 +12,10 @@ import SearchInput from '@/components/posts/SearchInput';
 
 interface PostsClientProperties {
   posts: PostListData[];
+  translation: Translation;
 }
 
-function PostsClient({ posts }: PostsClientProperties) {
+function PostsClient({ posts, translation }: PostsClientProperties) {
   const searchParameters = useSearchParams();
   const categoryParameter = defaultTo(searchParameters.get('category'), '');
   const tagParameter = defaultTo(searchParameters.get('tag'), '');
@@ -67,10 +68,14 @@ function PostsClient({ posts }: PostsClientProperties) {
         initialValue={searchQuery}
         categories={categories}
         tags={tags}
+        translation={translation}
       />
 
       {/* Post List */}
-      <PostListLayout posts={currentPosts} />
+      <PostListLayout
+        posts={currentPosts}
+        translation={translation}
+      />
 
       {/* Pagination */}
       <Pagination

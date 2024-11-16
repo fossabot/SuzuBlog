@@ -9,6 +9,7 @@ interface CopyrightInfoProperties {
   siteUrl: string;
   title: string;
   creativeCommons: CreativeCommons;
+  translation: Translation;
 }
 
 function CopyrightInfo({
@@ -16,8 +17,10 @@ function CopyrightInfo({
   siteUrl,
   title,
   creativeCommons,
+  translation,
 }: CopyrightInfoProperties) {
   const pathname = usePathname();
+  const copyright = translation.post.copyright;
   return (
     <div className='relative w-full rounded-3xl bg-[var(--lightGray)] p-6'>
       {/* Creative Commons Logo */}
@@ -33,10 +36,10 @@ function CopyrightInfo({
 
       {/* Copyright Info */}
       <div className='z-20'>
-        <p className='font-semibold'>本文作者：{author}</p>
-        <p className='mt-2'>本文标题：{title}</p>
+        <p className='font-semibold'>{copyright.author + author}</p>
+        <p className='mt-2'>{copyright.title + title}</p>
         <p className='mt-2'>
-          本文链接：
+          {copyright.link}
           <Link
             href={`${siteUrl}${pathname}`}
             target='_blank'
@@ -47,16 +50,16 @@ function CopyrightInfo({
           </Link>
         </p>
         <p className='mt-2'>
-          版权声明：本文采用
+          {copyright.copyright.start}
           <Link
             href={creativeCommons.link}
             target='_blank'
             rel='noopener noreferrer'
             className='text-sakuraPink no-underline'
           >
-            {creativeCommons.type} 协议
+            {creativeCommons.type}
           </Link>
-          进行许可
+          {copyright.copyright.end}
         </p>
       </div>
     </div>

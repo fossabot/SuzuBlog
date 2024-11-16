@@ -9,40 +9,43 @@ import PostLayout from '@/components/posts/PostLayout';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
+  const aboutTranslation = config.translation.about;
+
   return {
-    title: `关于 - ${config.title}`,
-    description: `${config.title} - ${config.description} 的关于及自我介绍页面`,
+    title: `${aboutTranslation.title} - ${config.title}`,
+    description: `${config.title}${aboutTranslation.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      type: 'profile',
+      title: `${aboutTranslation.title} - ${config.title}`,
+      description: `${config.title}${aboutTranslation.description} - ${config.description}`,
       username: config.author.name,
-      title: `关于 - ${config.title}`,
-      description: `${config.title} - ${config.description} 的关于及自我介绍页面`,
-      images: config.avatar,
       url: '/about',
+      images: config.avatar,
+      type: 'profile',
       locale: config.lang,
     },
     twitter: {
       card: 'summary',
-      title: `关于 - ${config.title}`,
-      description: `了解 ${config.author.name}，${config.title} 的站长。`,
+      title: `${aboutTranslation.title} - ${config.title}`,
+      description: `${config.title}${aboutTranslation.description} - ${config.description}`,
       images: config.avatar,
     },
   };
 }
 
 async function AboutPage() {
-  const post: FullPostData | null = await getPostData('About', 'About');
+  const post: FullPostData | null = await getPostData('About');
   if (!post) {
     return notFound();
   }
   const config = getConfig();
+  const aboutTranslation = config.translation.about;
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: config.author.name,
-    description: `了解更多关于 ${config.author.name}，${config.title} 的站长。`,
+    description: `${config.title}${aboutTranslation.description} - ${config.description}`,
     url: `${config.siteUrl}/about`,
     image: config.avatar,
     sameAs: config.author.link,

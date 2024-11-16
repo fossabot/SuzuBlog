@@ -8,13 +8,15 @@ import { getAllPosts } from '@/services/content';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
+  const translation = config.translation;
+
   return {
-    title: `文章 - ${config.title}`,
-    description: `${config.title} - ${config.description} 的文章页面`,
+    title: `${translation.posts.title} - ${config.title}`,
+    description: `${config.title}${translation.posts.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      title: `文章 - ${config.title}`,
-      description: `${config.title} - ${config.description} 的文章页面`,
+      title: `${translation.posts.title} - ${config.title}`,
+      description: `${config.title}${translation.posts.description} - ${config.description}`,
       url: `${config.siteUrl}/posts`,
       images: config.avatar,
       type: 'website',
@@ -22,8 +24,8 @@ function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary',
-      title: `文章 - ${config.title}`,
-      description: `查看 ${config.title} 的最新文章。发现见解、故事和更新。`,
+      title: `${translation.posts.title} - ${config.title}`,
+      description: `${config.title}${translation.posts.description} - ${config.description}`,
       images: config.avatar,
     },
   };
@@ -31,14 +33,15 @@ function generateMetadata(): Metadata {
 
 async function PostsPage() {
   const config = getConfig();
+  const translation = config.translation;
   const posts: PostListData[] = await getAllPosts();
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `文章 - ${config.title}`,
+    name: `${translation.posts.title} - ${config.title}`,
     url: `${config.siteUrl}/posts`,
-    description: `查看 ${config.title} 的最新文章。发现见解、故事和更新。`,
+    description: config.title + translation.posts.description,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${config.siteUrl}/posts`,
@@ -53,7 +56,10 @@ async function PostsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <PostsClient posts={posts} />
+      <PostsClient
+        posts={posts}
+        translation={translation}
+      />
     </>
   );
 }

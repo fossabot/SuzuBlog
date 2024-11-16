@@ -3,18 +3,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdMoreHoriz } from 'react-icons/md';
-import { FaEye, FaFolder, FaRegClock } from 'react-icons/fa6';
+import { FaFolder, FaRegClock } from 'react-icons/fa6';
 
-import ItemLinks from '../helpers/ItemLinks';
+import ItemLinks from '@/components/helpers/ItemLinks';
 
 interface PostListLayoutProperties {
   posts: PostListData[];
+  translation: Translation;
 }
 
-export default function PostListLayout({ posts }: PostListLayoutProperties) {
-  // TODO: Replace with actual read count
-  const readCount = '~';
-
+export default function PostListLayout({
+  posts,
+  translation,
+}: PostListLayoutProperties) {
   return (
     <div className='mb-10 grid grid-cols-1 gap-10'>
       {posts.map((post, index) => {
@@ -37,11 +38,11 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
                 className='block h-full w-full transform transition duration-500 hover:scale-110'
                 href={postLink}
                 target='_self'
-                aria-label={`Read more about ${postTitle}`}
+                aria-label={`${translation.post.readMore} ${postTitle}`}
               >
                 <Image
                   src={post.frontmatter.thumbnail}
-                  alt={`Thumbnail for post titled ${postTitle}`}
+                  alt={`${translation.post.thumbnail} ${postTitle}`}
                   width={780}
                   height={500}
                   className='h-full w-full object-cover'
@@ -64,6 +65,7 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
                 <Link
                   href={postLink}
                   target='_self'
+                  aria-label={`${translation.post.readMore} ${postTitle}`}
                   className='no-underline'
                 >
                   <h2 className='mb-2 text-2xl font-bold'>{postTitle}</h2>
@@ -72,33 +74,30 @@ export default function PostListLayout({ posts }: PostListLayoutProperties) {
                 <p className='line-clamp-5 text-sm'>{post.postAbstract}</p>
               </div>
 
-              <div className='flex flex-col'>
-                <Link
-                  href={postLink}
-                  target='_self'
-                  aria-label={`Read more about ${postTitle}`}
-                  className='self-start transition duration-500 hover:scale-110'
-                >
-                  <MdMoreHoriz
-                    size={32}
-                    className='cursor-pointer'
-                  />
-                </Link>
-                <div className='text-gray-450 mt-3 flex items-center justify-between text-sm'>
-                  {/* Read Count */}
-                  <span className='flex items-center'>
-                    <FaEye className='mr-1' />
-                    {readCount} 热度
-                  </span>
-                  {/* Category */}
-                  <span className='flex items-center'>
-                    <FaFolder className='mr-1' />
-                    <ItemLinks
-                      items={post.frontmatter.categories}
-                      type='category'
+              <div className='text-gray-450 mt-3 flex items-center justify-between text-sm'>
+                {/* Read Count */}
+                <span className='flex items-center'>
+                  <Link
+                    href={postLink}
+                    target='_self'
+                    aria-label={`${postTitle}`}
+                    className='self-start transition duration-500 hover:scale-110'
+                  >
+                    <MdMoreHoriz
+                      size={32}
+                      className='cursor-pointer'
                     />
-                  </span>
-                </div>
+                  </Link>
+                </span>
+                {/* Category */}
+                <span className='flex items-center'>
+                  <FaFolder className='mr-1' />
+                  <ItemLinks
+                    type='category'
+                    translation={translation}
+                    items={post.frontmatter.categories}
+                  />
+                </span>
               </div>
             </div>
           </article>

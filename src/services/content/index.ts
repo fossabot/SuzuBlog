@@ -3,7 +3,7 @@
 import { promises as fsPromise } from 'node:fs';
 import path from 'node:path';
 
-import { filter, replace } from 'es-toolkit/compat';
+import { filter, lowerCase, replace } from 'es-toolkit/compat';
 
 import getPostFromFile from '@/services/content/getPostFromFile';
 
@@ -33,13 +33,11 @@ async function getAllPosts(): Promise<PostListData[]> {
   );
 }
 
-async function getPostData(
-  slug: string,
-  page?: string
-): Promise<FullPostData | null> {
-  const filePath = page
-    ? path.join(postsDirectory, '_pages', `${page}.md`)
-    : path.join(postsDirectory, `${slug}.md`);
+async function getPostData(slug: string): Promise<FullPostData | null> {
+  const filePath =
+    lowerCase(slug) in ['friends', 'about']
+      ? path.join(postsDirectory, '_pages', `${slug}.md`)
+      : path.join(postsDirectory, `${slug}.md`);
 
   // check file existence
   try {

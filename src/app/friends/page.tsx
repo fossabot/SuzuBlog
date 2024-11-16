@@ -9,13 +9,14 @@ import PostLayout from '@/components/posts/PostLayout';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
+  const friendTranslation = config.translation.friends;
   return {
-    title: `朋友 - ${config.title}`,
-    description: `${config.title} - ${config.description} 的朋友们`,
+    title: `${friendTranslation.title} - ${config.title}`,
+    description: `${config.title}${friendTranslation.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      title: `朋友 - ${config.title}`,
-      description: `${config.title} - ${config.description} 的朋友们`,
+      title: `${friendTranslation.title} - ${config.title}`,
+      description: `${config.title}${friendTranslation.description} - ${config.description}`,
       url: '/friends',
       images: config.avatar,
       type: 'website',
@@ -23,35 +24,32 @@ function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary',
-      title: `朋友 - ${config.title}`,
-      description: `发现 ${config.title} 的朋友们。探索链接和联系。`,
+      title: `${friendTranslation.title} - ${config.title}`,
+      description: `${config.title}${friendTranslation.description} - ${config.description}`,
       images: config.avatar,
     },
   };
 }
 
 async function FriendsPage() {
-  const post: FullPostData | null = await getPostData('Friends', 'Friends');
+  const post: FullPostData | null = await getPostData('Friends');
   if (!post) {
     return notFound();
   }
-
   const config = getConfig();
+  const friendTranslation = config.translation.friends;
 
-  const friends = [
-    { name: 'ZL Asica', url: 'https://www.zla.pub' },
-    // Other friends
-  ];
+  const friends = config.friendLinks || [];
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `朋友 - ${config.title}`,
+    name: `${friendTranslation.title} - ${config.title}`,
     url: `${config.siteUrl}/friends`,
-    description: `发现 ${config.title} 的朋友们。探索链接和联系。`,
+    description: `${config.title}${friendTranslation.description} - ${config.description}`,
     hasPart: friends.map((friend) => ({
       '@type': 'WebSite',
-      name: friend.name,
-      url: friend.url,
+      name: friend.title,
+      url: friend.link,
     })),
   };
 

@@ -6,11 +6,18 @@ import { useState } from 'react';
 
 interface CopyCodeBlockProperties {
   match: RegExpExecArray;
+  translation: Translation;
   children: React.ReactNode;
 }
 
-const CopyCodeBlock = ({ match, children }: CopyCodeBlockProperties) => {
+const CopyCodeBlock = ({
+  match,
+  translation,
+  children,
+}: CopyCodeBlockProperties) => {
   const [isCopied, setIsCopied] = useState(false);
+  const copyTranslation = translation.post.copy;
+  const copiedTranslation = translation.post.copied;
 
   // Copy code block to clipboard
   const handleCopy = () => {
@@ -27,7 +34,7 @@ const CopyCodeBlock = ({ match, children }: CopyCodeBlockProperties) => {
         onClick={handleCopy}
         className='absolute right-2 top-2 rounded bg-[var(--skyblue)] px-2 py-1 text-xs text-white hover:bg-opacity-80'
       >
-        {isCopied ? '已复制!' : '点击复制'}
+        {isCopied ? copiedTranslation : copyTranslation}
       </button>
 
       {/* Code block */}

@@ -91,7 +91,7 @@ function RootLayout({
       <body
         className={`${notoSansSC.variable} ${jetBrainsMono.variable} flex max-h-full min-h-screen flex-col antialiased`}
       >
-        <Header siteTitle={config.title} />
+        <Header config={config} />
         <main className='flex-grow'>{children}</main>
         <BackToTop />
         <Footer config={config} />

@@ -33,7 +33,8 @@ function PostLayout({
   post,
   showThumbnail = true,
 }: PostLayoutProperties) {
-  const markdownComponents = createMarkdownComponents();
+  const translation = config.translation;
+  const markdownComponents = createMarkdownComponents(translation);
 
   return (
     <article className='container mx-auto p-6'>
@@ -43,6 +44,7 @@ function PostLayout({
           src={post.frontmatter.thumbnail}
           author={post.frontmatter.author}
           date={post.frontmatter.date}
+          thumbnailTranslation={translation.post.thumbnail}
         />
       ) : (
         <TitleHeader
@@ -56,10 +58,12 @@ function PostLayout({
         <CategoriesTagsList
           categories={post.frontmatter.categories}
           tags={post.frontmatter.tags}
+          translation={translation}
         />
         {!isEmpty(post.toc) && (
           <TOC
             items={post.toc}
+            translation={translation}
             showThumbnail={showThumbnail}
           />
         )}
@@ -76,6 +80,7 @@ function PostLayout({
           siteUrl={config.siteUrl}
           title={post.frontmatter.title}
           creativeCommons={config.creativeCommons}
+          translation={translation}
         />
       </div>
       {post.frontmatter.showComments && (
@@ -90,17 +95,19 @@ function Thumbnail({
   src,
   author,
   date,
+  thumbnailTranslation,
 }: {
   title: string;
   src: string;
   author: string;
   date: string;
+  thumbnailTranslation: string;
 }) {
   return (
     <div className='relative h-96 w-full'>
       <Image
         src={src}
-        alt={`Thumbnail for ${title}`}
+        alt={`${thumbnailTranslation} ${title}`}
         width={1200}
         height={500}
         className='h-full w-full rounded-lg object-cover'
@@ -166,9 +173,11 @@ function MetaInfo({
 function CategoriesTagsList({
   categories,
   tags,
+  translation,
 }: {
   categories?: string[];
   tags?: string[];
+  translation: Translation;
 }) {
   if (!categories && !tags) return null;
 
@@ -177,20 +186,22 @@ function CategoriesTagsList({
       {categories && (
         <li className='flex items-center gap-2'>
           <FaFolder className='mr-1' />
-          <span className='font-semibold'>分类:</span>
+          <span className='font-semibold'>{translation.post.categories}</span>
           <ItemLinks
             items={categories}
             type='category'
+            translation={translation}
           />
         </li>
       )}
       {tags && (
         <li className='flex items-center gap-2'>
           <FaTags className='mr-1' />
-          <span className='font-semibold'>标签:</span>
+          <span className='font-semibold'>{translation.post.tags}</span>
           <ItemLinks
             items={tags}
             type='tag'
+            translation={translation}
           />
         </li>
       )}

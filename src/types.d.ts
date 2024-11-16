@@ -18,7 +18,7 @@ interface PostListData {
   lastModified: string;
 }
 
-// 完整的文章数据（用于文章详情页）
+// Full post data
 interface FullPostData extends PostListData {
   contentRaw: string;
   toc: TocItems[];
@@ -34,7 +34,7 @@ interface CreativeCommons {
 }
 
 // Config value from config.yml
-type Config = {
+interface UserConfig {
   title: string;
   subTitle: string;
   description: string;
@@ -57,7 +57,12 @@ type Config = {
   slotFooter: string;
   headerJavascript: string[];
   slotComment: string;
-};
+}
+
+interface Config extends UserConfig {
+  translation: Translation;
+  friendLinks: FriendLink[];
+}
 
 interface TocItems {
   slug: string;
