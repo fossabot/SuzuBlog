@@ -58,11 +58,11 @@ function Footer({ config }: FooterProperties) {
           >
             萌ICP备20247775号
           </Link>
-        </p>
+          </p>
+        {config.slotFooter && (
+          <div dangerouslySetInnerHTML={{ __html: config.slotFooter }} />
+        )}
       </div>
-      {config.slotFooter && (
-        <div dangerouslySetInnerHTML={{ __html: config.slotFooter }} />
-      )}
     </footer>
   );
 }
