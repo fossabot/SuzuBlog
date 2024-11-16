@@ -203,6 +203,12 @@ const createMarkdownComponents = (translation: Translation): Components => {
       ) {
         return renderFriendLinks(children.props?.children as string);
       }
+
+      const language =
+        isValidElement(children) && children.props?.className
+          ? children.props.className.replace('language-', '').toUpperCase()
+          : 'CODE';
+
       return (
         <pre className='relative overflow-hidden rounded-lg bg-gray-700 pt-8 shadow-md shadow-slate-950 hover:shadow-xl dark:shadow-slate-700'>
           {/* MacOS window buttons */}
@@ -213,6 +219,11 @@ const createMarkdownComponents = (translation: Translation): Components => {
             <span className='h-3 w-3 rounded-full bg-yellow-400'></span>
             {/* Green button */}
             <span className='h-3 w-3 rounded-full bg-green-500'></span>
+          </div>
+
+          {/* Language display */}
+          <div className='absolute left-1/2 top-2 -translate-x-1/2 transform text-sm font-semibold text-gray-300'>
+            {language}
           </div>
 
           {children as ReactNode}
