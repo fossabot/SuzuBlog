@@ -123,6 +123,8 @@ a:focus-visible {
 
 /* Buttons */
 button {
+  color: #183153;
+  font-weight: 500;
   background-color: var(--skyblue);
   border: none;
   text-align: center;
@@ -133,6 +135,7 @@ button {
 
 button:hover,
 select:checked {
+  scale: 1.05;
   background-color: var(--sakuraPink);
 }
 

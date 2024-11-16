@@ -9,7 +9,7 @@ author:
   name: 'ZL Asica' # Your name, displayed as the author of the blog.
   link: 'https://www.zla.app' # Link to your personal website or blog.
 # Language setting: Use ISO 639-1 code (e.g., 'en' for English, 'zh' for Chinese)
-lang: 'en'
+lang: 'zh'
 # Your public root url, used for SEO and meta tags.
 # !Do not include a ending slash
 siteUrl: 'https://suzu.zla.app'

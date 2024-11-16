@@ -7,15 +7,16 @@ import { getPostData } from '@/services/content';
 
 import PostLayout from '@/components/posts/PostLayout';
 
-function generateMetadata(): Metadata {
+async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
+  const friendPage: FullPostData | null = await getPostData('Friends');
   const friendTranslation = config.translation.friends;
   return {
-    title: `${friendTranslation.title} - ${config.title}`,
+    title: `${friendPage?.frontmatter.title || friendTranslation.title} - ${config.title}`,
     description: `${config.title}${friendTranslation.description} - ${config.description}`,
     openGraph: {
       siteName: config.title,
-      title: `${friendTranslation.title} - ${config.title}`,
+      title: `${friendPage?.frontmatter.title || friendTranslation.title} - ${config.title}`,
       description: `${config.title}${friendTranslation.description} - ${config.description}`,
       url: '/friends',
       images: config.avatar,
@@ -24,7 +25,7 @@ function generateMetadata(): Metadata {
     },
     twitter: {
       card: 'summary',
-      title: `${friendTranslation.title} - ${config.title}`,
+      title: `${friendPage?.frontmatter.title || friendTranslation.title} - ${config.title}`,
       description: `${config.title}${friendTranslation.description} - ${config.description}`,
       images: config.avatar,
     },
@@ -32,7 +33,7 @@ function generateMetadata(): Metadata {
 }
 
 async function FriendsPage() {
-  const post: FullPostData | null = await getPostData('Friends', 'Friends');
+  const post: FullPostData | null = await getPostData('Friends');
   if (!post) {
     return notFound();
   }
@@ -43,7 +44,7 @@ async function FriendsPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: `${friendTranslation.title} - ${config.title}`,
+    name: `${post?.frontmatter.title || friendTranslation.title} - ${config.title}`,
     url: `${config.siteUrl}/friends`,
     description: `${config.title}${friendTranslation.description} - ${config.description}`,
     hasPart: friends.map((friend) => ({

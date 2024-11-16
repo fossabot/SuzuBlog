@@ -189,7 +189,7 @@ const SearchInput = ({
           type='button'
           onClick={clearFilters}
           disabled={pending}
-          className='mt-2 rounded-full px-4 py-2 text-black transition'
+          className='mt-2 rounded-full px-4 py-2 transition'
         >
           {translation.search.clear}
         </button>

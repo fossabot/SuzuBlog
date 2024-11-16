@@ -1,5 +1,5 @@
 ---
-title: ''
+title: '' # (Optional) Default is About
 thumbnail: '' # (Optional) You can put your personal about thumbnail
 showComments: false # Set whether you want have comment for this page
 ---

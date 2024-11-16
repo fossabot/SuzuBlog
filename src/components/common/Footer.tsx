@@ -41,10 +41,10 @@ function Footer({ config }: FooterProperties) {
             ZL Asica
           </Link>
         </p>
+        {config.slotFooter && (
+          <div dangerouslySetInnerHTML={{ __html: config.slotFooter }} />
+        )}
       </div>
-      {config.slotFooter && (
-        <div dangerouslySetInnerHTML={{ __html: config.slotFooter }} />
-      )}
     </footer>
   );
 }
