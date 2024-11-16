@@ -51,7 +51,7 @@
     "@zl-asica/prettier-config": "^1.0.7",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.14.0",
-    "eslint-config-zl-asica": "^1.0.17",
+    "eslint-config-zl-asica": "^1.0.18",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8.4.49",
