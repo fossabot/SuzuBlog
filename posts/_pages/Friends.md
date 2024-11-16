@@ -1,5 +1,5 @@
 ---
-title: ''
+title: 我的朋友们
 thumbnail: '' # (Optional) You can put your personal about thumbnail
 showComments: true # Set whether you want have comment for this page
 ---
