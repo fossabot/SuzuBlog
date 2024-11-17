@@ -17,12 +17,14 @@ import Link from 'next/link';
 
 interface socialMediaLinkProperties {
   socialMedia: SocialMedia;
+  siteUrl: string;
   iconSize?: number;
   className?: string;
 }
 
 function SocialMediaLink({
   socialMedia,
+  siteUrl,
   iconSize = 32,
   className = '',
 }: socialMediaLinkProperties) {
@@ -37,6 +39,9 @@ function SocialMediaLink({
             socialData[key as SocialMediaKey];
 
           const label = upperFirst(words(key)[0]);
+          if (key === 'rss' && username !== '' && username !== 'false') {
+            username = `https://${siteUrl}/feed.xml`;
+          }
           return (
             <Link
               key={label}

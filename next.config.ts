@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
         destination: '/posts?tag=:slug',
         permanent: true,
       },
+      {
+        source: '/feed/',
+        destination: '/feed.xml',
+        permanent: true,
+      }
     ];
   },
 };
