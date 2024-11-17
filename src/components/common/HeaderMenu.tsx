@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import React from 'react';
 import {
   FaHouse,
   FaRegNewspaper,
@@ -43,7 +44,7 @@ const HeaderMenu = ({
   return (
     <ul className={`gap-4 ${ulClassName}`}>
       {menuItems.map((item, index) => (
-        <>
+        <React.Fragment key={item.href}>
           {/* Link as Full Width */}
           <li
             key={item.href}
@@ -69,7 +70,7 @@ const HeaderMenu = ({
               <div className='h-[1px] w-full bg-gradient-to-r from-[var(--lightGray)] via-[var(--sakuraPink)] to-[var(--lightGray)]'></div>
             </li>
           )}
-        </>
+        </React.Fragment>
       ))}
     </ul>
   );

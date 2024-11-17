@@ -63,8 +63,6 @@ const Header = ({ config }: HeaderProperties) => {
         <div
           id='mobile-menu'
           ref={menuReference}
-          role='menu'
-          aria-hidden={!isOpen}
           className={`fixed right-0 top-0 z-50 h-full w-1/2 bg-[var(--background)] shadow-lg transition-all duration-300 ease-out md:hidden ${
             isOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
           }`}
