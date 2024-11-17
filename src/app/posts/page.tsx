@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import Head from 'next/head';
 
-import PostsClient from './PostsClient';
-
 import { getConfig } from '@/services/config';
 import { getAllPosts } from '@/services/content';
+
+import PostsPageClient from '@/components/posts/PostPageClient';
 
 function generateMetadata(): Metadata {
   const config = getConfig();
@@ -56,7 +56,7 @@ async function PostsPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <PostsClient
+      <PostsPageClient
         posts={posts}
         translation={translation}
       />

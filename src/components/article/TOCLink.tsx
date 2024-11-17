@@ -9,13 +9,12 @@ interface TOCLinkProperties {
 }
 
 const TOCLink = ({ item, activeSlug, handleLinkClick }: TOCLinkProperties) => {
-  const indentationLevel = (item.level - 2) * 0.9;
   const isActive = activeSlug === item.slug;
 
   return (
     <div
       key={item.slug}
-      style={{ marginLeft: `${indentationLevel}em` }}
+      style={{ marginLeft: `${(item.level - 2) * 0.8}em` }}
     >
       <Link
         href={`#${item.slug}`}

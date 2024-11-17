@@ -3,19 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdMoreHoriz } from 'react-icons/md';
-import { FaFolder, FaRegClock } from 'react-icons/fa6';
+import { FaRegClock } from 'react-icons/fa6';
 
-import ItemLinks from '@/components/helpers/ItemLinks';
+import { CategoriesTagsList } from '@/components/article';
 
-interface PostListLayoutProperties {
+interface PostListProperties {
   posts: PostListData[];
   translation: Translation;
 }
 
-export default function PostListLayout({
-  posts,
-  translation,
-}: PostListLayoutProperties) {
+const PostList = ({ posts, translation }: PostListProperties) => {
   return (
     <div className='mb-10 grid grid-cols-1 gap-10'>
       {posts.map((post, index) => {
@@ -75,29 +72,23 @@ export default function PostListLayout({
               </div>
 
               <div className='text-gray-450 mt-3 flex items-center justify-between text-sm'>
-                {/* Read Count */}
-                <span className='flex items-center'>
-                  <Link
-                    href={postLink}
-                    target='_self'
-                    aria-label={`${postTitle}`}
-                    className='self-start transition duration-500 hover:scale-110'
-                  >
-                    <MdMoreHoriz
-                      size={32}
-                      className='cursor-pointer'
-                    />
-                  </Link>
-                </span>
-                {/* Category */}
-                <span className='flex items-center'>
-                  <FaFolder className='mr-1' />
-                  <ItemLinks
-                    type='category'
-                    translation={translation}
-                    items={post.frontmatter.categories}
+                <Link
+                  href={postLink}
+                  target='_self'
+                  aria-label={`${postTitle}`}
+                  className='self-start transition duration-500 hover:scale-110'
+                >
+                  <MdMoreHoriz
+                    size={32}
+                    className='cursor-pointer'
                   />
-                </span>
+                </Link>
+                {/* Category */}
+                <CategoriesTagsList
+                  type='category'
+                  translation={translation}
+                  items={post.frontmatter.categories}
+                />
               </div>
             </div>
           </article>
@@ -105,4 +96,6 @@ export default function PostListLayout({
       })}
     </div>
   );
-}
+};
+
+export default PostList;

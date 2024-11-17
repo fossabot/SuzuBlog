@@ -4,7 +4,7 @@ import { FaArrowUp } from 'react-icons/fa';
 
 import { useVisibilityOnScroll } from '@/hooks';
 
-function BackToTop() {
+const BackToTop = () => {
   const { isVisible, isAtBottom } = useVisibilityOnScroll();
 
   return (
@@ -23,6 +23,6 @@ function BackToTop() {
       <FaArrowUp size={20} />
     </button>
   );
-}
+};
 
 export default BackToTop;

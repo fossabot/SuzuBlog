@@ -3,10 +3,10 @@ import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { slugPrefix, generateHierarchicalSlug } from '@/services/utils';
+import CopyCodeBlock from './renderCodeBlock';
+import renderFriendLinks from './renderFriendLinks';
 
-import CopyCodeBlock from '@/components/helpers/CopyCodeBlock';
-import renderFriendLinks from '@/components/helpers/renderFriendLinks';
+import { slugPrefix, generateHierarchicalSlug } from '@/services/utils';
 
 const createMarkdownComponents = (translation: Translation): Components => {
   // Set initial heading levels

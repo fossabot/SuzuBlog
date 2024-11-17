@@ -1,4 +1,3 @@
-import React from 'react';
 import { ceil } from 'es-toolkit/compat';
 
 interface PaginationProperties {

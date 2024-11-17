@@ -5,15 +5,15 @@ import { useRef, useState } from 'react';
 import { FaAngleUp, FaBars } from 'react-icons/fa6';
 import Link from 'next/link';
 
-import { useOutsideClick, useScrollProgress } from '@/hooks';
+import HeaderMenu from './HeaderMenu';
 
-import renderMenuItems from '@/components/helpers/renderMenuItems';
+import { useOutsideClick, useScrollProgress } from '@/hooks';
 
 interface HeaderProperties {
   config: Config;
 }
 
-function Header({ config }: HeaderProperties) {
+const Header = ({ config }: HeaderProperties) => {
   const [isOpen, setIsOpen] = useState(false);
   const siteTitle = config.title;
   const translation = config.translation;
@@ -76,9 +76,12 @@ function Header({ config }: HeaderProperties) {
           }`}
           style={{ transformOrigin: 'top' }}
         >
-          <ul className='flex flex-col gap-2'>
-            {renderMenuItems(translation, true, toggleMenu)}
-          </ul>
+          <HeaderMenu
+            translation={translation}
+            isMobile={true}
+            ulClassName='flex flex-col gap-2'
+            onClickHandler={toggleMenu}
+          />
         </div>
         {isOpen && (
           <div
@@ -86,12 +89,14 @@ function Header({ config }: HeaderProperties) {
             aria-hidden
           />
         )}
-        <ul className='hidden space-x-6 md:flex'>
-          {renderMenuItems(translation, false)}
-        </ul>
+        <HeaderMenu
+          translation={translation}
+          isMobile={false}
+          ulClassName='hidden space-x-6 md:flex'
+        />
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

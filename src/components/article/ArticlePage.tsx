@@ -1,22 +1,15 @@
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { FaFolder, FaTags } from 'react-icons/fa6';
 import { includes, isEmpty, lowerCase } from 'es-toolkit/compat';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
-import remarkMath from 'remark-math';
-import remarkGemoji from 'remark-gemoji';
-import rehypeKatex from 'rehype-katex';
 
-import { getConfig } from '@/services/config';
+import MarkdownContent from './parser';
+import CopyrightInfo from './CopyrightInfo';
+import TOC from './TOC';
+import CategoriesTagsList from './CategoriesTagsList';
 
-import ItemLinks from '@/components/helpers/ItemLinks';
-import createMarkdownComponents from '@/components/posts/markdownComponents';
-import TOC from '@/components/posts/TOC';
-import CopyrightInfo from '@/components/helpers/CopyrightInfo';
-
-import 'katex/dist/katex.min.css';
+const DisqusComments = dynamic(
+  () => import('@/components/article/DisqusComments')
+);
 
 interface PostLayoutProperties {
   config: Config;
@@ -24,17 +17,12 @@ interface PostLayoutProperties {
   showThumbnail?: boolean;
 }
 
-const DisqusComments = dynamic(
-  () => import('@/components/posts/DisqusComments')
-);
-
-function PostLayout({
+const ArticlePage = ({
   config,
   post,
   showThumbnail = true,
-}: PostLayoutProperties) {
+}: PostLayoutProperties) => {
   const translation = config.translation;
-  const markdownComponents = createMarkdownComponents(translation);
 
   return (
     <article className='container mx-auto p-6'>
@@ -55,11 +43,20 @@ function PostLayout({
       )}
 
       <div className='mx-auto my-10 w-full max-w-3xl'>
-        <CategoriesTagsList
-          categories={post.frontmatter.categories}
-          tags={post.frontmatter.tags}
-          translation={translation}
-        />
+        {(post.frontmatter.categories || post.frontmatter.tags) && (
+          <ul className='mx-auto mt-5 flex flex-col gap-4'>
+            <CategoriesTagsList
+              type={'category'}
+              translation={translation}
+              items={post.frontmatter.categories}
+            />
+            <CategoriesTagsList
+              type={'tag'}
+              translation={translation}
+              items={post.frontmatter.tags}
+            />
+          </ul>
+        )}
         {!isEmpty(post.toc) && (
           <TOC
             items={post.toc}
@@ -67,14 +64,10 @@ function PostLayout({
             showThumbnail={showThumbnail}
           />
         )}
-        <Markdown
-          remarkPlugins={[remarkGfm, remarkMath, remarkGemoji]}
-          rehypePlugins={[rehypeRaw, rehypeKatex]}
-          components={markdownComponents}
-          className='mt-5'
-        >
-          {post.contentRaw}
-        </Markdown>
+        <MarkdownContent
+          post={post}
+          translation={translation}
+        />
         <CopyrightInfo
           author={post.frontmatter.author}
           siteUrl={config.siteUrl}
@@ -83,14 +76,15 @@ function PostLayout({
           translation={translation}
         />
       </div>
+
       {post.frontmatter.showComments && (
-        <DisqusComments disqusShortname={getConfig().disqusShortname} />
+        <DisqusComments disqusShortname={config.disqusShortname} />
       )}
     </article>
   );
-}
+};
 
-function Thumbnail({
+const Thumbnail = ({
   title,
   src,
   author,
@@ -102,7 +96,7 @@ function Thumbnail({
   author: string;
   date: string;
   thumbnailTranslation: string;
-}) {
+}) => {
   return (
     <div className='relative h-96 w-full'>
       <Image
@@ -121,9 +115,9 @@ function Thumbnail({
       />
     </div>
   );
-}
+};
 
-function TitleHeader({
+const TitleHeader = ({
   title,
   author,
   date,
@@ -131,7 +125,7 @@ function TitleHeader({
   title: string;
   author: string;
   date: string;
-}) {
+}) => {
   return (
     <div className='mx-auto mb-5 w-full max-w-3xl'>
       <h1 className='text-3xl font-bold'>{title}</h1>
@@ -143,9 +137,9 @@ function TitleHeader({
       )}
     </div>
   );
-}
+};
 
-function MetaInfo({
+const MetaInfo = ({
   title,
   author,
   date,
@@ -155,7 +149,7 @@ function MetaInfo({
   author: string;
   date: string;
   isOverlay?: boolean;
-}) {
+}) => {
   return (
     <div
       className={`absolute ${isOverlay ? 'bottom-0 left-1/2 w-full max-w-3xl -translate-x-1/2 transform p-4 text-white' : 'mt-2 flex items-center'}`}
@@ -168,45 +162,6 @@ function MetaInfo({
       </p>
     </div>
   );
-}
+};
 
-function CategoriesTagsList({
-  categories,
-  tags,
-  translation,
-}: {
-  categories?: string[];
-  tags?: string[];
-  translation: Translation;
-}) {
-  if (!categories && !tags) return null;
-
-  return (
-    <ul className='mx-auto mt-5 flex flex-col gap-4'>
-      {categories && (
-        <li className='flex items-center gap-2'>
-          <FaFolder className='mr-1' />
-          <span className='font-semibold'>{translation.post.categories}</span>
-          <ItemLinks
-            items={categories}
-            type='category'
-            translation={translation}
-          />
-        </li>
-      )}
-      {tags && (
-        <li className='flex items-center gap-2'>
-          <FaTags className='mr-1' />
-          <span className='font-semibold'>{translation.post.tags}</span>
-          <ItemLinks
-            items={tags}
-            type='tag'
-            translation={translation}
-          />
-        </li>
-      )}
-    </ul>
-  );
-}
-
-export default PostLayout;
+export default ArticlePage;

@@ -1,11 +1,12 @@
 'use client';
+
 import { useEffect, useState, useRef } from 'react';
 
-export default function DisqusComments({
-  disqusShortname,
-}: {
+interface DisqusCommentsProperties {
   disqusShortname: string;
-}) {
+}
+
+const DisqusComments = ({ disqusShortname }: DisqusCommentsProperties) => {
   const [loadDisqus, setLoadDisqus] = useState(false);
   const disqusReference = useRef<HTMLDivElement | null>(null);
 
@@ -51,4 +52,6 @@ export default function DisqusComments({
       className='mx-auto mt-10 w-full max-w-3xl'
     ></div>
   );
-}
+};
+
+export default DisqusComments;

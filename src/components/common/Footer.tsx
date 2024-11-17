@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import SocialMediaLink from '@/components/helpers/renderSocialMediaLink';
+import SocialMediaLink from '@/components/common/SocialMediaLinks';
 
 interface FooterProperties {
   config: Config;
 }
 
-function Footer({ config }: FooterProperties) {
+const Footer = ({ config }: FooterProperties) => {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
@@ -52,6 +52,6 @@ function Footer({ config }: FooterProperties) {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

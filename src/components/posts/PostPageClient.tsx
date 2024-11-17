@@ -4,18 +4,18 @@ import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { defaultTo, flatMap } from 'es-toolkit/compat';
 
+import PostListLayout from './PostList';
+import Pagination from './Pagination';
+import SearchInput from './SearchInput';
+
 import { getFilteredPosts } from '@/services/utils';
 
-import PostListLayout from '@/components/posts/PostListLayout';
-import Pagination from '@/components/posts/Pagination';
-import SearchInput from '@/components/posts/SearchInput';
-
-interface PostsClientProperties {
+interface PostPageClientProperties {
   posts: PostListData[];
   translation: Translation;
 }
 
-function PostsClient({ posts, translation }: PostsClientProperties) {
+const PostPageClient = ({ posts, translation }: PostPageClientProperties) => {
   const searchParameters = useSearchParams();
   const categoryParameter = defaultTo(searchParameters.get('category'), '');
   const tagParameter = defaultTo(searchParameters.get('tag'), '');
@@ -86,6 +86,6 @@ function PostsClient({ posts, translation }: PostsClientProperties) {
       />
     </div>
   );
-}
+};
 
-export default PostsClient;
+export default PostPageClient;

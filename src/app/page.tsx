@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import { getConfig } from '@/services/config';
 
-import SocialMediaLink from '@/components/helpers/renderSocialMediaLink';
+import SocialMediaLinks from '@/components/common/SocialMediaLinks';
 
 async function Home() {
   const config: Config = getConfig();
@@ -50,7 +50,7 @@ async function Home() {
             {config.slogan}
           </p>
 
-          <SocialMediaLink
+          <SocialMediaLinks
             socialMedia={config.socialMedia}
             siteUrl={config.siteUrl}
             iconSize={40}

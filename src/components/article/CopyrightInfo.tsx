@@ -12,13 +12,13 @@ interface CopyrightInfoProperties {
   translation: Translation;
 }
 
-function CopyrightInfo({
+const CopyrightInfo = ({
   author,
   siteUrl,
   title,
   creativeCommons,
   translation,
-}: CopyrightInfoProperties) {
+}: CopyrightInfoProperties) => {
   const pathname = usePathname();
   const copyright = translation.post.copyright;
   return (
@@ -64,6 +64,6 @@ function CopyrightInfo({
       </div>
     </div>
   );
-}
+};
 
 export default CopyrightInfo;

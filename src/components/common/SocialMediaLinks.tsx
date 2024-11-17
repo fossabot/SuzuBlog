@@ -15,19 +15,19 @@ import { upperFirst } from 'es-toolkit/string';
 import { words, replace, isString } from 'es-toolkit/compat';
 import Link from 'next/link';
 
-interface socialMediaLinkProperties {
+interface socialMediaLinksProperties {
   socialMedia: SocialMedia;
   siteUrl: string;
   iconSize?: number;
   className?: string;
 }
 
-function SocialMediaLink({
+const SocialMediaLinks = ({
   socialMedia,
   siteUrl,
   iconSize = 32,
   className = '',
-}: socialMediaLinkProperties) {
+}: socialMediaLinksProperties) => {
   return (
     <div
       className={`mb-5 flex flex-wrap justify-center space-x-4 ${className}`}
@@ -64,7 +64,7 @@ function SocialMediaLink({
         })}
     </div>
   );
-}
+};
 
 const socialData = {
   github_username: {
@@ -113,4 +113,4 @@ const socialData = {
   },
 };
 
-export default SocialMediaLink;
+export default SocialMediaLinks;

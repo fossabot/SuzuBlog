@@ -36,6 +36,7 @@ const en: Translation = {
     tags: 'Tags: ',
     noTags: 'No Tags',
     toc: 'Table of Contents',
+    tocToggle: 'Toggle Table of Contents',
     copyright: {
       author: 'Author: ',
       title: 'Title: ',
