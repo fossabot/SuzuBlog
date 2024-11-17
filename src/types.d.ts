@@ -50,6 +50,7 @@ interface UserConfig {
   avatar: string;
   background: string;
   slogan: string;
+  startYear: number;
   socialMedia: SocialMedia;
   thumbnailAbout: boolean;
   thumbnailFriends: boolean;

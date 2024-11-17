@@ -35,6 +35,7 @@ const zh: Translation = {
     tags: '标签：',
     noTags: '无标签',
     toc: '目录',
+    tocToggle: '开关目录',
     copyright: {
       author: '本文作者：',
       title: '本文标题：',

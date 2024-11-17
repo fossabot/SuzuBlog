@@ -35,6 +35,7 @@ interface Translation {
     tags: string;
     noTags: string;
     toc: string;
+    tocToggle: string;
     copyright: {
       author: string;
       title: string;

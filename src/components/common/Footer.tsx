@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import SocialMediaLink from '@/components/helpers/renderSocialMediaLink';
+import SocialMediaLink from '@/components/common/SocialMediaLinks';
 
 interface FooterProperties {
   config: Config;
 }
 
-function Footer({ config }: FooterProperties) {
+const Footer = ({ config }: FooterProperties) => {
   const currentYear = new Date().getFullYear();
   const pathname = usePathname();
   const isHomePage = pathname === '/';
@@ -17,14 +17,14 @@ function Footer({ config }: FooterProperties) {
   return (
     <footer className='mb-1 mt-10 w-full'>
       <div className='mx-auto max-w-7xl px-4 py-4 text-center'>
-      {!isHomePage && (
+        {!isHomePage && (
           <SocialMediaLink
             socialMedia={config.socialMedia}
             siteUrl={config.siteUrl}
           />
         )}
         <p className='text-[var(--gray)]'>
-          © 2017 - {currentYear} {config.title}
+          {`© ${config.startYear && config.startYear < currentYear ? `${config.startYear} - ` : ''}${currentYear} ${config.title}`}
         </p>
         <p className='text-sm text-[var(--gray)]'>
           Theme{' '}
@@ -52,6 +52,6 @@ function Footer({ config }: FooterProperties) {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

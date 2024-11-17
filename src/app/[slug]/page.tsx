@@ -6,7 +6,7 @@ import { getConfig } from '@/services/config';
 import { getAllPosts, getPostData } from '@/services/content';
 import generateRssFeed from '@/services/utils/generateRssFeed';
 
-import PostLayout from '@/components/posts/PostLayout';
+import { ArticlePage } from '@/components/article';
 
 // build static params for all posts
 async function generateStaticParams() {
@@ -109,7 +109,7 @@ async function PostPage(props: { params: Promise<{ slug: string }> }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <PostLayout
+      <ArticlePage
         config={config}
         post={post}
       />

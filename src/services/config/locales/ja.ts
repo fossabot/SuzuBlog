@@ -36,6 +36,7 @@ const ja: Translation = {
     tags: 'タグ: ',
     noTags: 'タグなし',
     toc: '目次',
+    tocToggle: '目次を表示',
     copyright: {
       author: '著者: ',
       title: 'タイトル: ',

@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { getConfig } from '@/services/config';
 import { getPostData } from '@/services/content';
 
-import PostLayout from '@/components/posts/PostLayout';
+import { ArticlePage } from '@/components/article';
 
 async function generateMetadata(): Promise<Metadata> {
   const config = getConfig();
@@ -60,7 +60,7 @@ async function AboutPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <PostLayout
+      <ArticlePage
         config={config}
         post={post}
         showThumbnail={config.thumbnailAbout}
