@@ -62,7 +62,7 @@ const PostPageClient = ({ posts, translation }: PostPageClientProperties) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className='container mx-auto flex flex-col items-center p-4'>
+    <div className='container mx-auto flex animate-fadeInDown flex-col items-center p-4'>
       {/* Centered Search Input */}
       <SearchInput
         initialValue={searchQuery}

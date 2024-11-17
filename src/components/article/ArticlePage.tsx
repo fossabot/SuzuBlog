@@ -25,7 +25,7 @@ const ArticlePage = ({
   const translation = config.translation;
 
   return (
-    <article className='container mx-auto p-6'>
+    <article className='container mx-auto animate-fadeInDown p-6'>
       {showThumbnail ? (
         <Thumbnail
           title={post.frontmatter.title}
