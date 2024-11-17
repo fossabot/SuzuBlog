@@ -4,12 +4,14 @@ import Head from 'next/head';
 
 import { getConfig } from '@/services/config';
 import { getAllPosts, getPostData } from '@/services/content';
+import generateRssFeed from '@/services/utils/generateRssFeed';
 
 import PostLayout from '@/components/posts/PostLayout';
 
 // build static params for all posts
 async function generateStaticParams() {
   const posts = await getAllPosts();
+  await generateRssFeed(posts, getConfig());
   return posts.map((post) => ({
     slug: post.slug,
   }));

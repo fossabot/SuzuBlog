@@ -57,6 +57,15 @@ function RootLayout({
 
   return (
     <html lang={config.lang}>
+      {/* If rss set in config */}
+      {config.socialMedia.rss && (
+        <link
+          rel='alternate'
+          type='application/rss+xml'
+          title='RSS Feed'
+          href={config.siteUrl + '/feed.xml'}
+        />
+      )}
       {/* Custom js */}
       {jsFiles.map((jsFile, index) => (
         <Script

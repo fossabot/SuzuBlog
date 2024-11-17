@@ -17,7 +17,12 @@ function Footer({ config }: FooterProperties) {
   return (
     <footer className='mb-1 mt-10 w-full'>
       <div className='mx-auto max-w-7xl px-4 py-4 text-center'>
-        {!isHomePage && <SocialMediaLink socialMedia={config.socialMedia} />}
+        {!isHomePage && (
+          <SocialMediaLink
+            socialMedia={config.socialMedia}
+            siteUrl={config.siteUrl}
+          />
+        )}
         <p className='text-[var(--gray)]'>
           © {currentYear} {config.title}
         </p>

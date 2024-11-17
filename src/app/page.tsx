@@ -52,6 +52,7 @@ async function Home() {
 
           <SocialMediaLink
             socialMedia={config.socialMedia}
+            siteUrl={config.siteUrl}
             iconSize={40}
           />
         </div>
