@@ -18,6 +18,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizePackageImports: [
+      'gray-matter',
+      'react-syntax-highlighter',
+      'rehype-katex',
+      'rehype-raw',
+      'remark-gemoji',
+      'remark-gfm',
+      'remark-math',
+      'slugify',
+    ],
+  },
   async redirects() {
     return [
       {
