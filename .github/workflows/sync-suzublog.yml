@@ -33,7 +33,6 @@ jobs:
             --exclude="/config.yml" \
             --exclude="/next.config.ts" \
             --exclude="/src/app/robots.ts" \
-            --exclude="/src/components/common/Footer.tsx" \
             --exclude="/posts/" \
             --exclude="/public/" \
             --exclude="/.github/workflows/sync-suzublog.yml" \

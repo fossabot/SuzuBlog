@@ -45,25 +45,7 @@ function Footer({ config }: FooterProperties) {
           >
             ZL Asica
           </Link>
-          <br />
-          <Link
-            href='http://beian.miit.gov.cn/'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='decoration-dashed underline-offset-2'
-          >
-            鲁ICP备19057855号-4
-          </Link>
-          {' | '}
-          <Link
-            href='https://icp.gov.moe/?keyword=20247775'
-            target='_blank'
-            rel='noopener noreferrer'
-            className='decoration-dashed underline-offset-2'
-          >
-            萌ICP备20247775号
-          </Link>
-          </p>
+        </p>
         {config.slotFooter && (
           <div dangerouslySetInnerHTML={{ __html: config.slotFooter }} />
         )}
