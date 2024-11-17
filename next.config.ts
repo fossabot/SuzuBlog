@@ -20,7 +20,6 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: [
-      'gray-matter',
       'react-syntax-highlighter',
       'rehype-katex',
       'rehype-raw',

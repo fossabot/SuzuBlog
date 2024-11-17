@@ -2,11 +2,10 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { defaultTo, flatMap } from 'es-toolkit/compat';
+import { defaultTo } from 'es-toolkit/compat';
 
 import PostListLayout from './PostList';
 import Pagination from './Pagination';
-import SearchInput from './SearchInput';
 
 import { getFilteredPosts } from '@/services/utils';
 
@@ -24,28 +23,6 @@ const PostPageClient = ({ posts, translation }: PostPageClientProperties) => {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 5;
 
-  const categories = defaultTo(
-    [
-      ...new Set(
-        flatMap(posts, (post) =>
-          defaultTo(post.frontmatter.categories, [])
-        ) as string[]
-      ),
-    ],
-    []
-  );
-
-  const tags = defaultTo(
-    [
-      ...new Set(
-        flatMap(posts, (post) =>
-          defaultTo(post.frontmatter.tags, [])
-        ) as string[]
-      ),
-    ],
-    []
-  );
-
   // Filter posts based on search, category, and tag
   const filteredPosts = getFilteredPosts(
     posts,
@@ -62,15 +39,7 @@ const PostPageClient = ({ posts, translation }: PostPageClientProperties) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className='container mx-auto flex flex-col items-center p-4'>
-      {/* Centered Search Input */}
-      <SearchInput
-        initialValue={searchQuery}
-        categories={categories}
-        tags={tags}
-        translation={translation}
-      />
-
+    <div className='container mx-auto flex animate-fadeInDown flex-col items-center p-4'>
       {/* Post List */}
       <PostListLayout
         posts={currentPosts}
