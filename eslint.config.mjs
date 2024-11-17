@@ -11,34 +11,7 @@ export default [
     },
     rules: {
       ...nextPlugin.configs.recommended.rules,
-      'unicorn/prevent-abbreviations': [
-        'error',
-        {
-          allowList: {
-            generateStaticParams: true,
-            props: true,
-            params: true,
-          },
-        },
-      ],
       'unicorn/filename-case': 'off',
-      'react-refresh/only-export-components': [
-        'warn',
-        {
-          allowExportNames: [
-            'metadata',
-            'generateMetadata',
-            'generateStaticParams',
-            'generateSitemap',
-            'generateRobotsTxt',
-            'dynamic',
-            'revalidate',
-            'fetchCache',
-            'config',
-            'alternateLinks',
-          ],
-        },
-      ],
     },
   },
 ];
