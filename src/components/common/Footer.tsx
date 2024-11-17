@@ -24,7 +24,7 @@ const Footer = ({ config }: FooterProperties) => {
           />
         )}
         <p className='text-[var(--gray)]'>
-          © {currentYear} {config.title}
+          {`© ${config.startYear && config.startYear < currentYear ? `${config.startYear} - ` : ''}${currentYear} ${config.title}`}
         </p>
         <p className='text-sm text-[var(--gray)]'>
           Theme{' '}

@@ -31,8 +31,10 @@ creativeCommons:
   link: https://creativecommons.org/licenses/by-sa/4.0/deed.zh-hans
 
 #######################
-# HEADER SETTINGS
+# FOOTER SETTINGS
 #######################
+# If you want to have a start year of your blog, set the year here.
+startYear: 2017 # Leave empty if you do not want to display a start year.
 
 #######################
 # SOCIAL MEDIA SETTINGS
