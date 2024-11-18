@@ -50,11 +50,14 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "@zl-asica/prettier-config": "^1.0.7",
     "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
     "eslint": "^9.14.0",
     "eslint-config-zl-asica": "^1.0.18",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8.4.49",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^10.1.0",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
     "rss": "^1.2.2",
@@ -76,5 +79,17 @@
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@9.13.2"
+  "packageManager": "pnpm@9.13.2",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

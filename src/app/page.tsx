@@ -31,7 +31,7 @@ async function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
-      <div className='flex max-h-[800px] flex-col items-center justify-center px-6'>
+      <div className='flex max-h-[800px] animate-fadeInDown flex-col items-center justify-center px-6'>
         <div className='relative h-[50vh] w-full bg-cover bg-center'>
           <div className='absolute left-1/2 top-[25%] -translate-x-1/2 transform'>
             <Image
