@@ -2,7 +2,7 @@
 # SITE SETTINGS
 #######################
 title: 'ZLA小站' # The name of your blog, used in titles and meta tags.
-subTitle: 'ZL Asica的个人小战' # A short description that appears after the main title.
+subTitle: 'ZL Asica的个人小站' # A short description that appears after the main title.
 description: 'ZL Asica的个人小站，发布个人技术和生活内容。生活内容会与微信公众号(ZL Asica)同步更新。' # A longer description for SEO and meta tags.
 keywords: 'markdown blog, blog, sakura, ZL Asica, ZL Asica, ZLA, 嫒希卡' # Comma-separated keywords for SEO purposes.
 author:
