@@ -28,7 +28,7 @@ jobs:
       # Step 3: Sync content excluding specific paths
       - name: Sync content excluding specific paths ✨
         run: |
-          rsync -av \
+          rsync -av --delete --ignore-missing-args \
             --exclude=".git/" \
             --exclude="/config.yml" \
             --exclude="/next.config.ts" \
@@ -36,7 +36,7 @@ jobs:
             --exclude="/posts/" \
             --exclude="/public/" \
             --exclude="/.github/workflows/sync-suzublog.yml" \
-            suzublog/ .
+            suzublog/ . || true
       
       # Step 4: Delete the cloned SuzuBlog repo
       - name: Clean up temporary files 🧹
