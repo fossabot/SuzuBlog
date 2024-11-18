@@ -36,12 +36,14 @@ jobs:
       # Step 4: Sync content excluding specific paths
       - name: Sync content excluding specific paths ✨
         run: |
-          rsync -av \
+          rsync -av --delete --ignore-missing-args \
             --exclude=".git/" \
-            --exclude="config.yml" \
-            --exclude="posts/" \
-            --exclude="public/" \
-            suzublog/ .
+            --exclude="/config.yml" \
+            --exclude="/src/app/robots.ts" \
+            --exclude="/posts/" \
+            --exclude="/public/" \
+            --exclude="/.github/workflows/sync-suzublog.yml" \
+            suzublog/ . || true
 
       # Step 5: Delete temporary files
       - name: Clean up temporary files 🧹
