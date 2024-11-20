@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@zl-asica/react':
+        specifier: ^0.3.0
+        version: 0.3.0(react@19.0.0-rc-66855b96-20241106)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -775,6 +778,12 @@ packages:
     resolution: {integrity: sha512-t6MZ975LLN3FplXf6TXdHbDioYlsaOLXbDVpPp1lGjzlT7humbsXIA56IbccTNdRkuIxXMWR+SAadMQS4UIKzQ==}
     peerDependencies:
       prettier: ^3.0.0
+
+  '@zl-asica/react@0.3.0':
+    resolution: {integrity: sha512-gYe/CYo84QKnlWW0IPgtLdZd8shK9cMG7p95NWhIgR0azI90X+v0A61Npe+doNkvGVFGuYRWO1qHzyB2yttWGA==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3975,6 +3984,10 @@ snapshots:
   '@zl-asica/prettier-config@1.0.7(prettier@3.3.3)':
     dependencies:
       prettier: 3.3.3
+
+  '@zl-asica/react@0.3.0(react@19.0.0-rc-66855b96-20241106)':
+    dependencies:
+      react: 19.0.0-rc-66855b96-20241106
 
   acorn-jsx@5.3.2(acorn@8.14.0):
     dependencies:

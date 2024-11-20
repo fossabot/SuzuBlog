@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Form from 'next/form';
 import { clsx } from 'clsx';
+import { useClickOutside, useToggle } from '@zl-asica/react';
 
-import { useOutsideClick } from '@/hooks';
 import { validateParameters, updateURL } from '@/services/utils';
 
 interface SearchInputProperties {
@@ -27,7 +27,7 @@ const SearchInput = ({
   const [searchQuery, setSearchQuery] = useState(initialValue);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, toggleExpanded] = useToggle();
 
   // Initialize search parameters
   useEffect(() => {
@@ -41,9 +41,9 @@ const SearchInput = ({
   }, [searchParameters, initialValue]);
 
   // Close the form when clicking outside
-  useOutsideClick(formReference, () => {
+  useClickOutside(formReference, () => {
     if (expanded && !selectedCategory && !selectedTag) {
-      setExpanded(false);
+      toggleExpanded();
     }
   });
 
@@ -95,7 +95,7 @@ const SearchInput = ({
             placeholder={`🔍 ${translation.search.prompt}`}
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
-            onFocus={() => setExpanded(true)}
+            onFocus={toggleExpanded}
             className='w-full rounded-full border border-gray-300 px-4 py-2 pr-16 transition-all duration-300 focus:ring-2'
           />
           <button

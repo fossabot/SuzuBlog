@@ -1,20 +1,19 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { FaAngleUp, FaBars } from 'react-icons/fa6';
 import Link from 'next/link';
+import { useClickOutside, useToggle, useScrollProgress } from '@zl-asica/react';
 
 import HeaderMenu from './HeaderMenu';
-
-import { useOutsideClick, useScrollProgress } from '@/hooks';
 
 interface HeaderProperties {
   config: Config;
 }
 
 const Header = ({ config }: HeaderProperties) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, toggleOpen] = useToggle();
   const siteTitle = config.title;
   const translation = config.translation;
   const scrollProgress = useScrollProgress();
@@ -22,10 +21,8 @@ const Header = ({ config }: HeaderProperties) => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
 
-  const toggleMenu = () => setIsOpen((previous) => !previous);
-
-  useOutsideClick(menuReference, () => {
-    if (isOpen) setIsOpen(false);
+  useClickOutside(menuReference, () => {
+    if (isOpen) toggleOpen();
   });
 
   return (
@@ -51,7 +48,7 @@ const Header = ({ config }: HeaderProperties) => {
         {/* Mobile Menu Button */}
         <button
           className={`z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--foreground)] text-2xl text-[var(--background)] shadow-md transition-transform duration-300 hover:scale-110 md:hidden`}
-          onClick={toggleMenu}
+          onClick={toggleOpen}
           aria-label='Toggle menu'
           aria-expanded={isOpen}
           aria-controls='mobile-menu'
@@ -71,7 +68,7 @@ const Header = ({ config }: HeaderProperties) => {
             translation={translation}
             isMobile
             ulClassName='flex flex-col items-start gap-4 p-6'
-            onClickHandler={toggleMenu}
+            onClickHandler={toggleOpen}
           />
         </div>
 
@@ -79,7 +76,7 @@ const Header = ({ config }: HeaderProperties) => {
         {isOpen && (
           <div
             className='fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity duration-300'
-            onClick={toggleMenu}
+            onClick={toggleOpen}
             aria-hidden
           />
         )}

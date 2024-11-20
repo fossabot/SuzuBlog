@@ -207,7 +207,10 @@ const createMarkdownComponents = (
         isValidElement(children) &&
         children.props?.className === 'language-Links'
       ) {
-        return renderFriendLinks(children.props?.children as string);
+        return renderFriendLinks(
+          children.props?.children as string,
+          translation
+        );
       }
 
       const language =

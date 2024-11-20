@@ -1,7 +1,7 @@
 'use client';
 
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { useState } from 'react';
+import { copyToClipboard, useToggle } from '@zl-asica/react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 
 interface CodeBlockProperties {
@@ -11,23 +11,16 @@ interface CodeBlockProperties {
 }
 
 const CodeBlock = ({ match, translation, children }: CodeBlockProperties) => {
-  const [isCopied, setIsCopied] = useState(false);
+  const [isCopied, toggleCopied] = useToggle();
   const cleanedChildren = String(children).replace(/\n$/, '');
-
-  // Copy code block to clipboard
-  const handleCopy = () => {
-    if (isCopied) return;
-      navigator.clipboard.writeText(cleanedChildren);
-    setIsCopied(true);
-    // Hide the 'Copied!' message after 3 seconds
-    setTimeout(() => setIsCopied(false), 3000);
-  };
 
   return (
     <div className='relative'>
       {/* Copy button */}
       <button
-        onClick={handleCopy}
+        onClick={async () => {
+          await copyToClipboard(cleanedChildren, toggleCopied, 3000);
+        }}
         className='absolute -top-7 right-2 rounded bg-[var(--skyblue)] px-2 py-1 text-xs hover:bg-opacity-80'
       >
         {isCopied ? translation.post.copied : translation.post.copy}

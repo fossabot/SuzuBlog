@@ -42,6 +42,7 @@ const ArticlePage = ({
           title={post.frontmatter.title}
           author={post.frontmatter.author}
           date={post.frontmatter.date}
+          slug={post.slug}
         />
       )}
 
@@ -127,15 +128,17 @@ const TitleHeader = ({
   title,
   author,
   date,
+  slug,
 }: {
   title: string;
   author: string;
   date: string;
+  slug: string;
 }) => {
   return (
     <div className='mx-auto mb-5 w-full max-w-3xl'>
       <h1 className='text-3xl font-bold'>{title}</h1>
-      {includes(['about', 'friends'], lowerCase(title)) || (
+      {includes(['about', 'friends'], lowerCase(slug)) || (
         <MetaInfo
           author={author}
           date={date}
