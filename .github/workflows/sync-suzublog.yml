@@ -33,8 +33,8 @@ jobs:
             --exclude="config.yml" \
             --exclude="next.config.ts" \
             --exclude="src/app/robots.ts" \
-            --exclude="posts/**" \
-            --exclude="public/**" \
+            --exclude="/posts/**" \
+            --exclude="/public/**" \
             --exclude=".github/workflows/sync-suzublog.yml" \
             --exclude="suzublog/**" \
             suzublog/ .
