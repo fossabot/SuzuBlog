@@ -1,10 +1,11 @@
 'use client';
 
 import { FaListUl } from 'react-icons/fa';
+import { useIsTop } from '@zl-asica/react';
 
 import TOCLink from './TOCLink';
 
-import { useTOCLogic, useVisibilityOnScroll } from '@/hooks';
+import { useTOCLogic } from '@/hooks';
 
 interface TOCProperties {
   items: TocItems[];
@@ -19,9 +20,9 @@ const TOC = ({
   autoSlug = true,
   showThumbnail = true,
 }: TOCProperties) => {
-  const { activeSlug, isOpen, handleToggle, handleLinkClick, tocReference } =
+  const { activeSlug, isOpen, toggleOpen, handleLinkClick, tocReference } =
     useTOCLogic();
-  const { isVisible } = useVisibilityOnScroll(showThumbnail ? undefined : 0);
+  const isVisible = !useIsTop(showThumbnail ? 150 : 50);
 
   return (
     <div
@@ -29,7 +30,7 @@ const TOC = ({
     >
       <button
         hidden={!isVisible}
-        onClick={handleToggle}
+        onClick={toggleOpen}
         aria-label={translation.post.tocToggle}
         className={`fixed bottom-28 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--sakuraPink)] p-3 text-white shadow-lg transition-transform md:right-16 lg:right-20 xl:hidden ${
           isOpen ? 'translate-y-2' : 'hover:scale-110'

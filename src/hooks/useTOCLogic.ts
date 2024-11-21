@@ -1,20 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-
-import { useDebouncedEvent, useOutsideClick } from '@/hooks';
+import { useClickOutside, useEventListener, useToggle } from '@zl-asica/react';
 
 function useTOCLogic(onLinkClick?: (slug: string) => void) {
   const [activeSlug, setActiveSlug] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, toggleOpen] = useToggle();
   const tocReference = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-
-  // update once on first render
-  useEffect(() => {
-    updateActiveSlug();
-  }, []);
-
-  const handleToggle = () => setIsOpen((previous) => !previous);
 
   const handleLinkClick = (slug: string) => {
     const targetElement = document.querySelector(`#${CSS.escape(slug)}`);
@@ -23,7 +15,7 @@ function useTOCLogic(onLinkClick?: (slug: string) => void) {
       setActiveSlug(slug);
       router.push(`#${slug}`, { scroll: false });
     }
-    setIsOpen(false);
+    if (isOpen) toggleOpen();
     if (onLinkClick) onLinkClick(slug);
   };
 
@@ -40,17 +32,17 @@ function useTOCLogic(onLinkClick?: (slug: string) => void) {
   };
 
   // Update activeSlug on scroll
-  useDebouncedEvent(updateActiveSlug, { delay: 20 });
+  useEventListener('scroll', updateActiveSlug);
 
   // Close TOC when clicking outside
-  useOutsideClick(tocReference, () => {
-    if (isOpen) setIsOpen(false);
+  useClickOutside(tocReference, () => {
+    if (isOpen) toggleOpen();
   });
 
   return {
     activeSlug,
     isOpen,
-    handleToggle,
+    toggleOpen,
     handleLinkClick,
     tocReference,
   };
