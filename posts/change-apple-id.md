@@ -29,17 +29,17 @@ tags:
 ## 教程部分
 
 1. 打开设置，进入账号设置：
-   ![change apple id 1](https://fp1.fghrsh.net/2020/05/02/d21b9ceee3bdf3ac0e4a17da3e6e9e10.png!q80.jpeg 'change apple id 1')
+   ![apple-id-1](https://r2.img.zla.app/2024/11/25/c892db05.webp)
 2. 进入“iTunes Store与App Store”（注意，不要点页面最下方的“退出登录”，否则就是登录icloud！）
-   ![change apple id 2](https://fp1.fghrsh.net/2020/05/02/b9a56a05ec3ec9caa478c5ce65f9ea36.png!q80.jpeg 'change apple id 2')
+   ![apple-id-2](https://r2.img.zla.app/2024/11/25/a77eeb28.webp)
 3. 在新打开的页面，点击最上面的 Apple ID: xxxx@xxx.xxx
-   ![change apple id 3](https://fp1.fghrsh.net/2020/05/02/4fb8e5b5bd68c6823dfd44bca4d9bbfc.png!q80.jpeg 'change apple id 3')
+   ![apple-id-3](https://r2.img.zla.app/2024/11/25/7ae6579f.webp)
 4. 在出现的弹框中点击“退出登录”，然后稍等片刻直至蓝色的apple id变为“登录”二字
-   ![change apple id 4](https://fp1.fghrsh.net/2020/05/02/7a6dbe6373130402553432414dde9a9f.png!q80.jpeg 'change apple id 4')
+   ![apple-id-4](https://r2.img.zla.app/2024/11/25/5beacdf7.webp)
 5. 出现“登录”二字后，请点击“登录”
-   ![change apple id 5](https://fp1.fghrsh.net/2020/05/02/fa4fcb2e4a1bd41d6faa2754068631c6.png!q80.jpeg 'change apple id 5')
+   ![apple-id-5](https://r2.img.zla.app/2024/11/25/8e89b072.webp)
 6. 在新页面中输入你想要切换到的apple id及密码，至此你已经完成APP Store的Apple id账号切换
-   ![change apple id 6](https://fp1.fghrsh.net/2020/05/02/bdf3b3db76252b06bdb1d6fd231cf978.png!q80.jpeg 'change apple id 6')
+   ![apple-id-6](https://r2.img.zla.app/2024/11/25/a1c9e865.webp)
 7. 打开APP Store，搜索你想要下载的APP，下载即可
 8. 下载完切换回原apple id仅需重复1-5步即可
 
