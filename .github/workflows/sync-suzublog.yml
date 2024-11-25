@@ -1,4 +1,4 @@
-name: Sync SuzuBlog Main Branch 🐧✨
+name: Sync SuzuBlog Main Branch 🎐
 
 on:
   # Manually trigger the workflow
@@ -14,13 +14,23 @@ jobs:
       contents: write
 
     steps:
-      # Step 1: Checkout zla-pub main branch
-      - name: Checkout zla-pub main branch 🚀
+      # Step 0: Check if the repository is SuzuBlog
+      - name: Determine Repository Context 🕵️‍♀️
+        id: repo-check
+        run: |
+          if [[ "${{ github.repository }}" == "ZL-Asica/SuzuBlog" ]]; then
+            echo "::set-output name=target_branch::blog"
+          else
+            echo "::set-output name=target_branch::main"
+          fi
+
+      # Step 1: Checkout target branch
+      - name: Checkout target branch 🚀
         uses: actions/checkout@v4
         with:
-          ref: main # Only fetch the main branch
+          ref: ${{ steps.repo-check.outputs.target_branch }}
 
-      # Step 2: Clone SuzuBlog repo
+      # Step 2: If is not SuzuBlog，clone main branch of SuzuBlog
       - name: Clone SuzuBlog repo 🌸
         run: |
           git clone --branch main --depth 1 https://github.com/ZL-Asica/SuzuBlog.git suzublog
@@ -38,7 +48,7 @@ jobs:
             --exclude=".github/workflows/sync-suzublog.yml" \
             --exclude="suzublog/**" \
             suzublog/ .
-      
+
       # Step 4: Delete the cloned SuzuBlog repo
       - name: Clean up temporary files 🧹
         run: |
@@ -52,5 +62,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "✨ Sync from SuzuBlog main branch" || echo "No changes to commit ✅"
-          git push https://x-access-token:${GITHUB_TOKEN}@github.com/ZL-Asica/zla-pub.git HEAD:main
+          git diff --quiet || git commit -m "✨ Sync from SuzuBlog main branch"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ steps.repo-check.outputs.target_branch }}
