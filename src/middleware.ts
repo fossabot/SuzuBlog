@@ -11,12 +11,7 @@ function middleware(request: NextRequest) {
     // Remove all search parameters for non-`/posts` paths
     if (url.searchParams.toString()) {
       url.search = '';
-      const response = NextResponse.json(
-        { message: 'Not Found' },
-        { status: 404 }
-      );
-      response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
-      return response;
+      return NextResponse.rewrite(new URL('/404', request.url));
     }
     return NextResponse.next();
   }
@@ -41,7 +36,10 @@ function middleware(request: NextRequest) {
   // If parameters changed, redirect to the updated URL
   if (hasChanges) {
     url.search = updatedSearchString;
-    const statusCode = updatedSearchString === '' ? 301 : 307;
+    if (url.search === '') {
+      return NextResponse.rewrite(new URL('/404', request.url));
+    }
+    const statusCode = 307;
     const response = NextResponse.redirect(url, statusCode);
     response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
     return response;
