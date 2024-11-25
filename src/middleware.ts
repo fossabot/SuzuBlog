@@ -11,7 +11,10 @@ function middleware(request: NextRequest) {
     // Remove all search parameters for non-`/posts` paths
     if (url.searchParams.toString()) {
       url.search = '';
-      const response = NextResponse.redirect(url, 301);
+      const response = NextResponse.json(
+        { message: 'Not Found' },
+        { status: 404 }
+      );
       response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
       return response;
     }
