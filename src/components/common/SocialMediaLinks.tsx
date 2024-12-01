@@ -12,35 +12,33 @@ import {
   FaRss,
 } from 'react-icons/fa6';
 import { upperFirst } from 'es-toolkit/string';
-import { words, replace, isString } from 'es-toolkit/compat';
+import { words, replace } from 'es-toolkit/compat';
 import Link from 'next/link';
 
 interface socialMediaLinksProperties {
   socialMedia: SocialMedia;
-  siteUrl: string;
   iconSize?: number;
   className?: string;
 }
 
 const SocialMediaLinks = ({
   socialMedia,
-  siteUrl,
   iconSize = 32,
   className = '',
 }: socialMediaLinksProperties) => {
   return (
     <div
-      className={`mb-5 flex flex-wrap justify-center space-x-4 ${className}`}
+      className={`mx-4 mb-5 flex flex-wrap justify-center gap-y-4 space-x-4 ${className}`}
     >
       {Object.entries(socialMedia)
-        .filter(([key, username]) => key in socialData && isString(username))
+        .filter(([key, _]) => key in socialData)
         .map(([key, username]) => {
           const { urlTemplate, icon: IconComponent } =
             socialData[key as SocialMediaKey];
 
           const label = upperFirst(words(key)[0]);
           if (key === 'rss' && username !== '' && username !== 'false') {
-            username = `https://${siteUrl}/feed.xml`;
+            username = `/feed.xml`;
           }
           return (
             <Link
