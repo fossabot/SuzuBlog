@@ -195,9 +195,9 @@ const createMarkdownComponents = (
         src={source}
         alt={alt}
         width={500}
-        height={780}
+        height={700}
         priority={false}
-        className='relative mx-auto my-6 w-full max-w-full rounded-md'
+        className='relative mx-auto my-6 h-auto max-h-[500px] min-h-[200px] w-auto min-w-[200px] max-w-full rounded-sm object-contain shadow-md lg:max-h-[700px] lg:min-h-[300px] lg:min-w-[300px] xl:max-h-[800px] xl:min-h-[400px] xl:min-w-[400px]'
         {...(props as Record<string, unknown>)}
       />
     ),
