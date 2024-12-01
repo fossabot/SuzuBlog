@@ -22,6 +22,7 @@ async function robots(): Promise<MetadataRoute.Robots> {
         ...postUrls, // Dynamic post URLs
       ],
       disallow: [
+        // Below are disallow
         '/posts?',
         '/images',
         '/icons',

@@ -32,7 +32,13 @@ function useTOCLogic(onLinkClick?: (slug: string) => void) {
   };
 
   // Update activeSlug on scroll
-  useEventListener('scroll', updateActiveSlug);
+  useEventListener(
+    'scroll',
+    updateActiveSlug,
+    { current: globalThis },
+    { passive: true },
+    100
+  );
 
   // Close TOC when clicking outside
   useClickOutside(tocReference, () => {

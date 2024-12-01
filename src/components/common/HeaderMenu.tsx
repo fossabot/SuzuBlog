@@ -1,10 +1,14 @@
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FaHouse,
   FaRegNewspaper,
   FaPeopleGroup,
   FaInfo,
+  FaRegSun,
+  FaMoon,
 } from 'react-icons/fa6';
 
 interface MenuItem {
@@ -41,13 +45,40 @@ const HeaderMenu = ({
     { href: '/about', label: translation.about.title, icon: <FaInfo /> },
   ];
 
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  useEffect(() => {
+    const userPreferredTheme = localStorage.getItem('suzu-color-theme');
+    const systemPrefersDark = globalThis.matchMedia(
+      '(prefers-color-scheme: dark)'
+    ).matches;
+
+    // Determine initial theme
+    const initialTheme = userPreferredTheme
+      ? userPreferredTheme === 'dark'
+      : systemPrefersDark;
+    setIsDarkTheme(initialTheme);
+
+    // Update the HTML class based on the initial theme
+    document.documentElement.classList.toggle('dark', initialTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkTheme;
+    setIsDarkTheme(newTheme);
+
+    // Update HTML class and localStorage
+    document.documentElement.classList.toggle('dark', newTheme);
+    localStorage.setItem('suzu-color-theme', newTheme ? 'dark' : 'light');
+  };
+
   return (
     <ul className={`gap-4 ${ulClassName}`}>
       {menuItems.map((item, index) => (
-        <React.Fragment key={item.href}>
+        <React.Fragment key={index}>
           {/* Link as Full Width */}
           <li
-            key={item.href}
+            key={index}
             className='group relative flex w-full items-center justify-center rounded-lg hover:bg-[var(--lightGray)]'
           >
             <Link
@@ -65,13 +96,28 @@ const HeaderMenu = ({
           </li>
 
           {/* Divider */}
-          {isMobile && index < menuItems.length - 1 && (
+          {isMobile && (
             <li className='w-full'>
               <div className='h-[1px] w-full bg-gradient-to-r from-[var(--lightGray)] via-[var(--sakuraPink)] to-[var(--lightGray)]'></div>
             </li>
           )}
         </React.Fragment>
       ))}
+      <li className='group mx-auto flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'>
+        <button
+          className='flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 ease-in-out hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
+          aria-label="$t('aria.theme')"
+          onClick={toggleTheme}
+        >
+          <span className='flex h-6 w-6 items-center justify-center text-gray-600 transition-transform duration-300 ease-in-out hover:text-[var(--sakuraPink)] group-hover:scale-125 dark:text-gray-300 dark:hover:text-[var(--sakuraPink)]'>
+            {isDarkTheme ? (
+              <FaRegSun className='h-full w-full' />
+            ) : (
+              <FaMoon className='h-full w-full' />
+            )}
+          </span>
+        </button>
+      </li>
     </ul>
   );
 };

@@ -10,7 +10,7 @@ function manifest(): MetadataRoute.Manifest {
     short_name: config.title,
     description: config.description,
     start_url: '/',
-    display: 'browser',
+    display: 'standalone',
     background_color: '#ffffff',
     theme_color: '#f6a8b8',
     lang: config.lang,
