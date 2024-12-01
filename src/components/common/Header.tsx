@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
-import { FaAngleUp, FaBars } from 'react-icons/fa6';
+import { FaBars } from 'react-icons/fa6';
 import Link from 'next/link';
 import { useClickOutside, useToggle, useScrollProgress } from '@zl-asica/react';
 
@@ -53,7 +53,7 @@ const Header = ({ config }: HeaderProperties) => {
           aria-expanded={isOpen}
           aria-controls='mobile-menu'
         >
-          {isOpen ? <FaAngleUp /> : <FaBars />}
+          {!isOpen && <FaBars />}
         </button>
 
         {/* Mobile Menu */}

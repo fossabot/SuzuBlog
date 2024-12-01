@@ -21,21 +21,23 @@ const Footer = ({ config }: FooterProperties) => {
         <p className='text-[var(--gray)]'>
           {`© ${config.startYear && config.startYear < currentYear ? `${config.startYear} - ` : ''}${currentYear} ${config.title}`}
         </p>
-        <p className='text-sm text-[var(--gray)]'>
+        <p className='text-base text-[var(--gray)]'>
           Theme{' '}
           <Link
-            href='https://suzu.zla.app/'
+            href='https://github.com/ZL-Asica/SuzuBlog'
             target='_blank'
-            aria-label="Suzu's homepage (new tab)"
+            aria-label="Suzu's GitHub repo (new tab)"
+            rel='noopener noreferrer'
             className='decoration-dashed underline-offset-2'
           >
             Suzu
           </Link>{' '}
           by{' '}
           <Link
-            href='https://www.zla.app/'
+            href='https://www.zla.pub'
             target='_blank'
-            aria-label="ZL Asica's homepage (new tab)"
+            aria-label="ZL Asica's blog (new tab)"
+            rel='noopener noreferrer'
             className='decoration-dashed underline-offset-2'
           >
             ZL Asica
