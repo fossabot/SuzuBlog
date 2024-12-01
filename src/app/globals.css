@@ -13,15 +13,13 @@
   --font-jetbrains-mono: 'JetBrains Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #1a1a1a;
-    --foreground: #d4d4d4;
-    --skyblue: #4aa7e0;
-    --sakuraPink: #d890a2;
-    --lightGray: #1f2937;
-    --gray: #d1d5db;
-  }
+.dark:root {
+  --background: #1a1a1a;
+  --foreground: #d4d4d4;
+  --skyblue: #4aa7e0;
+  --sakuraPink: #d890a2;
+  --lightGray: #1f2937;
+  --gray: #d1d5db;
 }
 
 html {
