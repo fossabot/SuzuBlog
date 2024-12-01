@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 import { FaBars } from 'react-icons/fa6';
 import Link from 'next/link';
-import { useClickOutside, useToggle, useScrollProgress } from '@zl-asica/react';
+import { useClickOutside, useToggle, useScrollPosition } from '@zl-asica/react';
 
 import HeaderMenu from './HeaderMenu';
 
@@ -16,7 +16,7 @@ const Header = ({ config }: HeaderProperties) => {
   const [isOpen, toggleOpen] = useToggle();
   const siteTitle = config.title;
   const translation = config.translation;
-  const scrollProgress = useScrollProgress();
+  const scrollProgress = useScrollPosition(undefined, true);
   const menuReference = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
