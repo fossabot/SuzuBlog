@@ -107,7 +107,10 @@ const HeaderMenu = ({
         <button
           className='flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 transition-all duration-300 ease-in-out hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700'
           aria-label="$t('aria.theme')"
-          onClick={toggleTheme}
+          onClick={() => {
+            toggleTheme();
+            if (onClickHandler) onClickHandler();
+          }}
         >
           <span className='flex h-6 w-6 items-center justify-center text-gray-600 transition-transform duration-300 ease-in-out hover:text-[var(--sakuraPink)] group-hover:scale-125 dark:text-gray-300 dark:hover:text-[var(--sakuraPink)]'>
             {isDarkTheme ? (
