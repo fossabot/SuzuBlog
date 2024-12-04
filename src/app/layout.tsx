@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import React from 'react';
 import { Noto_Sans_SC, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { getConfig } from '@/services/config';
 
@@ -117,7 +119,11 @@ function RootLayout({
         className={`${notoSansSC.variable} ${jetBrainsMono.variable} flex max-h-full min-h-screen flex-col antialiased`}
       >
         <Header config={config} />
-        <main className='flex-grow'>{children}</main>
+        <main className='flex-grow'>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </main>
         <BackToTop />
         <Footer config={config} />
       </body>

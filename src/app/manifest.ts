@@ -28,7 +28,7 @@ function manifest(): MetadataRoute.Manifest {
       },
       {
         src: '/favicon.ico',
-        sizes: 'any',
+        sizes: '64x64',
         type: 'image/x-icon',
       },
     ],
