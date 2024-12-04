@@ -24,6 +24,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
     "@zl-asica/react": "^0.3.10",
     "clsx": "^2.1.1",
     "es-toolkit": "^1.29.0",
