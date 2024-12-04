@@ -46,7 +46,7 @@ const SocialMediaLinks = ({
               href={replace(
                 urlTemplate,
                 '{username}',
-                encodeURIComponent(username)
+                key === 'rss' ? username : encodeURIComponent(username)
               )}
               target='_blank'
               rel='noopener noreferrer'
