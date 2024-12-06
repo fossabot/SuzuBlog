@@ -5,7 +5,7 @@ import {
   FaInstagram,
   FaOrcid,
   FaTelegram,
-  FaXTwitter,
+  FaBluesky,
   FaYoutube,
   FaZhihu,
   FaBilibili,
@@ -51,11 +51,11 @@ const SocialMediaLinks = ({
               target='_blank'
               rel='noopener noreferrer'
               aria-label={label}
-              className='group relative inline-block transform transition-all duration-300 ease-out'
+              className='group relative inline-block transform transition-all duration-700 ease-out'
             >
               <IconComponent
                 size={iconSize}
-                className='transition-transform group-hover:scale-150'
+                className='transition-transform duration-500 group-hover:scale-150'
               />
             </Link>
           );
@@ -85,9 +85,9 @@ const socialData = {
     urlTemplate: 'https://t.me/{username}',
     icon: FaTelegram,
   },
-  x_username: {
-    urlTemplate: 'https://x.com/{username}',
-    icon: FaXTwitter,
+  bluesky_username: {
+    urlTemplate: 'https://bsky.app/profile/{username}',
+    icon: FaBluesky,
   },
   youtube_id: {
     urlTemplate: 'https://www.youtube.com/@{username}',

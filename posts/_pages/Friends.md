@@ -11,19 +11,19 @@ showComments: true # Set whether you want have comment for this page
 {
 "title": "白鲸字幕组",
 "link": "https://www.belugasubs.com/",
-"img": "https://fp1.fghrsh.net/2019/11/16/712a0b453487935bbeba8a42fa6f6d61.png!q80.webp",
+"img": "https://r2.img.zla.app/2024/12/02/fcc241.webp",
 "des": "白鲸字幕组是一个非盈利性质的多语言字幕组。"
 },
 {
 "title": "AIfans",
 "link": "https://aifans.zla.app/",
-"img": "https://fp1.fghrsh.net/2019/09/20/c074949ab4f575dfc1c58a76543d2781.png!q80.webp",
+"img": "https://r2.img.zla.app/2024/12/03/6cd045.webp",
 "des": "KizunaAI 中文粉丝站"
 },
 {
 "title": "个人学术网站",
 "link": "https://www.zla.app/",
-"img": "https://s2.loli.net/2024/01/10/kZonzQIKdfhreAP.jpg",
+"img": "https://r2.img.zla.app/2024/12/02/ae779a.webp",
 "des": "我的个人学术网站(英文)。"
 }
 ]

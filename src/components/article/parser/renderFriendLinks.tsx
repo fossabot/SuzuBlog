@@ -2,10 +2,7 @@ import { replace } from 'es-toolkit/compat';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const renderFriendLinks = (
-  linksChildren: string,
-  transition: Translation
-): JSX.Element => {
+const renderFriendLinks = (linksChildren: string, transition: Translation) => {
   let links: FriendLink[] = [];
   try {
     links = JSON.parse(replace(linksChildren, /}\s*,\s*{/g, '},{'));

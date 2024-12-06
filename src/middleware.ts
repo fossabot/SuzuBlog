@@ -5,9 +5,17 @@ import { sanitizeQuery } from '@/services/utils';
 
 function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
+  if (
+    !url.searchParams ||
+    !url.pathname ||
+    !url.search ||
+    url.pathname.startsWith('/feed.xml')
+  ) {
+    return NextResponse.next();
+  }
 
   // Check if the path is not `/posts`
-  if (request.nextUrl.pathname !== '/posts') {
+  if (url.pathname !== '/posts') {
     // Remove all search parameters for non-`/posts` paths
     if (url.searchParams.toString()) {
       url.search = '';

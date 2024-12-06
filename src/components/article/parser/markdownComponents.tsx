@@ -204,18 +204,24 @@ const createMarkdownComponents = (
 
     pre: ({ children }) => {
       if (
+        // avoid className not exist
         isValidElement(children) &&
-        children.props?.className === 'language-Links'
+        (children.props as { className?: string }).className &&
+        (children.props as { className?: string }).className ===
+          'language-Links'
       ) {
         return renderFriendLinks(
-          children.props?.children as string,
+          (children.props as { children: string }).children,
           translation
         );
       }
 
       const language =
-        isValidElement(children) && children.props?.className
-          ? children.props.className.replace('language-', '').toUpperCase()
+        isValidElement(children) &&
+        (children.props as { className?: string }).className
+          ? ((children.props as { className?: string })?.className ?? '')
+              .replace('language-', '')
+              .toUpperCase()
           : 'CODE';
 
       return (
