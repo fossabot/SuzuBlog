@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   FaHouse,
   FaRegNewspaper,
@@ -14,7 +15,7 @@ import {
 interface MenuItem {
   href: string;
   label: string;
-  icon: JSX.Element;
+  icon: ReactElement;
 }
 
 interface HeaderMenuProperties {
@@ -75,7 +76,7 @@ const HeaderMenu = ({
   return (
     <ul className={`gap-4 ${ulClassName}`}>
       {menuItems.map((item, index) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           {/* Link as Full Width */}
           <li
             key={index}
@@ -101,7 +102,7 @@ const HeaderMenu = ({
               <div className='h-[1px] w-full bg-gradient-to-r from-[var(--lightGray)] via-[var(--sakuraPink)] to-[var(--lightGray)]'></div>
             </li>
           )}
-        </React.Fragment>
+        </Fragment>
       ))}
       <li className='group mx-auto flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800'>
         <button
