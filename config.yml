@@ -48,7 +48,7 @@ socialMedia:
   instagram_id: zl_asica # Your Instagram username.
   orcid_id: 0009-0008-7221-2324 # Your ORCID iD.
   telegram_username: zl_asica # Your Telegram username. https://t.me/username
-  x_username: # Your X (Twitter) username.
+  bluesky_username: zl_asica # Your Bluesky username (without @ prefix). https://bsky.app/profile/username
   youtube_id: ZL-Asica # Your YouTube channel ID. https://www.youtube.com/@username
   zhihu_username: zl_asica # Your Zhihu username. https://www.zhihu.com/people/username
   bilibili_id: 29018759 # Your Bilibili ID. https://space.bilibili.com/username
@@ -79,4 +79,3 @@ headerJavascript:
 # Add custom HTML code to be included inside the <footer> section of your site.
 slotFooter: |
   <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="decoration-dashed underline-offset-2" aria-label="鲁ICP备19057855号-4备案信息">鲁ICP备19057855号-4</a> <span> | </span> <a href="https://icp.gov.moe/?keyword=20247775" target="_blank" rel="noopener noreferrer" class="decoration-dashed underline-offset-2" aria-label="萌ICP备20247775号备案信息">萌ICP备20247775号</a>
-
