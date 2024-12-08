@@ -51,6 +51,7 @@ const CopyrightInfo = ({
         </p>
         <p className='mt-2'>
           {copyright.copyright.start}
+          {` `}
           <Link
             href={creativeCommons.link}
             target='_blank'
@@ -59,6 +60,7 @@ const CopyrightInfo = ({
           >
             {creativeCommons.type}
           </Link>
+          {` `}
           {copyright.copyright.end}
         </p>
       </div>
