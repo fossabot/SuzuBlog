@@ -5,8 +5,7 @@ thumbnail: /images/projects/wp-logo.png
 categories:
   - 随想
 tags:
-  - qBittorrent
-  - 树莓派
+  - WordPress
 ---
 
 ## Hexo？

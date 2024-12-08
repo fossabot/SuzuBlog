@@ -1,13 +1,13 @@
 #######################
 # SITE SETTINGS
 #######################
-title: 'ZLA小站' # The name of your blog, used in titles and meta tags.
-subTitle: 'ZL Asica的个人小站' # A short description that appears after the main title.
-description: 'ZL Asica的个人小站，发布个人技术和生活内容。生活内容会与微信公众号(ZL Asica)同步更新。' # A longer description for SEO and meta tags.
+title: 'ZLA 小站' # The name of your blog, used in titles and meta tags.
+subTitle: 'ZL Asica 的个人小站' # A short description that appears after the main title.
+description: 'ZL Asica 的个人小站，发布个人技术和生活内容。生活内容会与微信公众号（ZL Asica）同步更新。' # A longer description for SEO and meta tags.
 keywords: 'markdown blog, blog, sakura, ZL Asica, ZL Asica, ZLA, 嫒希卡' # Comma-separated keywords for SEO purposes.
 author:
   name: 'ZL Asica' # Your name, displayed as the author of the blog.
-  link: 'https://www.zla.app' # Link to your personal website or blog.
+  link: 'https://www.zla.pub' # Link to your personal website or blog.
 # Language setting: Use ISO 639-1 code (e.g., 'en' for English, 'zh' for Chinese)
 lang: 'zh'
 # Your public root url, used for SEO and meta tags.
