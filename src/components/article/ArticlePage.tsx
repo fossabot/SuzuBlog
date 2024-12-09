@@ -71,13 +71,15 @@ const ArticlePage = ({
           post={post}
           translation={translation}
         />
-        <CopyrightInfo
-          author={post.frontmatter.author}
-          siteUrl={config.siteUrl}
-          title={post.frontmatter.title}
-          creativeCommons={config.creativeCommons}
-          translation={translation}
-        />
+        {post.frontmatter.showLicense && (
+          <CopyrightInfo
+            author={post.frontmatter.author}
+            siteUrl={config.siteUrl}
+            title={post.frontmatter.title}
+            creativeCommons={config.creativeCommons}
+            translation={translation}
+          />
+        )}
         <div className='mt-10'></div>
         {post.frontmatter.showComments &&
           (config.twikooEnvId ? (
