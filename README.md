@@ -7,7 +7,8 @@
 [![Build by Vercel][github-build-badge]][github-build-link]
 [![GitHub License][license-badge]][license-link]
 [![Node.js][node-badge]][node-link]
-[![pnpm Version][pnpm-badge]][pnpm-link] |
+[![pnpm Version][pnpm-badge]][pnpm-link] [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FZL-Asica%2FSuzuBlog.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FZL-Asica%2FSuzuBlog?ref=badge_shield)
+|
 [![Next.js][nextjs-badge]][nextjs-link]
 [![Vercel][vercel-badge]][vercel-link]
 [![Eslint][eslint-badge]][eslint-link]
@@ -109,3 +110,7 @@ After years of frustration with the maintenance, security risks, and performance
 [prettier-link]: https://www.npmjs.com/package/@zl-asica/prettier-config
 [vercel-badge]: https://img.shields.io/badge/Vercel-%23000000.svg?logo=vercel&logoColor=white
 [vercel-link]: https://vercel.com
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FZL-Asica%2FSuzuBlog.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FZL-Asica%2FSuzuBlog?ref=badge_large)
