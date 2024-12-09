@@ -24,7 +24,7 @@ const ArticlePage = ({
   const translation = config.translation;
 
   return (
-    <article className='container mx-auto animate-fadeInDown p-6'>
+    <article className='container mx-auto animate-fadeInDown p-6 pb-2'>
       {showThumbnail ? (
         <Thumbnail
           title={post.frontmatter.title}
@@ -81,11 +81,12 @@ const ArticlePage = ({
           />
         )}
         <div className='mt-10'></div>
-        {post.frontmatter.showComments && config.twikooEnvId ? (
-          <TwikooComments environmentId={config.twikooEnvId} />
-        ) : config.disqusShortname ? (
-          <DisqusComments disqusShortname={config.disqusShortname} />
-        ) : null}
+        {post.frontmatter.showComments &&
+          (config.twikooEnvId ? (
+            <TwikooComments environmentId={config.twikooEnvId} />
+          ) : config.disqusShortname ? (
+            <DisqusComments disqusShortname={config.disqusShortname} />
+          ) : null)}
       </div>
     </article>
   );

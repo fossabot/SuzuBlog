@@ -16,7 +16,12 @@ const TwikooComments = ({ environmentId }: TwikooCommentsProperties) => {
     });
   }, []);
 
-  return <div id='twikoo-comments' />;
+  return (
+    <div
+      id='twikoo-comments'
+      className='font-sans'
+    />
+  );
 };
 
 export default TwikooComments;
