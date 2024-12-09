@@ -1,4 +1,4 @@
-# Suzu 🎐
+# SuzuBlog 🎐
 
 [English](./README.md) | [中文](./README_ZH.md) | [日本語](./README_JA.md)
 
@@ -13,8 +13,8 @@
 [![Eslint][eslint-badge]][eslint-link]
 [![Prettier][prettier-badge]][prettier-link]
 
-- [**ZL Asica's Blog**](https://www.zla.pub) 🌸  
-  A live demo of the Suzu Blog template showcasing its features and styles.
+- [**Documentation**](https://suzu.zla.app) 📚
+  Learn how to start, configure and customize your Suzu Blog with detailed instructions.
 
 ## ✨ Features
 

@@ -30,6 +30,7 @@ function getPostFromFile(
     categories: defaultTo(data.categories),
     redirect: defaultTo(data.redirect),
     showComments: defaultTo(data.showComments, true),
+    showLicense: defaultTo(data.showLicense, true),
     autoSlug: defaultTo(data.autoSlug, true),
   };
 

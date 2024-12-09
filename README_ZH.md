@@ -1,4 +1,4 @@
-# Suzu 🎐
+# SuzuBlog 🎐
 
 [English](./README.md) | [中文](./README_ZH.md) | [日本語](./README_JA.md)
 
@@ -13,8 +13,8 @@
 [![Eslint][eslint-badge]][eslint-link]
 [![Prettier][prettier-badge]][prettier-link]
 
-- [**ZL Asica 的个人博客**](https://www.zla.pub) 🌸  
-  这是我本人使用该模板搭建的真实博客站点，展示了模板的核心功能和样式。
+- [**文档**](https://suzu.zla.app) 📚
+  学习如何使用详细说明开始、配置和自定义 Suzu Blog。
 
 ## ✨ 特性
 
