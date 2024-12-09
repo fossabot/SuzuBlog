@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { includes, isEmpty, lowerCase } from 'es-toolkit/compat';
 import { Suspense } from 'react';
 
@@ -7,12 +6,9 @@ import MarkdownContent from './parser';
 import CopyrightInfo from './CopyrightInfo';
 import TOC from './TOC';
 import CategoriesTagsList from './CategoriesTagsList';
+import { TwikooComments, DisqusComments } from './comments';
 
 import LoadingIndicator from '@/components/common/LoadingIndicator';
-
-const DisqusComments = dynamic(
-  () => import('@/components/article/DisqusComments')
-);
 
 interface PostLayoutProperties {
   config: Config;
@@ -28,7 +24,7 @@ const ArticlePage = ({
   const translation = config.translation;
 
   return (
-    <article className='container mx-auto animate-fadeInDown p-6'>
+    <article className='container mx-auto animate-fadeInDown p-6 pb-2'>
       {showThumbnail ? (
         <Thumbnail
           title={post.frontmatter.title}
@@ -82,11 +78,14 @@ const ArticlePage = ({
           creativeCommons={config.creativeCommons}
           translation={translation}
         />
+        <div className='mt-10'></div>
+        {post.frontmatter.showComments &&
+          (config.twikooEnvId ? (
+            <TwikooComments environmentId={config.twikooEnvId} />
+          ) : config.disqusShortname ? (
+            <DisqusComments disqusShortname={config.disqusShortname} />
+          ) : null)}
       </div>
-
-      {post.frontmatter.showComments && (
-        <DisqusComments disqusShortname={config.disqusShortname} />
-      )}
     </article>
   );
 };

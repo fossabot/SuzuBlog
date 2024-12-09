@@ -49,7 +49,7 @@ const DisqusComments = ({ disqusShortname }: DisqusCommentsProperties) => {
     <div
       id='disqus_thread'
       ref={disqusReference}
-      className='mx-auto mt-10 w-full max-w-3xl'
+      className='mx-auto w-full font-sans'
     ></div>
   );
 };

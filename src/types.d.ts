@@ -55,6 +55,7 @@ interface UserConfig {
   socialMedia: SocialMedia;
   thumbnailAbout: boolean;
   thumbnailFriends: boolean;
+  twikooEnvId: string;
   disqusShortname: string;
   slotFooter: string;
   headerJavascript: string[];
